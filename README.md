@@ -57,13 +57,14 @@ Response Body
     "query_token": "mm_eff501a8ce17",   👈  // need to bring this value in the URL parameter to navigate this query session
     "summary": {   👈   // this section of data now is a placeholder, it does not contains real data yet..
         "count_distribution": {   1️⃣
-            "high": 20,     // In the searched result, how many distinct CVEs has high severity (based on the score type, v2 or v3)
-            "low": 10,
-            "medium": 15,
+            "high": 20,     // In the searched result, 
+            "low": 10,      //   how many distinct CVEs has high severity (based on the score type, v2 or v3)
+            "medium": 15,   // 
+
             "container": 3, // In the searched result, how many distinct CVEs has container impact.
-            "image": 8,     // In the searched result, how many distinct CVEs has image impact.
-            "node": 12,     // In the searched result, how many distinct CVEs has node impact.
-            "platform": 5   // In the searched result, how many distinct CVEs has platform impact.
+            "image": 8,     //  .... has image impact.
+            "node": 12,     //  .... has node impact.
+            "platform": 5   //  .... has platform impact.
         },
         "top_images": [           2️⃣
             {
