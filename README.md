@@ -51,11 +51,10 @@ Response Body
     "debug_error_message": "",
     "debug_perf_stats": [
         "step-1, get allowed resources, took=792.405µs",
-        "step-2, get filtered vulasset from db, took=46.983231ms",
-        "step-3, populate result to tmp session table, took=29.151944ms"
+        ...
     ],
     "query_token": "mm_eff501a8ce17",   👈  // need to bring this value in the URL parameter to navigate this query session
-    "summary": {   👈   // this section of data now is a placeholder, it does not contains real data yet..
+    "summary": {   👈   
         "count_distribution": {   1️⃣
             "high": 20,     // In the searched result, 
             "low": 10,      //   how many distinct CVEs has high severity (based on the score type, v2 or v3)
@@ -80,28 +79,7 @@ Response Body
                 "id": "1",
                 "low": 1,
                 "medium": 2
-            },
-            {
-                "display_name": "Image3",
-                "high": 3,
-                "id": "2",
-                "low": 1,
-                "medium": 2
-            },
-            {
-                "display_name": "Image4",
-                "high": 2,
-                "id": "3",
-                "low": 1,
-                "medium": 2
-            },
-            {
-                "display_name": "Image5",
-                "high": 3,
-                "id": "4",
-                "low": 1,
-                "medium": 2
-            }
+            }...
         ],
         "top_nodes": [              3️⃣
             {
@@ -117,28 +95,7 @@ Response Body
                 "id": "1",
                 "low": 1,
                 "medium": 3
-            },
-            {
-                "display_name": "Node3",
-                "high": 5,
-                "id": "2",
-                "low": 1,
-                "medium": 3
-            },
-            {
-                "display_name": "Node4",
-                "high": 4,
-                "id": "3",
-                "low": 1,
-                "medium": 3
-            },
-            {
-                "display_name": "Node5",
-                "high": 3,
-                "id": "4",
-                "low": 1,
-                "medium": 3
-            }
+            }...
         ]
     },
     "total_matched_records": 161,   👈
@@ -239,3 +196,13 @@ neuvector@ubuntu2204-E:~/ui_perf$ ./c_new_vulasset_step1_POST.sh
 
 neuvector@ubuntu2204-E:~/ui_perf$ ./d_new_vulasset_step2_GET.sh mm_ec1ab4a190d0 👈 | jq
 ```
+
+##
+<details><summary>more</summary>
+To access the management console, visit https://10.1.45.44:30590/#/login.
+If necessary, you can also SSH into the machine to make any required changes.
+The controller endpoint is accessible via curl at 10.1.45.44:31693.
+
+You can also use these two scripts on 10.1.45.44 for testing.
+
+</details>
