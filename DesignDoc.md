@@ -13,7 +13,7 @@ Consequently, this aspect will be excluded from the current release and is plann
 - [Section 2: Design](#section-2-design)
 - [Section 3: Security](#section-3-security)
 - [Section 4: API Interface](#section-4-api-interface)
-- [Section 5: Changed file and scope](5-changed-file-and-scope)
+- [Section 5: Changed file and scope](#5-changed-file-and-scope)
 
 ## Section 1: Overview
 
