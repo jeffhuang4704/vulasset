@@ -11,12 +11,12 @@
 ## Section 1: Overview
 
 The primary objective is to enhance the performance of the Vulnerability Page, issues we want to address are:
-- Load time optimization
-- Reducing memory consumption to mitigate potential out-of-memory errors in browsers.
+- slow page load time 
+- out-of-memory errors in browsers
 
 Originally, the plan involved integrating memory reduction measures in both the Consul and Controller processes. However, after thorough exploration, we have not identified an optimal solution considering the deployment model and data synchronization. 
 
-Consequently, this aspect will be excluded from the current release and is planned to be deferred to the subsequent version.
+Consequently, this aspect will be excluded from the current release and is planned to be deferred to the subsequent version. This minimizes the system's scope and potential impacts.
 
 ## Section 2: Design
 
@@ -52,9 +52,11 @@ func scanDone(id string, objType share.ScanObjectType, report *share.CLUSScanRep
     info.vulTraits = scanUtils.ExtractVulnerability(report.Vuls)
     alives = vpf.FilterVulTraits(info.vulTraits, info.idns)
     highs, meds = scanUtils.GatherVulTrait(info.vulTraits)
+
     brief := fillScanBrief(info, len(highs), len(meds))
     info.brief = brief
     info.filteredTime = time.Now()
+
     vuls := scanUtils.FillVulTraits(sdb.CVEDB, baseOS, c.vulTraits, "", true)    👈
     for _, vul := range vuls {
         database3.PopulateVulAsset3(database3.TypeWorkload, c.workload.ID, vul, baseOS)  👈
@@ -67,7 +69,15 @@ func scanDone(id string, objType share.ScanObjectType, report *share.CLUSScanRep
 
 The database table is crafted to optimize the Vulnerability Page. This page necessitates the incorporation of two distinct aspects of data: vulnerability-based and asset-based information.
 
-TODO: list the schema
+```
+CREATE TABLE vulassets (id INTEGER NOT NULL PRIMARY KEY,name TEXT,severity TEXT,description TEXT,packages TEXT,
+link TEXT,score NUMERIC,vectors TEXT,score_v3 NUMERIC,vectors_v3 TEXT,published_timestamp INTEGER,last_modified_timestamp INTEGER,
+workloads TEXT,nodes TEXT,images TEXT,platforms TEXT,cve_sources TEXT,f_withFix INTEGER,f_profile INTEGER,debuglog TEXT)
+
+CREATE TABLE assetvuls (id INTEGER NOT NULL PRIMARY KEY,type TEXT,assetid TEXT UNIQUE,name TEXT,w_domain TEXT,w_applications TEXT,policy_mode TEXT,w_service_group TEXT,cve_high INTEGER,cve_medium INTEGER,cve_low INTEGER,cve_count INTEGER,cve_lists TEXT,scanned_at TEXT,n_os TEXT,n_kernel TEXT,n_cpus INTEGER,n_memory INTEGER,n_containers INTEGER,p_version TEXT,p_base_os TEXT)
+
+CREATE TABLE querystats (id INTEGER NOT NULL PRIMARY KEY,token TEXT,create_timestamp INTEGER,login_type TEXT,login_id TEXT,login_name TEXT,data1 TEXT,data2 TEXT,data3 TEXT)
+```
 
 ### SQL 
 
