@@ -97,7 +97,7 @@ CREATE TABLE querystats (id INTEGER NOT NULL PRIMARY KEY,token TEXT,create_times
 ```
 
 <p align="left">
-<img src="./materials/db-tables.png" width="55%">
+<img src="./materials/db-tables.png" width="40%">
 </p>
 
 ### SQL 
