@@ -12,7 +12,7 @@ Consequently, this aspect will be excluded from the current release and is plann
 - [Section 1: Overview](#section-1-overview)
 - [Section 2: Design](#section-2-design)
 - [Section 3: Security](#section-3-security)
-- [Section 4: API Interface](#section-4-api-interface--testing-bed)
+- [Section 4: API Interface & Testing bed](#section-4-api-interface--testing-bed)
 - [Section 5: Changed file and scope](#section-5-changed-file-and-scope)
 
 ## Section 1: Overview
