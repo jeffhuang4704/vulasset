@@ -55,6 +55,9 @@ func scanDone(id string, objType share.ScanObjectType, report *share.CLUSScanRep
     info.brief = brief
     info.filteredTime = time.Now()
     vuls := scanUtils.FillVulTraits(sdb.CVEDB, baseOS, c.vulTraits, "", true)    👈
+    for _, vul := range vuls {
+        database3.PopulateVulAsset3(database3.TypeWorkload, c.workload.ID, vul, baseOS)  👈
+    }
     database3.PopulateAssetVul(dbAssetVul)                                       👈
 }
 ```
