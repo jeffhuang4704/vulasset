@@ -57,7 +57,7 @@ This hook point serves as the focal point for the Controller to establish its ca
 
 Raw data obtained from the scan is processed through functions like `FillVulTraits()` function to generate data needed for database population. 
 
-<b>Currently, we extract only the necessary data for the database without altering or deleting any information in the Controller's memory. The initial strategy involves optimizing memory usage by eliminating certain fields in cache mappings. But it will not be in next change.</b>
+<b>Currently, we extract only the necessary data for the database without altering or deleting any information in the Controller's cache data structures. The initial strategy involves optimizing memory usage by eliminating certain fields in cache mappings. But it will not be in this change.</b>
 
 Here is a simplified code snippet:
 ```
