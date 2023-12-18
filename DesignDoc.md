@@ -114,7 +114,7 @@ I use a package `goqu` to construct SQL statement. Refer to [goqu](https://githu
 
 The following code snippets demonstrate the construction of SQL statements by incorporating user-provided filters.
 
-<b>statement we like</b>
+<b>statement we need</b>
 ```
 SELECT "assetid", "name", "w_domain", "w_applications", "policy_mode", "w_service_group", "cve_high", 
     "cve_medium", "cve_low", "cve_lists", "scanned_at" FROM "assetvuls"
@@ -155,6 +155,11 @@ func buildWhereClauseForWorkload(allowedID []string, queryFilter *api.VulQueryFi
             domain_contains = append(domain_contains, goqu.C("w_domain").Like(fmt.Sprintf("%%%s%%", d)))
         }
     }
+    ...
+    return goqu.And(part1_assetType, part2_allowed,
+		part3_domain_equals, goqu.Or(domain_contains...),
+		part_service_equal, goqu.Or(part_service_contains...),
+		part_container_equal, goqu.Or(part_container_contains...))
 
 ```
 
