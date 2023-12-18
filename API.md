@@ -191,7 +191,8 @@ No pagination functionality is required for this endpoint. It is specifically im
 
 ### The request
 
-Use `HTTP POST` for this request is 
+Use `HTTP POST` for this request.
+The majority fields is the same as in `v1/vulasset` with one additional for `lastModifiedTime`.  
 
 ```
 HTTP POST v1/vulasset
@@ -229,7 +230,7 @@ Request Body
 
 ### The response
 
-The response from this API call contains all the necessary data in a single retrieval, as it is intended for the printout function. Pagination is not required for this API.
+The response from this API call contains all the necessary data in a single retrieval, as it is intended for the printout function.
 
 The response strucutre like this.
 <p align="left">
@@ -310,7 +311,6 @@ The response strucutre like this.
 ## Testing environment
 I have set up an environment in the lab at 10.1.45.44. I will update the image with the latest work for testing purposes.
 
-
 To access the management console, visit https://10.1.45.44:30590/#/login.
 If necessary, you can also SSH into the machine to make any required changes.
 The controller endpoint is accessible via curl at 10.1.45.44:31693.
@@ -324,12 +324,3 @@ neuvector@ubuntu2204-E:~/ui_perf$ ./c_new_vulasset_step1_POST.sh
 neuvector@ubuntu2204-E:~/ui_perf$ ./d_new_vulasset_step2_GET.sh mm_ec1ab4a190d0 👈 | jq
 ```
 
-##
-<details><summary>more</summary>
-To access the management console, visit https://10.1.45.44:30590/#/login.
-If necessary, you can also SSH into the machine to make any required changes.
-The controller endpoint is accessible via curl at 10.1.45.44:31693.
-
-You can also use these two scripts on 10.1.45.44 for testing.
-
-</details>
