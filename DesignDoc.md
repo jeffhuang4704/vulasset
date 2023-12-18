@@ -112,8 +112,9 @@ Given the context, I didn't use ORM tool to facilitate the interaction between a
 
 I use a package `goqu` to construct SQL statement. Refer to [goqu](https://github.com/doug-martin/goqu) for details. 
 
-Following are some code snippet show how to construct a SQL statement like this
+The following code snippets demonstrate the construction of SQL statements by incorporating user-provided filters.
 
+<b>statement we like</b>
 ```
 SELECT "assetid", "name", "w_domain", "w_applications", "policy_mode", "w_service_group", "cve_high", 
     "cve_medium", "cve_low", "cve_lists", "scanned_at" FROM "assetvuls"
@@ -121,6 +122,7 @@ SELECT "assetid", "name", "w_domain", "w_applications", "policy_mode", "w_servic
     AND (("w_domain" LIKE '%kube-system%') OR ("w_domain" LIKE '%default%')))
 ```
 
+<b>code snippets</b>
 ```
 func getWorkloadAssetView(allowed map[string]utils.Set, vulMap map[string]*DbVulAsset, queryFilter *VulQueryFilter) {
 	records := make([]*api.RESTWorkloadAssetView, 0)
