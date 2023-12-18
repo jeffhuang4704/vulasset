@@ -12,6 +12,9 @@ v1/vulasset     // for main UI
 v1/assetvul     // for Asset Views (the PDF printout)
 ```
 
+- [Usage for `v1/vulasset`](#data-handling-process)
+- [Usage for `v1/assetvul`](#data-hook-point)
+
 ## Usage for `v1/vulasset`
 
 To utilize the v1/vulasset feature, begin by initiating a query session through the submission of advanced filters and sorting options. The backend will generate a session specific to the provided query and furnish you with a token for navigating within that session. If a user modifies the filter criteria, it is essential to initiate a new query session.
