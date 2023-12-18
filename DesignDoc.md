@@ -69,14 +69,22 @@ func scanDone(id string, objType share.ScanObjectType, report *share.CLUSScanRep
 
 The database table is crafted to optimize the Vulnerability Page. This page necessitates the incorporation of two distinct aspects of data: vulnerability-based and asset-based information.
 
+<b>tables</b>
 ```
-CREATE TABLE vulassets (id INTEGER NOT NULL PRIMARY KEY,name TEXT,severity TEXT,description TEXT,packages TEXT,
-link TEXT,score NUMERIC,vectors TEXT,score_v3 NUMERIC,vectors_v3 TEXT,published_timestamp INTEGER,last_modified_timestamp INTEGER,
-workloads TEXT,nodes TEXT,images TEXT,platforms TEXT,cve_sources TEXT,f_withFix INTEGER,f_profile INTEGER,debuglog TEXT)
+CREATE TABLE vulassets (id INTEGER NOT NULL PRIMARY KEY,name TEXT,severity TEXT,description TEXT,
+                    packages TEXT,link TEXT,score NUMERIC,vectors TEXT,score_v3 NUMERIC,vectors_v3 TEXT,
+                    published_timestamp INTEGER, last_modified_timestamp INTEGER,
+                    workloads TEXT,nodes TEXT,images TEXT,platforms TEXT,cve_sources 
+                    TEXT,f_withFix INTEGER,f_profile INTEGER,debuglog TEXT)
 
-CREATE TABLE assetvuls (id INTEGER NOT NULL PRIMARY KEY,type TEXT,assetid TEXT UNIQUE,name TEXT,w_domain TEXT,w_applications TEXT,policy_mode TEXT,w_service_group TEXT,cve_high INTEGER,cve_medium INTEGER,cve_low INTEGER,cve_count INTEGER,cve_lists TEXT,scanned_at TEXT,n_os TEXT,n_kernel TEXT,n_cpus INTEGER,n_memory INTEGER,n_containers INTEGER,p_version TEXT,p_base_os TEXT)
+CREATE TABLE assetvuls (id INTEGER NOT NULL PRIMARY KEY,type TEXT,assetid TEXT UNIQUE,name TEXT,
+                    w_domain TEXT,w_applications TEXT,policy_mode TEXT,w_service_group TEXT,
+                    cve_high INTEGER,cve_medium INTEGER,cve_low INTEGER,cve_count INTEGER,cve_lists TEXT,
+                    scanned_at TEXT,n_os TEXT,n_kernel TEXT,n_cpus INTEGER,n_memory INTEGER,
+                    n_containers INTEGER,p_version TEXT,p_base_os TEXT)
 
-CREATE TABLE querystats (id INTEGER NOT NULL PRIMARY KEY,token TEXT,create_timestamp INTEGER,login_type TEXT,login_id TEXT,login_name TEXT,data1 TEXT,data2 TEXT,data3 TEXT)
+CREATE TABLE querystats (id INTEGER NOT NULL PRIMARY KEY,token TEXT,create_timestamp INTEGER,
+                    login_type TEXT,login_id TEXT,login_name TEXT,data1 TEXT,data2 TEXT,data3 TEXT)
 ```
 
 ### SQL 
