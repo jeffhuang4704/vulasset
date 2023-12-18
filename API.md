@@ -8,19 +8,17 @@
 The endpoint name can be updated to enhance clarity. 
 
 ```
-v1/vulasset     for main UI
-v1/assetvul     for Asset Views PDF printout
+v1/vulasset     // for main UI
+v1/assetvul     // for Asset Views PDF printout
 ```
 
 ## Usage for `v1/vulasset`
-Given that the request involves filtering and sorting, using `HTTP GET` might not be optimal. 
 
-For a fresh query, use `POST` to `v1/vulasset` with advanced filters and sorting options in request body. This will create a query session.
-To navigate within a search session, make a `HTTP GET` request to the same endpoint with the following query parameters, and you need to send the filtering options.
+To utilize the v1/vulasset feature, begin by initiating a query session through the submission of advanced filters and sorting options. The backend will generate a session specific to the provided query and furnish you with a token for navigating within that session. If a user modifies the filter criteria, it is essential to initiate a new query session.
 
-Whenever a user modifies the filter criteria, you must initiate a new query session.
+### Starting a Query Session
 
-### Initiate a query session
+To initiate a query, use the POST method on the endpoint `/v1/vulasset`, providing advanced filters and sorting options within the request body. 
 
 ```
 HTTP POST v1/vulasset
@@ -104,9 +102,94 @@ Response Body
 }
 ```
 
+### Navigating Within a Query Session
+
+To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/vulasset`) with the following query parameters. Ensure that you include the necessary filtering options in the request.
+
+```
+GET v1/vulasset?token=eff501a8ce17&start=0&row=100
+
+1️⃣ token: Indicates the query session; you can find this token in the response body.
+2️⃣ start: Specifies the starting row.
+3️⃣ row: Defines the number of rows to fetch. Use -1 to fetch all rows.
+
+Reponse
+{
+    "vulnerabilities": [
+        {
+            "description": "Docker before 1.5 allows local users to have unspecified impact via vectors involving unsafe /tmp usage.",
+            "images": [
+                {
+                    "display_name": "wurstmeister-zookeeper:latest",
+                    "domains": null,
+                    "id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
+                    "policy_mode": ""
+                }
+            ],
+            "last_modified_timestamp": 1507923932,
+            "link": "http://people.ubuntu.com/~ubuntu-security/cve/CVE-2014-0047",
+            "name": "CVE-2014-0047",
+            "nodes": [
+                {
+                    "display_name": "ubuntu2204-A",
+                    "domains": [],
+                    "id": "ubuntu2204-A:J34I:M2CR:RM54:Z24R:HRMR:2DLN:ISHL:2AVY:FW63:SAKO:KEBW:33IO",
+                    "policy_mode": "Discover"
+                },
+                {
+                    "display_name": "ubuntu2204-B",
+                    "domains": [],
+                    "id": "ubuntu2204-B:SGC3:5QOQ:EVL4:WLO5:MP2D:SESI:KF2R:T6UF:OZ7V:IJFT:IGBI:JAMU",
+                    "policy_mode": "Discover"
+                },
+                {
+                    "display_name": "ubuntu2204-C",
+                    "domains": [],
+                    "id": "ubuntu2204-C:BW54:QWBZ:GOKY:BH37:27FH:ZMG6:SHQ4:UXIZ:SQXM:TSDT:GQBB:YQY6",
+                    "policy_mode": "Discover"
+                }
+            ],
+            "packages": {
+                "docker.io": [
+                    {
+                        "fixed_version": "1.6.2~dfsg1-1ubuntu4~14.04.1",
+                        "package_version": "1.0.1~dfsg1-0ubuntu1~ubuntu0.14.04.1"
+                    }
+                ]
+            },
+            "platforms": [],
+            "published_timestamp": 1507923932,
+            "score": 4.6,
+            "score_v3": 7.8,
+            "severity": "High",
+            "vectors": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
+            "vectors_v3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+            "workloads": [
+                {
+                    "display_name": "wurstmeister",
+                    "domains": [
+                        "default"
+                    ],
+                    "id": "d3ecf62b28ec00259f46041311fb9ea7231c6ae673b37ddb98ae0e71493de2ca",
+                    "image": "quay.io/nvlab/wurstmeister-zookeeper:latest",
+                    "policy_mode": "Discover",
+                    "service": "my-dep1.default"
+                }
+            ]
+        }
+    ]
+}
+```
+
 ## Usage for `v1/assetvul`
 
+This endpoint is dedicated to serving printouts of the Assets View, presenting vulnerability data associated with a particular asset.
+
+No pagination functionality is required for this endpoint. It is specifically implemented for generating printouts, and therefore, the entire content can be retrieved in a single request.
+
 ### The request
+
+Use `HTTP POST` for this request is 
 
 ```
 HTTP POST v1/vulasset
@@ -221,85 +304,6 @@ The response strucutre like this.
 }
 ```
 
-### Navigate the query session
-
-To navigate the dataset, you will need to embed the `query_token` in URL parameter.
-
-```
-GET v1/vulasset?token=mm_eff501a8ce17&start=0&row=100
-
-token: Indicates the query session; you can find this token in the response body.
-start: Specifies the starting row.
-row: Defines the number of rows to fetch. Use -1 to fetch all rows.
-
-Reponse
-
-{
-    "vulnerabilities": [
-        {
-            "description": "Docker before 1.5 allows local users to have unspecified impact via vectors involving unsafe /tmp usage.",
-            "images": [
-                {
-                    "display_name": "wurstmeister-zookeeper:latest",
-                    "domains": null,
-                    "id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
-                    "policy_mode": ""
-                }
-            ],
-            "last_modified_timestamp": 1507923932,
-            "link": "http://people.ubuntu.com/~ubuntu-security/cve/CVE-2014-0047",
-            "name": "CVE-2014-0047",
-            "nodes": [
-                {
-                    "display_name": "ubuntu2204-A",
-                    "domains": [],
-                    "id": "ubuntu2204-A:J34I:M2CR:RM54:Z24R:HRMR:2DLN:ISHL:2AVY:FW63:SAKO:KEBW:33IO",
-                    "policy_mode": "Discover"
-                },
-                {
-                    "display_name": "ubuntu2204-B",
-                    "domains": [],
-                    "id": "ubuntu2204-B:SGC3:5QOQ:EVL4:WLO5:MP2D:SESI:KF2R:T6UF:OZ7V:IJFT:IGBI:JAMU",
-                    "policy_mode": "Discover"
-                },
-                {
-                    "display_name": "ubuntu2204-C",
-                    "domains": [],
-                    "id": "ubuntu2204-C:BW54:QWBZ:GOKY:BH37:27FH:ZMG6:SHQ4:UXIZ:SQXM:TSDT:GQBB:YQY6",
-                    "policy_mode": "Discover"
-                }
-            ],
-            "packages": {
-                "docker.io": [
-                    {
-                        "fixed_version": "1.6.2~dfsg1-1ubuntu4~14.04.1",
-                        "package_version": "1.0.1~dfsg1-0ubuntu1~ubuntu0.14.04.1"
-                    }
-                ]
-            },
-            "platforms": [],
-            "published_timestamp": 1507923932,
-            "score": 4.6,
-            "score_v3": 7.8,
-            "severity": "High",
-            "vectors": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
-            "vectors_v3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-            "workloads": [
-                {
-                    "display_name": "wurstmeister",
-                    "domains": [
-                        "default"
-                    ],
-                    "id": "d3ecf62b28ec00259f46041311fb9ea7231c6ae673b37ddb98ae0e71493de2ca",
-                    "image": "quay.io/nvlab/wurstmeister-zookeeper:latest",
-                    "policy_mode": "Discover",
-                    "service": "my-dep1.default"
-                }
-            ]
-        }
-    ]
-}
-```
 
 ## Testing environment
 I have set up an environment in the lab at 10.1.45.44. I will update the image with the latest work for testing purposes.
