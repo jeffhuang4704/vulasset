@@ -108,13 +108,13 @@ object/config/querysession/mm_fd3d6d6a87e9
 }
 ```
 
-### session temp table cleanup
-
-Given the dynamic nature of query results, the system employs session temporary tables for storage. Typically, a new session is unnecessary when users perform subsequent queries, such as changing filter criteria. To streamline resource usage, a maximum of 5 queries per user/apikey is enforced. This limitation ensures that older sessions, which are no longer needed, are systematically cleaned up. 
-
 ### session temp table 
 
 To optimize performance during the process phase, the system employs a strategic approach. The session temporary table is initially written to a memory-based database to promptly fulfill the first initial request. Concurrently, in the background, a file-based database is created. Once the file-based table has been successfully created, the memory-based table is systematically deleted. This dual-step process effectively balances the imperative for rapid response times.
+
+### session temp table cleanup
+
+Given the dynamic nature of query results, the system employs session temporary tables for storage. Typically, a new session is unnecessary when users perform subsequent queries, such as changing filter criteria. To streamline resource usage, a maximum of 5 queries per user/apikey is enforced. This limitation ensures that older sessions, which are no longer needed, are systematically cleaned up. 
 
 ## Section 3: Security
 
