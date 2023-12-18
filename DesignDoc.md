@@ -106,7 +106,9 @@ The schema design encompasses considerations such as normalization levels, data 
 
 Given the context, I didn't use ORM tool to facilitate the interaction between a database and the application code by abstracting the database interactions. 
 
-TODO: list the how a query is mapped to the SQL,, take screen shots of (1) advaned filter UI (2) sql builder code and (3) sql statement..  use the assetvul table
+<p align="left">
+<img src="./materials/ui-query.png" width="50%">
+</p>
 
 ### multi-controller
 
