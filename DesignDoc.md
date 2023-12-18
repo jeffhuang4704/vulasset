@@ -45,7 +45,18 @@ The data hook point is initiated upon completion of the scan task (scanDone()). 
 At this stage, an existing mechanism, the Consul KV watcher, is employed. This watcher enables the system to detect new data additions or restorations, triggering the initiation of a cache-building process. The newly acquired data is subjected to ETL operations before being saved to the database.
 
 ```
-This code snippete here...
+// This is called on every controller by key update
+func scanDone(id string, objType share.ScanObjectType, report *share.CLUSScanReport) {
+    info, ok := scanMap[id]
+    info.vulTraits = scanUtils.ExtractVulnerability(report.Vuls)
+    alives = vpf.FilterVulTraits(info.vulTraits, info.idns)
+    highs, meds = scanUtils.GatherVulTrait(info.vulTraits)
+    brief := fillScanBrief(info, len(highs), len(meds))
+    info.brief = brief
+    info.filteredTime = time.Now()
+    vuls := scanUtils.FillVulTraits(sdb.CVEDB, baseOS, c.vulTraits, "", true)    👈
+    database3.PopulateAssetVul(dbAssetVul)                                       👈
+}
 ```
 
 ### database design
@@ -77,7 +88,7 @@ The code uses parameterized queries, also known as prepared statements, as a bes
 
 ### File location
 
-The database file is regenerated each time the Controller process starts under the `/tmp` folder. This recreation occurs without any modifications to the Kubernetes (k8s) manifest. 
+The database file is regenerated each time the Controller process starts under the `/tmp` folder. This recreation occurs without any modifications to the Kubernetes manifest. 
 
 ```
 / # cd /tmp/
