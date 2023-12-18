@@ -107,7 +107,7 @@ The schema design encompasses considerations such as normalization levels, data 
 Given the context, I didn't use ORM tool to facilitate the interaction between a database and the application code by abstracting the database interactions. 
 
 <p align="left">
-<img src="./materials/ui-query.png" width="50%">
+<img src="./materials/ui-query.png" width="85%">
 </p>
 
 ### multi-controller
