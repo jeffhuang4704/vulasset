@@ -1,48 +1,61 @@
-## Vulnerablity Page changes (v1)
+## Vulnerablity Page changes (v2)
 
 ### History
-v1 - 2023/12/13 
+- v1 - 2023/12/13  
+- v2 - 2023/12/17  
 
-## Endpoint
-The endpoint name can be updated to enhance clarity. One suggestion is to use `/v2/scan/asset`:
+## Endpoints
+The endpoint name can be updated to enhance clarity. 
 
 ```
-v1/vulasset
+v1/vulasset     for main UI
+v1/assetvul     for Asset Views PDF printout
 ```
 
-## Usage
-Given that the request involves filtering and sorting, using `HTTP GET` might not be optimal. After discussions with Steven from the Security Page, we recommend the following pagination protocol.
+## Usage for `v1/vulasset`
+Given that the request involves filtering and sorting, using `HTTP GET` might not be optimal. 
 
-For a fresh query, use PATCH to `v1/asset` with advanced filter and sorting options in request body. This will create a session.
+For a fresh query, use `POST` to `v1/vulasset` with advanced filters and sorting options in request body. This will create a query session.
 To navigate within a search session, make a `HTTP GET` request to the same endpoint with the following query parameters, and you need to send the filtering options.
 
+Whenever a user modifies the filter criteria, you must initiate a new query session.
+
+### Initiate a query session
+
 ```
-HTTP PATCH v1/vulasset
+HTTP POST v1/vulasset
 
 Request Body
 {
     "publishedType": "before",      // all, before, after
-    "publishedTime": 1702252800000, // timetick
+    "publishedTime": 1605353432,    // timetick
     "packageType": "withfix",       // all, withfix, withoutfix
     "severityType": "high",         // high, medium
     "scoreType": "v3",              // v2, v3
     "scoreV3Min": 1,
     "scoreV3Max": 4,
+
     "matchTypeService": "contains", // contains, equals
-    "serviceName": "svc",           
+    "serviceName": "svc",      
+
     "matchTypeNs": "contains",
     "selectedDomains": [
         "ns1",
         "ns7"
     ],
     "matchTypeImage": "equals",     // contains, equals
-    "imageName": "img",            
+    "imageName": "img",         
+
     "matchTypeNode": "equals",      // contains, equals
     "nodeName": "node",
+
     "matchTypeContainer": "equals", // contains, equals
     "containerName": "cont",
-    "orderbycolumn": "scorev3",
-    "orderby": "desc"
+
+    "orderbycolumn": "scorev3",     // name, scorev2, scorev3, publishedtime
+    "orderby": "desc",
+
+    "viewType": "all",              // all, containers, infrastructure, registry
 }
 
 Response Body
@@ -53,7 +66,7 @@ Response Body
         "step-1, get allowed resources, took=792.405µs",
         ...
     ],
-    "query_token": "mm_eff501a8ce17",   👈  // need to bring this value in the URL parameter to navigate this query session
+    "query_token": "eff501a8ce17",   👈  // need to bring this value in the URL parameter to navigate this query session
     "summary": {   👈   
         "count_distribution": {   1️⃣
             "high": 20,     // In the searched result, 
@@ -72,14 +85,8 @@ Response Body
                 "id": "0",
                 "low": 2,
                 "medium": 3
-            },
-            {
-                "display_name": "Image2",
-                "high": 4,
-                "id": "1",
-                "low": 1,
-                "medium": 2
-            }...
+            }
+            ...
         ],
         "top_nodes": [              3️⃣
             {
@@ -89,13 +96,7 @@ Response Body
                 "low": 2,
                 "medium": 4
             },
-            {
-                "display_name": "Node2",
-                "high": 6,
-                "id": "1",
-                "low": 1,
-                "medium": 3
-            }...
+            ...
         ]
     },
     "total_matched_records": 161,   👈
@@ -103,6 +104,126 @@ Response Body
 }
 ```
 
+## Usage for `v1/assetvul`
+
+### The request
+
+```
+HTTP POST v1/vulasset
+
+Request Body
+{
+    "publishedType": "before",      // all, before, after
+    "publishedTime": 1605353432,    // timetick
+    "packageType": "withfix",       // all, withfix, withoutfix
+    "severityType": "high",         // high, medium
+    "scoreType": "v3",              // v2, v3
+    "scoreV3Min": 1,
+    "scoreV3Max": 4,
+
+    "matchTypeService": "contains", // contains, equals
+    "serviceName": "svc",      
+
+    "matchTypeNs": "contains",
+    "selectedDomains": [
+        "ns1",
+        "ns7"
+    ],
+    "matchTypeImage": "equals",     // contains, equals
+    "imageName": "img",         
+
+    "matchTypeNode": "equals",      // contains, equals
+    "nodeName": "node",
+
+    "matchTypeContainer": "equals", // contains, equals
+    "containerName": "cont",
+
+    "lastModifiedTime":             // 1605353432   👈
+}
+```
+
+### The response
+
+The response from this API call contains all the necessary data in a single retrieval, as it is intended for the printout function. Pagination is not required for this API.
+
+The response strucutre like this.
+<p align="left">
+<img src="./materials/assetvul-1.png" width="40%">
+</p>
+
+```
+{
+    "workloads": [
+        {
+            "name": "kube-proxy-84bkd",
+            "domain": "kube-system",
+            "applications": [
+                "TCP/10249",
+                "TCP/10256"
+            ],
+            "policy_mode": "Discover",
+            "service_group": "nv.kube-proxy.kubesystem",
+            "high": 12,
+            "medium": 5,
+            "low": 2,
+            "vulnerabilities": [
+                "CVE-2023-29383",
+                "CVE-2022-4899"
+            ],
+            "scanned_at": "2023-12-11T01:21:10Z"
+        }
+    ],
+    "nodes": [
+        {
+            "name": "master",
+            "os": "Ubuntu 22.04 LTS",
+            "kernel": "5.15.0-71-generic",
+            "cpus": 4,
+            "memory": 8335712256,
+            "containers": 16,
+            "policy_mode": "Discover",
+            "high": 12,
+            "medium": 5,
+            "low": 2,
+            "vulnerabilities": [
+                "CVE-2023-29383",
+                "CVE-2022-4899"
+            ],
+            "scanned_at": "2023-12-11T01:21:10Z"
+        }
+    ],
+    "platforms": [
+        {
+            "name": "Kubernetes",
+            "version": "1.23.17",
+            "base_os": "",
+            "high": 12,
+            "medium": 5,
+            "low": 2,
+            "vulnerabilities": [
+                "CVE-2023-29383",
+                "CVE-2022-4899"
+            ]
+        }
+    ],
+    "images": [
+        {
+            "name": "gcr.io/google-samples/microservices-demo/adservice:v0.5.0",
+            "high": 12,
+            "medium": 5,
+            "low": 2,
+            "vulnerabilities": [
+                "CVE-2023-29383",
+                "CVE-2022-4899"
+            ]
+        }
+    ]
+}
+```
+
+### Navigate the query session
+
+To navigate the dataset, you will need to embed the `query_token` in URL parameter.
 
 ```
 GET v1/vulasset?token=mm_eff501a8ce17&start=0&row=100
