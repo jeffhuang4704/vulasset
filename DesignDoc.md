@@ -220,6 +220,21 @@ The code uses parameterized queries, also known as prepared statements, as a bes
 
 This approach treats user input and other variables as parameters rather than integral parts of the SQL statement. By doing so, the system mitigates the risk of SQL injection attacks and ensures a more secure interaction with the database.
 
+Here is some code snippet:
+
+```
+func GetAssetVulByAssetID(assetID string) (*DbAssetVul, error) {
+	dialect := goqu.Dialect("sqlite3")
+	statement, args, _ := dialect.From(Table_assetvuls).Select("id").Where(goqu.C("assetid").Eq(assetID)).Prepared(true).ToSQL()
+
+	rows, err := dbHandle.Query(statement, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+```
+
 ### File location
 
 The database file is regenerated each time the Controller process starts under the `/tmp` folder. This recreation occurs without any modifications to the Kubernetes manifest. 
