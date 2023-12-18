@@ -20,9 +20,18 @@ Consequently, this aspect will be excluded from the current release and is plann
 
 ## Section 2: Design
 
-Our system utilizes SQLite3 as its embedded database, with each controller maintaining an database. No supplementary processes are introduced, and SQLite access is facilitated through an imported package. 
+Our system utilizes SQLite as its embedded database, with each controller maintaining an database. No supplementary processes are introduced, and SQLite access is facilitated through an imported package. 
 
-SQLite3 enhances our data querying capabilities, offers a file-based structure for simplified management, and contributes to system efficiency with its lightweight design.
+SQLite enhances our data querying capabilities, offers a file-based structure for simplified management, and contributes to system efficiency with its lightweight design.
+
+This section introduces various design considerations, including:
+- [data handling process](#section-1-overview)
+- [data hook point](#section-1-overview)
+- [database design](#section-1-overview)
+- [SQL](#section-1-overview)
+- [multi-controller](#section-1-overview)
+- [session temp table](#section-1-overview)
+- [session temp table cleanup](#section-1-overview)
 
 ### data handling process
 
