@@ -9,7 +9,7 @@ The endpoint name can be updated to enhance clarity.
 
 ```
 v1/vulasset     // for main UI
-v1/assetvul     // for Asset Views PDF printout
+v1/assetvul     // for Asset Views (the PDF printout)
 ```
 
 ## Usage for `v1/vulasset`
