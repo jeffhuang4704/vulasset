@@ -3,7 +3,7 @@
 ## Introduction
 In this modification, we transition the data filtering process from the front-end to the backend. The UI now has the capability to retrieve partial data rather than the entire dataset. This is achieved by leveraging the database to store and implementing a pagination mechanism.
 
-Originally, the plan involved integrating memory reduction measures in both the Consul and Controller processes. However, after thorough exploration, we have not identified an optimal solution considering the deployment model and data synchronization. 
+Originally, the plan involved integrating memory reduction measures in both the Consul and Controller processes. However, after thorough exploration, we have not identified an optimal solution considering the deployment model and data synchronization across controllers.
 
 Consequently, this aspect will be excluded from the current release and is planned to be deferred to the subsequent version. This minimizes the system's scope and potential impacts.
 
@@ -57,6 +57,9 @@ This hook point serves as the focal point for the Controller to establish its ca
 
 Raw data obtained from the scan is processed through functions like `FillVulTraits()` function to generate data needed for database population. 
 
+Currently, we extract only the necessary data for the database without altering or deleting any information in the Controller's memory. The initial strategy involves optimizing memory usage by eliminating certain fields in cache mappings. But it will not be in next change.
+
+Here is a simplified code snippet:
 ```
 // This is called on every controller by key update
 func scanDone(id string, objType share.ScanObjectType, report *share.CLUSScanReport) {
