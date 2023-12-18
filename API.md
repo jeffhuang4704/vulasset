@@ -325,6 +325,8 @@ The controller endpoint is accessible via curl at 10.1.45.44:31693.
 
 You can also use these two scripts on 10.1.45.44 for testing.
 
+I also has a testing page, visit https://10.1.45.44:30161/portal/vp5.html
+
 ### `/v1/vulasset`
 ```
 neuvector@ubuntu2204-E:~/ui_perf$ cat c_new_vulasset_step1_POST.sh
