@@ -1,16 +1,12 @@
 # UI Vulnerablity Page Improvement
 
-## Introduction
-
-Briefly introduce the purpose and scope of the technical document.
-
 ## Table of Contents
 
 - [Section 1: Overview](#section-1-overview)
-- [Section 2: Design](#section-2-architecture)
-- [Section 3: Security](#section-3-usage)
-- [Section 4: API Interface](#section-6-conclusion)
-- [Section 5: Changed file and scope](#section-6-conclusion)
+- [Section 2: Design](#section-2-design)
+- [Section 3: Security](#section-3-security)
+- [Section 4: API Interface](#section-4-api-interface)
+- [Section 5: Changed file and scope](5-changed-file-and-scope)
 
 ## Section 1: Overview
 
@@ -70,6 +66,13 @@ The database table is crafted to optimize the Vulnerability Page. This page nece
 TODO: list the schema
 
 ### SQL 
+
+Within the backend, it replicate all query logic initially embedded in the front-end. This process entails translating queries received from the UI into the relevant SQL queries. In the current version, I prioritizes adopting direct SQL execution if the query can be seamlessly accomplished in SQL. However, if this is not feasible due to complexity or table design constraints, the system implements the necessary filtering logic in the Golang code.
+
+The schema design encompasses considerations such as normalization levels, data modification patterns, and maintainability. In this version, I have opted for a relatively straightforward model, acknowledging the complexity of certain data and logic aspects, such as namespace checking in user roles, which is challenging to map directly. I find it more preferable to retain such logic within the Golang code and maintain it in a centralized location.
+
+Given the context, I didn't use ORM tool to facilitate the interaction between a database and the application code by abstracting the database interactions. 
+
 TODO: list the how a query is mapped to the SQL,, take screen shots of (1) advaned filter UI (2) sql builder code and (3) sql statement..  use the assetvul table
 
 ### multi-controller
