@@ -10,6 +10,7 @@ Briefly introduce the purpose and scope of the technical document.
 - [Section 2: Design](#section-2-architecture)
 - [Section 3: Security](#section-3-usage)
 - [Section 4: API Interface](#section-6-conclusion)
+- [Section 5: Changed file and scope](#section-6-conclusion)
 
 ## Section 1: Overview
 
@@ -132,3 +133,9 @@ drwxr-xr-x    4 root     root          4096 Dec 10 00:55 neuvector
 -rw-r--r--    1 root     root            15 Dec 17 21:14 ready
 /tmp #
 ```
+
+## Section 4: API Interface
+
+Please see [README.md](./README.md)
+
+## Section 5: Changed file and scope
