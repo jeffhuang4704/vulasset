@@ -31,7 +31,7 @@ This section introduces various design considerations, including:
 - [data handling process](#data-handling-process)
 - [data hook point](#data-hook-point)
 - [database design](#database-design)
-- [SQL](#sql)
+- [data filtering](#data-filtering)
 - [multi-controller](#multi-controller)
 - [session temp table](#session-temp-table)
 - [session temp table cleanup](#session-temp-table-cleanup)
@@ -108,7 +108,7 @@ CREATE TABLE querystats (id INTEGER NOT NULL PRIMARY KEY,token TEXT,create_times
 </p>
 
 
-### SQL 
+### data filtering 
 
 Within the backend, it replicate all query logic initially embedded in the front-end. This process entails translating queries received from the UI into the relevant SQL queries. 
 
