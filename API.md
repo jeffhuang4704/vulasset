@@ -4,6 +4,14 @@
 - v1 - 2023/12/13  
 - v2 - 2023/12/17  
 
+## Table of Contents
+
+- [Usage for `v1/vulasset`](#usage-for-v1vulasset)
+    - [Starting a Query Session](#starting-a-query-session)
+    - [Navigating Within a Query Session](#navigating-within-a-query-session)
+- [Usage for `v1/assetvul`](#usage-for-v1assetvul)
+- [Testing Environment](#testing-environment)
+
 ## Endpoints
 The endpoint name can be updated to enhance clarity. 
 
@@ -11,9 +19,6 @@ The endpoint name can be updated to enhance clarity.
 v1/vulasset     // for main UI
 v1/assetvul     // for Asset Views (the PDF printout)
 ```
-
-- [Usage for `v1/vulasset`](#data-handling-process)
-- [Usage for `v1/assetvul`](#data-hook-point)
 
 ## Usage for `v1/vulasset`
 
