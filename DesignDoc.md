@@ -25,13 +25,13 @@ Our system utilizes SQLite as its embedded database, with each controller mainta
 SQLite enhances our data querying capabilities, offers a file-based structure for simplified management, and contributes to system efficiency with its lightweight design.
 
 This section introduces various design considerations, including:
-- [data handling process](#section-1-overview)
-- [data hook point](#section-1-overview)
-- [database design](#section-1-overview)
-- [SQL](#section-1-overview)
-- [multi-controller](#section-1-overview)
-- [session temp table](#section-1-overview)
-- [session temp table cleanup](#section-1-overview)
+- [data handling process](#data-handling-process)
+- [data hook point](#data-hook-point)
+- [database design](#database-design)
+- [SQL](#sql)
+- [multi-controller](#multi-controller)
+- [session temp table](#session-temp-table)
+- [session temp table cleanup](#session-temp-table-cleanup)
 
 ### data handling process
 
