@@ -36,6 +36,37 @@ The entire data handling process is divided into three distinct phases based on 
 
 <b>Pre-process</b> This phase initiates when raw data becomes available, typically following the completion of a scan report. During this stage, the data is populated into the database.
 
-<b>Process</b> This phase is triggered when the UI requests page data. Given its sensitivity and criticality to performance, optimization efforts are concentrated in this phase. The primary objective here is to compile data specific to the query, considering variations due to user roles, filter criteria, and time. Upon completion, a temporary table is generated to store the results, and a query_token is returned to the caller. This token allows the UI to fetch real data and navigate through the results.
+<b>Process</b> This phase is triggered when the UI requests page data. The primary objective here is to compile data specific to the query, considering variations due to user roles, filter criteria, and time. Upon completion, a temporary table is generated to store the results, and a query_token is returned to the caller. This token allows the UI to fetch data and navigate through the results.
 
 <b>Post-process</b> This phase is activated when the UI fetches the data. To minimize tasks during the process phase, certain operations are intentionally deferred to this stage. These deferred tasks are executed when the user expresses the need to view the data.
+
+### data hook point
+
+The data hook point is initiated upon completion of the scan task (scanDone()). Raw data obtained from the scan is processed through functions like FillVulTraits() function to generate a comprehensive report. Subsequently, the details of this report are stored in the database.
+
+At this stage, an existing mechanism, the Consul KV watcher, is employed. This watcher enables the system to detect new data additions or restorations, triggering the initiation of a cache-building process. The newly acquired data is subjected to ETL operations before being saved to the database.
+
+### database design
+
+The database table is crafted to optimize the Vulnerability Page. This page necessitates the incorporation of two distinct aspects of data: vulnerability-based and asset-based information.
+
+### SQL
+TODO
+
+### multi-controller
+
+Given that each controller operates independently and the database (it's embedded to the Controller process) is not shared, an essential mechanism is required to enable other controllers to construct the same session temporary table. To achieve this, a request containing user roles, advanced filters, and query_token is written to Consul. This action serves as a signal to inform other controllers. Subsequently, these controllers can utilize the provided query_token to serve requests at a later stage.
+
+### security (SQL Injection prevention)
+
+TODO: list the file, no additional resource required in current k8s manifest.
+
+The code uses parameterized queries, also known as prepared statements, as a best practice for writing SQL queries. This approach treats user input and other variables as parameters rather than integral parts of the SQL statement. By doing so, the system mitigates the risk of SQL injection attacks and ensures a more secure interaction with the database.
+
+### session temp table cleanup
+
+Given the dynamic nature of query results, the system employs session temporary tables for storage. Typically, a new session is unnecessary when users perform subsequent queries, such as changing filter criteria. To streamline resource usage, a maximum of 5 queries per user/apikey is enforced. This limitation ensures that older sessions, which are no longer needed, are systematically cleaned up. 
+
+### session temp table 
+
+To optimize performance during the process phase, the system employs a strategic approach. The session temporary table is initially written to a memory-based database to promptly fulfill the first initial request. Concurrently, in the background, a file-based database is created. Once the file-based table has been successfully created, the memory-based table is systematically deleted. This dual-step process effectively balances the imperative for rapid response times.
