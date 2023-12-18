@@ -75,6 +75,55 @@ TODO: list the how a query is mapped to the SQL,, take screen shots of (1) advan
 
 Given that each controller operates independently and the database (it's embedded to the Controller process) is not shared, an essential mechanism is required to enable other controllers to construct the same session temporary table. To achieve this, a request containing user roles, advanced filters, and query_token is written to Consul. This action serves as a signal to inform other controllers. Subsequently, these controllers can utilize the provided query_token to serve requests at a later stage.
 
+<b>Consul</b>
+```
+object/config/querysession/mm_fc0570a6e925
+object/config/querysession/mm_fd3d6d6a87e9
+```
+
+<details><summary>sample data</summary>
+```
+{
+    "QueryToken": "fe40e88abbf5",
+    "UserAccess": {
+        "Op": "write",
+        "Roles": {
+            "": "admin"
+        },
+        "WRoles": {},
+        "ApiCategoryID": 5,
+        "RequiredPermissions": 524360,
+        "BoostPermissions": 0
+    },
+    "Filters": {
+        "packageType": "all",
+        "severityType": "all",
+        "scoreType": "v3",
+        "publishedType": "",
+        "publishedTime": 0,
+        "matchTypeNs": "",
+        "selectedDomains": null,
+        "serviceName": "",
+        "imageName": "",
+        "nodeName": "",
+        "containerName": "",
+        "matchTypeService": "",
+        "matchTypeImage": "",
+        "matchTypeNode": "",
+        "matchTypeContainer": "",
+        "scoreV2Min": 0,
+        "scoreV2Max": 0,
+        "scoreV3Min": 0,
+        "scoreV3Mmax": 0,
+        "orderbycolumn": "name",
+        "orderby": "asc"
+    }
+}
+```
+
+</details>
+
+
 ### session temp table cleanup
 
 Given the dynamic nature of query results, the system employs session temporary tables for storage. Typically, a new session is unnecessary when users perform subsequent queries, such as changing filter criteria. To streamline resource usage, a maximum of 5 queries per user/apikey is enforced. This limitation ensures that older sessions, which are no longer needed, are systematically cleaned up. 
