@@ -104,7 +104,9 @@ Response Body
 
 ### Navigating Within a Query Session
 
-To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/vulasset`) with the following query parameters. Ensure that you include the necessary filtering options in the request.
+To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/vulasset`) with the following query parameters. 
+
+Refer to the detailed fields and their corresponding values in the following raw data section.
 
 ```
 GET v1/vulasset?token=eff501a8ce17&start=0&row=100
