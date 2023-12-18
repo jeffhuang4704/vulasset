@@ -96,6 +96,10 @@ CREATE TABLE querystats (id INTEGER NOT NULL PRIMARY KEY,token TEXT,create_times
                     login_type TEXT,login_id TEXT,login_name TEXT,data1 TEXT,data2 TEXT,data3 TEXT)
 ```
 
+<p align="left">
+<img src="./materials/db-tables.png" width="55%">
+</p>
+
 ### SQL 
 
 Within the backend, it replicate all query logic initially embedded in the front-end. This process entails translating queries received from the UI into the relevant SQL queries. 
@@ -236,3 +240,5 @@ drwxr-xr-x    4 root     root          4096 Dec 10 00:55 neuvector
 Please see [README.md](./README.md)
 
 ## Section 5: Changed file and scope
+
+To be provided..
