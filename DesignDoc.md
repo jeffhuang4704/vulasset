@@ -10,7 +10,7 @@
 
 ## Section 1: Overview
 
-The primary objective is to enhance the performance of the Vulnerability Page, focusing on:
+The primary objective is to enhance the performance of the Vulnerability Page, issues we want to address are:
 - Load time optimization
 - Reducing memory consumption to mitigate potential out-of-memory errors in browsers.
 
@@ -37,9 +37,11 @@ The entire data handling process is divided into three distinct phases based on 
 
 ### data hook point
 
-The data hook point is initiated upon completion of the scan task (`func scanDone()`). Raw data obtained from the scan is processed through functions like FillVulTraits() function to generate a comprehensive report. Subsequently, the details of this report are stored in the database.
+The data hook point is initiated upon completion of the scan task (`func scanDone()` and `func RegistryImageStateUpdate()`). 
 
-At this stage, an existing mechanism, the Consul KV watcher, is employed. This watcher enables the system to detect new data additions or restorations, triggering the initiation of a cache-building process. The newly acquired data is subjected to ETL operations before being saved to the database.
+This hook point serves as the focal point for the Controller to establish its cache. Currently, we are extending its functionality to encompass the construction of the database.
+
+Raw data obtained from the scan is processed through functions like `FillVulTraits()` function to generate data needed for database population. 
 
 ```
 // This is called on every controller by key update
@@ -67,7 +69,9 @@ TODO: list the schema
 
 ### SQL 
 
-Within the backend, it replicate all query logic initially embedded in the front-end. This process entails translating queries received from the UI into the relevant SQL queries. In the current version, I prioritizes adopting direct SQL execution if the query can be seamlessly accomplished in SQL. However, if this is not feasible due to complexity or table design constraints, the system implements the necessary filtering logic in the Golang code.
+Within the backend, it replicate all query logic initially embedded in the front-end. This process entails translating queries received from the UI into the relevant SQL queries. 
+
+In the current version, I prioritizes adopting direct SQL execution if the query can be seamlessly accomplished in SQL. However, if this is not feasible due to complexity or table design constraints, the system implements the necessary filtering logic in the Golang code.
 
 The schema design encompasses considerations such as normalization levels, data modification patterns, and maintainability. In this version, I have opted for a relatively straightforward model, acknowledging the complexity of certain data and logic aspects, such as namespace checking in user roles, which is challenging to map directly. I find it more preferable to retain such logic within the Golang code and maintain it in a centralized location.
 
@@ -110,7 +114,7 @@ object/config/querysession/mm_fd3d6d6a87e9
 
 ### session temp table 
 
-To optimize performance during the process phase, the system employs a strategic approach. The session temporary table is initially written to a memory-based database to promptly fulfill the first initial request. Concurrently, in the background, a file-based database is created. Once the file-based table has been successfully created, the memory-based table is systematically deleted. This dual-step process effectively balances the imperative for rapid response times.
+To optimize performance during the process phase, the system employs a strategic approach. The session temporary table is initially written to a memory-based database to promptly fulfill the first initial request. Concurrently, in the background, a file-based database is created. Once the file-based table has been successfully created, the memory-based table is deleted. This dual-step process effectively balances the imperative for rapid response times.
 
 ### session temp table cleanup
 
@@ -120,7 +124,9 @@ Given the dynamic nature of query results, the system employs session temporary 
 
 ### SQL Injection prevention
 
-The code uses parameterized queries, also known as prepared statements, as a best practice for writing SQL queries. This approach treats user input and other variables as parameters rather than integral parts of the SQL statement. By doing so, the system mitigates the risk of SQL injection attacks and ensures a more secure interaction with the database.
+The code uses parameterized queries, also known as prepared statements, as a best practice for writing SQL queries. 
+
+This approach treats user input and other variables as parameters rather than integral parts of the SQL statement. By doing so, the system mitigates the risk of SQL injection attacks and ensures a more secure interaction with the database.
 
 ### File location
 
