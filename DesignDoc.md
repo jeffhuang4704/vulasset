@@ -1,7 +1,11 @@
 # UI Vulnerablity Page Improvement
 
 ## Introduction
-In this modification, we transition the data filtering process from the front-end to the backend. The UI now has the capability to retrieve partial data rather than the entire dataset. This is achieved by leveraging the database to store and implementing a pagination mechanism for efficient data handling.
+In this modification, we transition the data filtering process from the front-end to the backend. The UI now has the capability to retrieve partial data rather than the entire dataset. This is achieved by leveraging the database to store and implementing a pagination mechanism.
+
+Originally, the plan involved integrating memory reduction measures in both the Consul and Controller processes. However, after thorough exploration, we have not identified an optimal solution considering the deployment model and data synchronization. 
+
+Consequently, this aspect will be excluded from the current release and is planned to be deferred to the subsequent version. This minimizes the system's scope and potential impacts.
 
 ## Table of Contents
 
@@ -16,10 +20,6 @@ In this modification, we transition the data filtering process from the front-en
 The primary objective is to enhance the performance of the Vulnerability Page, issues we want to address are:
 - slow page load time 
 - out-of-memory errors in browsers
-
-Originally, the plan involved integrating memory reduction measures in both the Consul and Controller processes. However, after thorough exploration, we have not identified an optimal solution considering the deployment model and data synchronization. 
-
-Consequently, this aspect will be excluded from the current release and is planned to be deferred to the subsequent version. This minimizes the system's scope and potential impacts.
 
 ## Section 2: Design
 
