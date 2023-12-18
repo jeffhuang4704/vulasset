@@ -53,19 +53,19 @@ Request Body
     "orderbycolumn": "scorev3",     // name, scorev2, scorev3, publishedtime
     "orderby": "desc",
 
-    "viewType": "all",              // all, containers, infrastructure, registry
+    "viewType": "all",              // 👈 all, containers, infrastructure, registry (as of 2023/12/18, this implementation is not ready yet.)
 }
 
 Response Body
 {
-    "debug_error": 0,    // 👈 please ignore fields start with "debug".
+    "debug_error": 0,    // please ignore fields start with "debug".
     "debug_error_message": "",
     "debug_perf_stats": [
         "step-1, get allowed resources, took=792.405µs",
         ...
     ],
     "query_token": "eff501a8ce17",   👈  // need to bring this value in the URL parameter to navigate this query session
-    "summary": {   👈   
+    "summary": {      
         "count_distribution": {   1️⃣
             "high": 20,     // In the searched result, 
             "low": 10,      //   how many distinct CVEs has high severity (based on the score type, v2 or v3)
@@ -224,7 +224,7 @@ Request Body
     "matchTypeContainer": "equals", // contains, equals
     "containerName": "cont",
 
-    "lastModifiedTime":             // 1605353432   👈
+    "lastModifiedTime":             // 1605353432   👈 (as of 2023/12/18, this implementation is not ready yet.)
 }
 ```
 
