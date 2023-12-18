@@ -84,7 +84,7 @@ func scanDone(id string, objType share.ScanObjectType, report *share.CLUSScanRep
 
 The database table is crafted to optimize the Vulnerability Page. This page necessitates the incorporation of two distinct aspects of data: vulnerability-based and asset-based information.
 
-<b>tables</b>
+schema:
 ```
 CREATE TABLE vulassets (id INTEGER NOT NULL PRIMARY KEY,name TEXT,severity TEXT,description TEXT,
                     packages TEXT,link TEXT,score NUMERIC,vectors TEXT,score_v3 NUMERIC,vectors_v3 TEXT,
@@ -100,11 +100,13 @@ CREATE TABLE assetvuls (id INTEGER NOT NULL PRIMARY KEY,type TEXT,assetid TEXT U
 
 CREATE TABLE querystats (id INTEGER NOT NULL PRIMARY KEY,token TEXT,create_timestamp INTEGER,
                     login_type TEXT,login_id TEXT,login_name TEXT,data1 TEXT,data2 TEXT,data3 TEXT)
+
 ```
 
 <p align="left">
 <img src="./materials/db-tables.png" width="40%">
 </p>
+
 
 ### SQL 
 
@@ -132,7 +134,7 @@ SELECT "assetid", "name", "w_domain", "w_applications", "policy_mode", "w_servic
     AND (("w_domain" LIKE '%kube-system%') OR ("w_domain" LIKE '%default%')))
 ```
 
-<b>code snippets</b>
+code snippets:
 ```
 func getWorkloadAssetView(allowed map[string]utils.Set, vulMap map[string]*DbVulAsset, queryFilter *VulQueryFilter) {
 	records := make([]*api.RESTWorkloadAssetView, 0)
