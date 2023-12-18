@@ -325,7 +325,14 @@ The controller endpoint is accessible via curl at 10.1.45.44:31693.
 
 You can also use these two scripts on 10.1.45.44 for testing.
 
+### Sample test page
+
 I also has a testing page, visit https://10.1.45.44:30161/portal/vp5.html
+
+<p align="left">
+<img src="./materials/sample-page.png" width="80%">
+</p>
+
 
 ### `/v1/vulasset`
 ```
