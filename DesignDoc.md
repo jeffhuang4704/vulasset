@@ -81,7 +81,7 @@ object/config/querysession/mm_fc0570a6e925
 object/config/querysession/mm_fd3d6d6a87e9
 ```
 
-<details><summary>sample data</summary>
+<b>sample data</b>
 ```
 {
     "QueryToken": "fe40e88abbf5",
@@ -99,30 +99,10 @@ object/config/querysession/mm_fd3d6d6a87e9
         "packageType": "all",
         "severityType": "all",
         "scoreType": "v3",
-        "publishedType": "",
-        "publishedTime": 0,
-        "matchTypeNs": "",
-        "selectedDomains": null,
-        "serviceName": "",
-        "imageName": "",
-        "nodeName": "",
-        "containerName": "",
-        "matchTypeService": "",
-        "matchTypeImage": "",
-        "matchTypeNode": "",
-        "matchTypeContainer": "",
-        "scoreV2Min": 0,
-        "scoreV2Max": 0,
-        "scoreV3Min": 0,
-        "scoreV3Mmax": 0,
-        "orderbycolumn": "name",
-        "orderby": "asc"
+        ...
     }
 }
 ```
-
-</details>
-
 
 ### session temp table cleanup
 
