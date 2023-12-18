@@ -225,9 +225,13 @@ Here is some code snippet:
 ```
 func GetAssetVulByAssetID(assetID string) (*DbAssetVul, error) {
 	dialect := goqu.Dialect("sqlite3")
-	statement, args, _ := dialect.From(Table_assetvuls).Select("id").Where(goqu.C("assetid").Eq(assetID)).Prepared(true).ToSQL()
+	statement, args, _ := dialect.From(Table_assetvuls)
+                                 .Select("id")
+                                 .Where(goqu.C("assetid").Eq(assetID))
+                                 .Prepared(true)    👈
+                                 .ToSQL()
 
-	rows, err := dbHandle.Query(statement, args...)
+	rows, err := dbHandle.Query(statement, args...) 👈
 	if err != nil {
 		return nil, err
 	}
