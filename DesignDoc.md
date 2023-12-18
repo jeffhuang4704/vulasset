@@ -40,7 +40,7 @@ The entire data handling process is divided into three distinct phases based on 
 
 ### data hook point
 
-The data hook point is initiated upon completion of the scan task (scanDone()). Raw data obtained from the scan is processed through functions like FillVulTraits() function to generate a comprehensive report. Subsequently, the details of this report are stored in the database.
+The data hook point is initiated upon completion of the scan task (`func scanDone()`). Raw data obtained from the scan is processed through functions like FillVulTraits() function to generate a comprehensive report. Subsequently, the details of this report are stored in the database.
 
 At this stage, an existing mechanism, the Consul KV watcher, is employed. This watcher enables the system to detect new data additions or restorations, triggering the initiation of a cache-building process. The newly acquired data is subjected to ETL operations before being saved to the database.
 
