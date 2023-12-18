@@ -110,6 +110,47 @@ Given the context, I didn't use ORM tool to facilitate the interaction between a
 <img src="./materials/ui-query.png" width="85%">
 </p>
 
+I use a package `goqu` to construct SQL statement. Refer to [goqu](https://github.com/doug-martin/goqu) for details. 
+
+Following are some code snippet:
+
+```
+part1_assetType := goqu.Ex{
+    "type": "workload",
+}
+
+if queryFilter.MatchType4Ns == "equals" {
+    part3_domain_equals = goqu.Ex{
+        "w_domain": queryFilter.SelectedDomains,
+    }
+} else if queryFilter.MatchType4Ns == "contains" {
+
+    for _, d := range queryFilter.SelectedDomains {
+        domain_contains = append(domain_contains, goqu.C("w_domain").Like(fmt.Sprintf("%%%s%%", d)))
+    }
+}
+
+SELECT "assetid", "name", "w_domain", "w_applications", "policy_mode", "w_service_group", "cve_high", 
+"cve_medium", "cve_low", "cve_lists", "scanned_at" FROM "assetvuls"
+WHERE (("type" = 'workload') AND ("assetid" IN ('7a70...','286b9...'))
+AND (("w_domain" LIKE '%kube-system%') OR ("w_domain" LIKE '%default%')))
+```
+
+```
+func getWorkloadAssetView(allowed map[string]utils.Set, vulMap map[string]*DbVulAsset, queryFilter *VulQueryFilter) ([]*api.RESTWorkloadAssetView, error) {
+	records := make([]*api.RESTWorkloadAssetView, 0)
+
+	columns := []interface{}{"assetid", "name", "w_domain", "w_applications", "policy_mode", "w_service_group",
+							"cve_high", "cve_medium", "cve_low", "cve_lists", "scanned_at"}
+
+	dialect := goqu.Dialect("sqlite3")
+
+	allowedWorkloads := allowed["workloads"].ToStringSlice()
+	statement, args, _ := dialect.From("assetvuls").Select(columns...).Where(buildWhereClauseForWorkload(allowedWorkloads, queryFilter.Filters)).Prepared(true).ToSQL()
+
+	rows, err := dbHandle.Query(statement, args...)
+```
+
 ### multi-controller
 
 Given that each controller operates independently and the database (it's embedded to the Controller process) is not shared, an essential mechanism is required to enable other controllers to construct the same session temporary table. To achieve this, a request containing user roles, advanced filters, and query_token is written to Consul. This action serves as a signal to inform other controllers. Subsequently, these controllers can utilize the provided query_token to serve requests at a later stage.
