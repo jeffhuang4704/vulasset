@@ -202,9 +202,7 @@ No pagination functionality is required for this endpoint. It is specifically im
 
 Use `HTTP POST` for this request.
 
-The output will be sourced from the existing query session within the main UI.  
-As a result, it is essential to include the query_token in the URL parameters.  
-To refine the output, you can include the `lastModifiedTime` in the request body. 
+The output will be sourced from the existing query session within the main UI. As a result, it is essential to include the query_token in the URL parameters. To refine the output, you can include the `lastModifiedTime` in the request body. 
 
 ```
 HTTP POST v1/vulasset
