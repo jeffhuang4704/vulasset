@@ -33,10 +33,10 @@ HTTP POST v1/vulasset
 
 Request Body
 {
-    "publishedType": "before",      // all, before, after
-    "publishedTime": 1605353432,    // timetick
+    "publishedType": "before",      // all, before, after; UI sends all if no published timestamp is selected
+    "publishedTime": 1605353432,    // time tick
     "packageType": "withfix",       // all, withfix, withoutfix
-    "severityType": "high",         // high, medium
+    "severityType": "high",         // all, high, medium, low
     "scoreType": "v3",              // v2, v3
     "scoreV3Min": 1,
     "scoreV3Max": 4,
@@ -207,10 +207,10 @@ HTTP POST v1/vulasset
 
 Request Body
 {
-    "publishedType": "before",      // all, before, after
-    "publishedTime": 1605353432,    // timetick
+    "publishedType": "before",      // all, before, after; UI sends all if no published timestamp is selected
+    "publishedTime": 1605353432,    // time tick
     "packageType": "withfix",       // all, withfix, withoutfix
-    "severityType": "high",         // high, medium
+    "severityType": "high",         // all, high, medium, low
     "scoreType": "v3",              // v2, v3
     "scoreV3Min": 1,
     "scoreV3Max": 4,
