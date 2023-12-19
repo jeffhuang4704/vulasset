@@ -225,7 +225,7 @@ total 85424
 drwxr-xr-x    4 root     root          4096 Dec 18 20:28 neuvector
 -rw-r--r--    1 root     root      10735616 Dec 19 05:49 nvdb.db
 -rw-r--r--    1 root     root            15 Dec 19 05:45 ready
--rw-r--r--    1 root     root      10952704 Dec 19 05:07 tmp_session_11ca60087b27
+-rw-r--r--    1 root     root      10952704 Dec 19 05:07 tmp_session_11ca60087b27   👈
 -rw-r--r--    1 root     root      10960896 Dec 19 05:40 tmp_session_25b56e99571a
 -rw-r--r--    1 root     root      10952704 Dec 19 05:03 tmp_session_2bcf783a6430
 -rw-r--r--    1 root     root      10952704 Dec 19 05:06 tmp_session_98dc06906d30
