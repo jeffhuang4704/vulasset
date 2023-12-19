@@ -212,7 +212,7 @@ object/config/querysession/mm_fd3d6d6a87e9
 
 ### session temp file 
 
-To optimize performance during the process phase, the system employs a strategic approach. The session temporary table is initially written to a memory-based database to promptly fulfill few first initial requests. 
+To optimize performance during the process phase, the system employs a strategic approach. The session temporary table is initially written to a memory-based database to promptly fulfill first few initial requests. 
 
 Concurrently, in the background, a file-based database is created. Once the file-based table has been successfully created, the memory-based table is deleted. This dual-step process effectively balances the imperative for rapid response times.
 
