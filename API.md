@@ -1,8 +1,9 @@
-## Vulnerablity Page changes (v2)
+## Vulnerablity Page changes (v3)
 
 ### History
 - v1 - 2023/12/13  
 - v2 - 2023/12/17  
+- v3 - 2023/12/19, update `v1/assetvul`
 
 ## Table of Contents
 
@@ -193,57 +194,39 @@ Reponse
 
 ## Usage for `v1/assetvul`
 
-This endpoint is dedicated to serving printouts of the Assets View, presenting vulnerability data associated with a particular asset.
+This endpoint is to serving printouts of the Assets View, presenting vulnerability data associated with a particular asset.
 
 No pagination functionality is required for this endpoint. It is specifically implemented for generating printouts, and therefore, the entire content can be retrieved in a single request.
 
 ### The request
 
 Use `HTTP POST` for this request.
-The majority fields is the same as in `v1/vulasset` with one additional for `lastModifiedTime`.  
+
+The output will be sourced from the existing query session within the main UI.  
+As a result, it is essential to include the query_token in the URL parameters.  
+To refine the output, you can include the `lastModifiedTime` in the request body. 
 
 ```
 HTTP POST v1/vulasset
 
+POST v1/vulasset?token=eff501a8ce17
+
 Request Body
 {
-    "publishedType": "before",      // all, before, after; UI sends all if no published timestamp is selected
-    "publishedTime": 1605353432,    // time tick
-    "packageType": "withfix",       // all, withfix, withoutfix
-    "severityType": "high",         // all, high, medium, low
-    "scoreType": "v3",              // v2, v3
-    "scoreV3Min": 1,
-    "scoreV3Max": 4,
-
-    "matchTypeService": "contains", // contains, equals
-    "serviceName": "svc",      
-
-    "matchTypeNs": "contains",
-    "selectedDomains": [
-        "ns1",
-        "ns7"
-    ],
-    "matchTypeImage": "equals",     // contains, equals
-    "imageName": "img",         
-
-    "matchTypeNode": "equals",      // contains, equals
-    "nodeName": "node",
-
-    "matchTypeContainer": "equals", // contains, equals
-    "containerName": "cont",
-
     "lastModifiedTime":             // 1605353432   👈 (as of 2023/12/18, this implementation is not ready yet.)
 }
 ```
 
 ### The response
 
-The response from this API call contains all the necessary data in a single retrieval, as it is intended for the printout function.
+The response from this API call contains all the necessary data in a single retrieval.
 
 The response strucutre like this.
 <p align="left">
-<img src="./materials/assetvul-1.png" width="40%">
+<img src="./materials/assetvul-2.png" width="40%">
 </p>
+
+The `vulnerabilities` array comprises distinct CVEs from `workloads`, `nodes`, `platforms`, and `images`. Its structure mirrors the output of `v1/vulasset`, with certain fields removed to optimize bandwidth usage.
 
 ```
 {
@@ -310,6 +293,28 @@ The response strucutre like this.
                 "CVE-2023-29383",
                 "CVE-2022-4899"
             ]
+        }
+    ],
+    "vulnerabilities": [
+        {
+            "description": "Docker before 1.5 allows local users to have unspecified impact via vectors involving unsafe /tmp usage.",
+            "last_modified_timestamp": 1507923932,
+            "link": "http://people.ubuntu.com/~ubuntu-security/cve/CVE-2014-0047",
+            "name": "CVE-2014-0047",
+            "packages": {
+                "docker.io": [
+                    {
+                        "fixed_version": "1.6.2~dfsg1-1ubuntu4~14.04.1",
+                        "package_version": "1.0.1~dfsg1-0ubuntu1~ubuntu0.14.04.1"
+                    }
+                ]
+            },
+            "published_timestamp": 1507923932,
+            "score": 4.6,
+            "score_v3": 7.8,
+            "severity": "High",
+            "vectors": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
+            "vectors_v3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
         }
     ]
 }
