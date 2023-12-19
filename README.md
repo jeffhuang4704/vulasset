@@ -216,6 +216,22 @@ To optimize performance during the process phase, the system employs a strategic
 
 Concurrently, in the background, a file-based database is created. Once the file-based table has been successfully created, the memory-based table is deleted. This dual-step process effectively balances the imperative for rapid response times.
 
+The temporary files are stored in the /tmp folder, and the system will automatically clean up these files upon the deletion of the session.
+
+```
+/tmp # ls -l
+total 85424
+-rw-r--r--    1 root     root         12288 Dec 19 04:39 cvedb.db
+drwxr-xr-x    4 root     root          4096 Dec 18 20:28 neuvector
+-rw-r--r--    1 root     root      10735616 Dec 19 05:49 nvdb.db
+-rw-r--r--    1 root     root            15 Dec 19 05:45 ready
+-rw-r--r--    1 root     root      10952704 Dec 19 05:07 tmp_session_11ca60087b27
+-rw-r--r--    1 root     root      10960896 Dec 19 05:40 tmp_session_25b56e99571a
+-rw-r--r--    1 root     root      10952704 Dec 19 05:03 tmp_session_2bcf783a6430
+-rw-r--r--    1 root     root      10952704 Dec 19 05:06 tmp_session_98dc06906d30
+-rw-r--r--    1 root     root      10960896 Dec 19 05:40 tmp_session_a4623fbb0844
+```
+
 ### session temp file cleanup
 
 Given the dynamic nature of query results, the system employs session temporary tables for storage. Typically, a new session is unnecessary when users perform subsequent queries, such as changing filter criteria. 
