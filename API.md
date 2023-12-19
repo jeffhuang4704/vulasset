@@ -211,7 +211,7 @@ POST v1/vulasset?token=eff501a8ce17
 
 Request Body
 {
-    "lastModifiedTime":             // 1605353432   👈 (as of 2023/12/18, this implementation is not ready yet.)
+    "lastModifiedTime":             // 1605353432;  or 0 for [all]
 }
 ```
 
