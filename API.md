@@ -226,7 +226,7 @@ The response strucutre like this.
 
 The `vulnerabilities` array comprises distinct CVEs from `workloads`, `nodes`, `platforms`, and `images`. Its structure mirrors the output of `v1/vulasset`, with certain fields removed to optimize bandwidth usage.
 
-<span style="color: red;">Note the CVE name in asset's object will be prefixed with its severity indicator: H_ for high, M_ for medium, or L_ for low.</span>
+🔑  The CVE name will be prefixed with its severity indicator: H_, M_, or L_. Callers should extract the format based on the intended display.
 
 ```
 {
@@ -244,7 +244,7 @@ The `vulnerabilities` array comprises distinct CVEs from `workloads`, `nodes`, `
             "medium": 5,
             "low": 2,
             "vulnerabilities": [
-                "H_CVE-2023-29383",   👈 ** The CVE name will be prefixed with its severity indicator: H_ for high, M_ for medium, or L_ for low.
+                "H_CVE-2023-29383",   👈 ** prefixed with its severity indicator: H_ for high, M_ for medium, or L_ for low.
                 "L_CVE-2022-4899"
             ],
             "scanned_at": "2023-12-11T01:21:10Z"
