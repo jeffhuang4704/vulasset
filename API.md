@@ -197,7 +197,7 @@ Reponse
 ### Quick Filter Within a Query Session
 
 The current UI design includes a Filter function that enables users to refine their search within the existing results. 
-To achieve this, you can utilize the same endpoint with an "f" URL parameter to specify the search term.
+To achieve this, you can utilize the same endpoint with an `f` URL parameter to specify the search term.
 
 The search scope is currently limited to the [name] and [score] fields. 
 
