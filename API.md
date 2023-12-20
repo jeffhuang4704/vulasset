@@ -197,14 +197,17 @@ Reponse
 ### Quick Filter Within a Query Session
 
 The current UI design includes a Filter function that enables users to refine their search within the existing results. 
-To achieve this, you can utilize the same endpoint with an `f` URL parameter to specify the search term.
+To achieve this, you can utilize the same endpoint with an `f` URL parameter to specify the search term and `st` to indicate score type.
 
 The search scope is currently limited to the [name] and [score] fields. 
 
 To prevent an excessive number of requests to the backend, we recommend implementing a debounce mechanism in the front-end.
 
 ```
-GET /v1/vulasset?token=aaa&f=term&start=0&row=100
+GET /v1/vulasset?token=aaa&f=term&st=v3&start=0&row=100
+
+f : indicate the quick filter term
+st: indicate the score type, values are "v2", "v3"
 ```
 
 Quick filter:
