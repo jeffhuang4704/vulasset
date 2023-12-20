@@ -11,8 +11,8 @@
 - [Usage for `v1/vulasset`](#usage-for-v1vulasset)
     - [Starting a Query Session](#starting-a-query-session)
     - [Navigating Within a Query Session](#navigating-within-a-query-session)
-    - [Quick Filter Within a Query Session](#quick-search)
-- [Usage for `v1/assetvul`](#quick-filter-within-a-query-session)
+    - [Quick Filter Within a Query Session](#quick-filter-within-a-query-sessionh)
+- [Usage for `v1/assetvul`](#usage-for-v1assetvul)
 - [Testing Environment](#testing-environment)
 
 ## Endpoints
@@ -194,7 +194,7 @@ Reponse
 }
 ```
 
-## Quick Filter Within a Query Session
+### Quick Filter Within a Query Session
 
 The current UI design includes a Filter function that enables users to refine their search within the existing results. 
 To achieve this, you can utilize the same endpoint with an "f" URL parameter to specify the search term.
