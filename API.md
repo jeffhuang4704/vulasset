@@ -207,11 +207,12 @@ To prevent an excessive number of requests to the backend, we recommend implemen
 GET /v1/vulasset?token=aaa&f=term&start=0&row=100
 ```
 
-
+Quick filter:
 <p align="left">
 <img src="./materials/quick-search.png" width="40%">
 </p>
 
+Quick filter scope on these two values only: 
 <p align="left">
 <img src="./materials/quick-search2.png" width="40%">
 </p>
