@@ -11,8 +11,8 @@
 - [Usage for `v1/vulasset`](#usage-for-v1vulasset)
     - [Starting a Query Session](#starting-a-query-session)
     - [Navigating Within a Query Session](#navigating-within-a-query-session)
-    - [Quick Search](#quick-search)
-- [Usage for `v1/assetvul`](#usage-for-v1assetvul)
+    - [Quick Filter Within a Query Session](#quick-search)
+- [Usage for `v1/assetvul`](#quick-filter-within-a-query-session)
 - [Testing Environment](#testing-environment)
 
 ## Endpoints
@@ -194,7 +194,7 @@ Reponse
 }
 ```
 
-## Quick Search Within a Query Session
+## Quick Filter Within a Query Session
 
 The current UI design includes a Filter function that enables users to refine their search within the existing results. 
 To achieve this, you can utilize the same endpoint with an "f" URL parameter to specify the search term.
@@ -203,13 +203,15 @@ The search scope is currently limited to the [name] and [score] fields.
 
 To prevent an excessive number of requests to the backend, we recommend implementing a debounce mechanism in the front-end.
 
-<p align="left">
-<img src="./materials/quick-search.png" width="50%">
-</p>
-
 ```
 GET /v1/vulasset?token=aaa&f=term&start=0&row=100
 ```
+
+
+<p align="left">
+<img src="./materials/quick-search.png" width="40%">
+</p>
+
 
 ## Usage for `v1/assetvul`
 
