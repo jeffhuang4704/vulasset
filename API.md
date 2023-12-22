@@ -61,6 +61,8 @@ Request Body
     "matchTypeContainer": "equals", // contains, equals
     "containerName": "cont",
 
+    "quickFilter": "CVE-2023",      // search name and score/scorev3 depends on scoreType; case insensitive
+
     "orderbycolumn": "scorev3",     // name, scorev2, scorev3, publishedtime
     "orderby": "desc",
 
