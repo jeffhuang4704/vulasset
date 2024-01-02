@@ -82,7 +82,7 @@ func scanDone(id string, objType share.ScanObjectType, report *share.CLUSScanRep
 
 ### database design
 
-The database table is crafted to optimize the Vulnerability Page. This page necessitates the incorporation of two distinct aspects of data: vulnerability-based and asset-based information.
+The database table is crafted to optimize for the Vulnerability Page. This page necessitates the incorporation of two distinct aspects of data: vulnerability-based and asset-based information.
 
 schema:
 ```
@@ -134,7 +134,7 @@ SELECT "assetid", "name", "w_domain", "w_applications", "policy_mode", "w_servic
     AND (("w_domain" LIKE '%kube-system%') OR ("w_domain" LIKE '%default%')))
 ```
 
-code snippets:
+code snippets to generate the statement:
 ```
 func getWorkloadAssetView(allowed map[string]utils.Set, vulMap map[string]*DbVulAsset, queryFilter *VulQueryFilter) {
 	records := make([]*api.RESTWorkloadAssetView, 0)
@@ -223,7 +223,7 @@ The temporary files are stored in the /tmp folder, and the system will automatic
 total 85424
 -rw-r--r--    1 root     root         12288 Dec 19 04:39 cvedb.db
 drwxr-xr-x    4 root     root          4096 Dec 18 20:28 neuvector
--rw-r--r--    1 root     root      10735616 Dec 19 05:49 nvdb.db
+-rw-r--r--    1 root     root      10735616 Dec 19 05:49 vulasset.db
 -rw-r--r--    1 root     root            15 Dec 19 05:45 ready
 -rw-r--r--    1 root     root      10952704 Dec 19 05:07 tmp_session_11ca60087b27   👈
 -rw-r--r--    1 root     root      10960896 Dec 19 05:40 tmp_session_25b56e99571a
@@ -236,7 +236,16 @@ drwxr-xr-x    4 root     root          4096 Dec 18 20:28 neuvector
 
 Given the dynamic nature of query results, the system employs session temporary tables for storage. Typically, a new session is unnecessary when users perform subsequent queries, such as changing filter criteria. 
 
-To streamline resource usage, a maximum of 5 queries per user/apikey is kept. This limitation ensures that older sessions, which are no longer needed, are systematically cleaned up. 
+To streamline resource usage, a maximum of 10 queries per user and 2 for apikey is kept. This limitation ensures that older sessions, which are no longer needed, are systematically cleaned up. 
+
+In the event of reaching the query limit, the earliest query will be automatically removed, and the associated token unavailable.
+When an expired token is utilized, the backend will respond with a specific error code.
+```
+const RESTErrInvalidQueryToken int = 53
+
+Invalid or expired query token
+```
+
 
 ## Section 3: Security
 
@@ -273,9 +282,8 @@ The database file is regenerated each time the Controller process starts under t
 / # cd /tmp/
 /tmp # ls -l
 total 61764
--rw-r--r--    1 root     root         12288 Dec 17 21:14 cvedb.db
 drwxr-xr-x    4 root     root          4096 Dec 10 00:55 neuvector
--rw-r--r--    1 root     root      63221760 Dec 18 00:09 nvdb.db    👈
+-rw-r--r--    1 root     root      63221760 Dec 18 00:09 vulasset.db    👈
 -rw-r--r--    1 root     root            15 Dec 17 21:14 ready
 /tmp #
 ```
@@ -286,4 +294,4 @@ Please see [API.md](./API.md)
 
 ## Section 5: Changed file and scope
 
-To be provided..
+PR - https://github.com/neuvector/neuvector/pull/1142
