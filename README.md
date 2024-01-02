@@ -13,7 +13,8 @@ Consequently, this aspect will be excluded from the current release and is plann
 - [Section 2: Design](#section-2-design)
 - [Section 3: Security](#section-3-security)
 - [Section 4: API Interface & Testing bed](#section-4-api-interface--testing-bed)
-- [Section 5: Changed file and scope](#section-5-changed-file-and-scope)
+- [Section 5: Database file size]
+- [Section 6: Changed file and scope](#section-5-changed-file-and-scope)
 
 ## Section 1: Overview
 
@@ -292,6 +293,15 @@ drwxr-xr-x    4 root     root          4096 Dec 10 00:55 neuvector
 
 Please see [API.md](./API.md)
 
-## Section 5: Changed file and scope
+## Section 5: Database file size
+
+### Database File Size
+In an environment with 10,000 workloads and encompassing 5,000 distinct CVEs, the database file size is approximately 84MB.
+In a scenario with 20,000 workloads and 13,000 CVEs, the database file size increases to around 161MB.
+
+### Session Temporary File Size
+For each query, a temporary database file is generated. Users are allowed a maximum of 10 concurrent queries, while an API Key can perform up to 2 queries. The size of the temporary file is depend on the applied filter.
+
+## Section 6: Changed file and scope
 
 PR - https://github.com/neuvector/neuvector/pull/1142
