@@ -300,7 +300,7 @@ In an environment with 10,000 workloads and encompassing 5,000 distinct CVEs, th
 In a scenario with 20,000 workloads and 13,000 CVEs, the database file size increases to around 161MB.
 
 ### Session Temporary File Size
-For each query, a temporary database file is generated. Each user is allowed a maximum of 10 concurrent queries, while an API Key can perform up to 2 queries. The size of the temporary file is depend on the applied filter.
+For each new query, a temporary database file is generated. Each user is allowed a maximum of 10 concurrent queries, while an API Key can perform up to 2 queries. The size of the temporary file is depend on the applied filter.
 
 ## Section 6: Changed file and scope
 
