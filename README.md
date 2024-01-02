@@ -297,7 +297,9 @@ Please see [API.md](./API.md)
 
 ### Database File Size
 In an environment with 10,000 workloads and encompassing 5,000 distinct CVEs, the database file size is approximately 84MB.  
+
 In a scenario with 20,000 workloads and 13,000 CVEs, the database file size increases to around 161MB.  
+
 Each individual asset is associated with 18 CVEs.
 
 ### Session Temporary File Size
