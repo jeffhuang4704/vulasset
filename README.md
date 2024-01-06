@@ -333,7 +333,7 @@ After generating the dataset, when querying using the GET `/v1/vulasset` endpoin
 
 ### curl examples 
 
-1️⃣To create dummy data
+1️⃣ To create dummy data
 ```
 curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?createdummyasset=1&howmany_cve=1000&howmany_asset=1000&howmany_cve_per_asset=18"
 ```
