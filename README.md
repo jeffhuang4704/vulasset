@@ -338,9 +338,10 @@ After generating the dataset, when querying using the GET `/v1/vulasset` endpoin
 
 1️⃣ To create dummy data
 ```
-curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?createdummyasset=1&howmany_cve=1000&howmany_asset=1000&howmany_cve_per_asset=18"
+curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?createdummyasset=1&howmany_cve=10000&howmany_asset=10000&howmany_cve_per_asset=18"
 ```
 
+Creating dummy data is a time-consuming task; in this example, it took 20 minutes to complete.
 
 2️⃣ To make a query session, adding `debug=1` flag to show perf data
 
@@ -362,7 +363,7 @@ curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "h
             "3/4, get summary top_image and top_node, took=1.016074ms",
             "4/4, populate result to tmp session table, took=285.614299ms"
         ],
-        "query_token": "4d8e8a2b6cea",
+        "query_token": "4d8e8a2b6cea",  👈 (You will need carry this token to fetch the data, see next example)
         ...
     }
 
