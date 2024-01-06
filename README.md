@@ -14,7 +14,8 @@ Consequently, this aspect will be excluded from the current release and is plann
 - [Section 3: Security](#section-3-security)
 - [Section 4: API Interface & Testing bed](#section-4-api-interface--testing-bed)
 - [Section 5: Database file size](#section-5-database-file-size)
-- [Section 6: Changed file and scope](#section-6-changed-file-and-scope)
+- [Section 6: Performance Testing]
+- [Section 7: Changed file and scope](#section-7-changed-file-and-scope)
 
 ## Section 1: Overview
 
@@ -305,6 +306,34 @@ Each individual asset is associated with 18 CVEs.
 ### Session Temporary File Size
 For each new query, a temporary database file is generated. Each user is allowed a maximum of 10 concurrent queries, while an API Key can perform up to 2 queries. The size of the temporary file is depend on the applied filter.
 
-## Section 6: Changed file and scope
+## Section 6: Performance Testing
+To activate this functionality, follow these steps to add an environment variable in the Controller deployment manifest:
+```
+      containers:
+      - env:
+        - name: TELEMETRY_NEUVECTOR_EP
+          value: http://10.1.45.41/dbperftest
+```
+
+To generate dummy data, initiate a POST call to the `/v1/vulasset` endpoint with the following URL parameters:
+
+```
+    createdummyasset = 1        // Set to 1 to create dummy data
+    howmany_cve = 5000          // Number of CVEs to generate
+    howmany_asset = 10000       // Number of assets to generate
+    howmany_cve_per_asset = 18  // Number of CVEs per asset
+```
+
+TODO: show an actual curl example..
+
+Using these parameters, the system will generate 5000 CVEs with names starting with "CVE-2030," create 10000 workload assets, and allocate 18 CVEs to each asset randomly selected from the pool of 5000 CVEs.
+
+Please note that the creation of this dataset is a long process, it took over xx minutes to create 10000 assets.
+
+After generating the dataset, when querying using the GET `/v1/vulasset` endpoint, ensure to include a special URL parameter `perftest=1` in your request to the Controller. This instructs the Controller to treat the data as real Kubernetes workload. Since these data are not actual Kubernetes workloads, the Controller requires this flag to recognize and process them correctly. Include the special flag in your query for the proper handling of the generated data.
+
+
+
+## Section 7: Changed file and scope
 
 PR - https://github.com/neuvector/neuvector/pull/1142
