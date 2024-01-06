@@ -324,26 +324,22 @@ To generate dummy data, initiate a POST call to the `/v1/vulasset` endpoint with
     howmany_cve_per_asset = 18  // Number of CVEs per asset
 ```
 
-createdummyasset=1&howmany_cve=1000&howmany_asset=1000&howmany_cve_per_asset=18
-
-Using these parameters, the system will generate 5000 CVEs with names starting with "CVE-2030," create 10000 workload assets, and allocate 18 CVEs to each asset randomly selected from the pool of 5000 CVEs.
+In above example, the system will generate 5000 CVEs with names starting with "CVE-2030," create 10000 workload assets, and allocate 18 CVEs to each asset randomly selected from the pool of 5000 CVEs.
 Please be aware that while we generate 5000 CVEs, the number of CVEs written to the database depends on the impact of assets.
 
 Please note that the creation of this dataset is a long process, it took over xx minutes to create 10000 assets.
 
 After generating the dataset, when querying using the GET `/v1/vulasset` endpoint, ensure to include a special URL parameter `perftest=1` in your request to the Controller. This instructs the Controller to treat the data as real Kubernetes workload. Since these data are not actual Kubernetes workloads, the Controller requires this flag to recognize and process them correctly. Include the special flag in your query for the proper handling of the generated data.
 
-TODO: copy the database file out and use sqlite3 console to view the rows count..
-TODO: use debug flag to see the assets,, 
+### curl examples 
 
-### curl examples
-To create dummy data
+1️⃣To create dummy data
 ```
 curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?createdummyasset=1&howmany_cve=1000&howmany_asset=1000&howmany_cve_per_asset=18"
 ```
 
 
-To make a query session, by add debug=1 flag to show perf data
+2️⃣ To make a query session, by add `debug=1` flag to show perf data
 ```
 Request:
 curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?debug=1&perftest=1"
@@ -367,8 +363,7 @@ Response:
 In 1/4, you'll notice that workloads_count is set to 1059. This indicates that the query encompasses a total of 1059 workloads.
 ```
 
-To fetch data from an existing query session
-add debug=1 flag to show perf data in `debug_perf_stats`
+3️⃣ To fetch data from an existing query session, add `debug=1` flag to show perf data in `debug_perf_stats`
 ```
 QTOKEN={the query token returned by the POST /v1/vulasset}
 curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?token=$QTOKEN&debug=1"
