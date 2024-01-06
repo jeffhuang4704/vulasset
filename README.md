@@ -14,7 +14,7 @@ Consequently, this aspect will be excluded from the current release and is plann
 - [Section 3: Security](#section-3-security)
 - [Section 4: API Interface & Testing bed](#section-4-api-interface--testing-bed)
 - [Section 5: Database file size](#section-5-database-file-size)
-- [Section 6: Performance Testing]
+- [Section 6: Performance Testing](#section-6-performance-testing)
 - [Section 7: Changed file and scope](#section-7-changed-file-and-scope)
 
 ## Section 1: Overview

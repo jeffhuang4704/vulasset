@@ -5,7 +5,6 @@
 - v2 - 2023/12/17  
 - v3 - 2023/12/19, update `v1/assetvul`
 - v4 - 2023/12/20, quick search
-- v5 - 2024/01/05, add performance test
 
 ## Table of Contents
 
