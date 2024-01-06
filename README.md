@@ -319,9 +319,12 @@ To generate dummy data, initiate a POST call to the `/v1/vulasset` endpoint with
 
 ```
     createdummyasset = 1        // Set to 1 to create dummy data
-    howmany_cve = 5000          // Number of CVEs to generate
-    howmany_asset = 10000       // Number of assets to generate
-    howmany_cve_per_asset = 18  // Number of CVEs per asset
+    howmany_cve                 // Number of CVEs to generate
+    howmany_asset               // Number of assets to generate
+    howmany_cve_per_asset       // Number of CVEs per asset
+
+    example:
+    v1/vulasset?createdummyasset=1&howmany_cve=5000&howmany_asset=10000&howmany_cve_per_asset=18
 ```
 
 In above example, the system will generate 5000 CVEs with names starting with "CVE-2030," create 10000 workload assets, and allocate 18 CVEs to each asset randomly selected from the pool of 5000 CVEs.
