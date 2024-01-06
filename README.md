@@ -343,11 +343,11 @@ curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "h
 
 **Request**
 ```
-curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?debug=1&perftest=1"
+    curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?debug=1&perftest=1"
 
-where
-debug=1    // see the performance data in debug_perf_stats
-perftest=1 // force Controller to treat dummy data as real assets
+    where
+    debug=1    // show performance data in debug_perf_stats
+    perftest=1 // force Controller to treat dummy data as real assets
 ```
 
 **Response**
@@ -371,10 +371,11 @@ perftest=1 // force Controller to treat dummy data as real assets
 
 **Request**
 ```
-QTOKEN={the query token returned by the POST /v1/vulasset}
-curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?token=$QTOKEN&debug=1"
-where
-debug=1    // see the performance data in debug_perf_stats
+    QTOKEN={the query token returned by the POST /v1/vulasset}
+    curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?token=$QTOKEN&debug=1"
+ 
+    where
+    debug=1    // see the performance data in debug_perf_stats
 ```
 
 **Response**
