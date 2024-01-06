@@ -339,16 +339,19 @@ curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "h
 ```
 
 
-2️⃣ To make a query session, by add `debug=1` flag to show perf data
+2️⃣ To make a query session, adding `debug=1` flag to show perf data
+
+**Request**
 ```
-Request:
 curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?debug=1&perftest=1"
 
 where
 debug=1    // see the performance data in debug_perf_stats
 perftest=1 // force Controller to treat dummy data as real assets
+```
 
-Response:
+**Response**
+```
     {
         "debug_perf_stats": [  
             "1/4, get allowed resources, workloads_count=1059, took=4.523154ms",  👈
@@ -360,23 +363,27 @@ Response:
         ...
     }
 
-In 1/4, you'll notice that workloads_count is set to 1059. This indicates that the query encompasses a total of 1059 workloads.
+    In 1/4, you'll notice that workloads_count is set to 1059. This indicates that the query encompasses a total of 1059 workloads.
 ```
 
-3️⃣ To fetch data from an existing query session, add `debug=1` flag to show perf data in `debug_perf_stats`
+
+3️⃣ To fetch data from an existing query session, ading `debug=1` flag to show perf data in `debug_perf_stats`
+
+**Request**
 ```
 QTOKEN={the query token returned by the POST /v1/vulasset}
 curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?token=$QTOKEN&debug=1"
-
 where
 debug=1    // see the performance data in debug_perf_stats
+```
 
+**Response**
+```
   "debug_perf_stats": [     👈
     "1/2: get 100 vuls from session (file=1), took=161.190032ms",
     "2/2, get asset meta, took=2.678296ms",
     "mem tables: [tmp_session_bae394840b82]"
   ],
-
 ```
 
 ## Section 7: Changed file and scope
