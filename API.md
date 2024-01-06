@@ -36,37 +36,37 @@ HTTP POST v1/vulasset
 
 Request Body
 {
-    "publishedType": "before",      // all, before, after; UI sends all if no published timestamp is selected
+    "publishedType": "before",      // "all" (default), "before", "after"; UI sends all if no published timestamp is selected
     "publishedTime": 1605353432,    // time tick
-    "packageType": "withfix",       // all, withfix, withoutfix
-    "severityType": "high",         // all, high, medium, low
-    "scoreType": "v3",              // v2, v3
+    "packageType": "withfix",       // "all" (default), "withfix", "withoutfix"
+    "severityType": "high",         // "all" (default), "high", "medium", "low"
+    "scoreType": "v3",              // "v2", "v3" (default)
     "scoreV3Min": 1,
     "scoreV3Max": 4,
 
-    "matchTypeService": "contains", // contains, equals
+    "matchTypeService": "contains", // "contains", "equals"
     "serviceName": "svc",      
 
-    "matchTypeNs": "contains",
+    "matchTypeNs": "contains",      // "contains", "equals"
     "selectedDomains": [
         "ns1",
         "ns7"
     ],
-    "matchTypeImage": "equals",     // contains, equals
+    "matchTypeImage": "equals",     // "contains", "equals"
     "imageName": "img",         
 
-    "matchTypeNode": "equals",      // contains, equals
+    "matchTypeNode": "equals",      // "contains", "equals"
     "nodeName": "node",
 
-    "matchTypeContainer": "equals", // contains, equals
+    "matchTypeContainer": "equals", // "contains", "equals"
     "containerName": "cont",
 
     "quickFilter": "CVE-2023",      // search name and score/scorev3 depends on scoreType; case insensitive
 
-    "orderbycolumn": "scorev3",     // name, scorev2, scorev3, publishedtime
-    "orderby": "desc",
+    "orderbycolumn": "scorev3",     // "name" (default), "score", "score_v3", "published_timestamp"
+    "orderby": "desc",              // "asc", "desc" (default)
 
-    "viewType": "all",              // 👈 all, containers, infrastructure, registry (as of 2023/12/18, this implementation is not ready yet.)
+    "viewType": "all",              // "all" (default), "containers", "infrastructure", "registry" 
 }
 
 Response Body
