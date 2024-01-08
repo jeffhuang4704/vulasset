@@ -45,8 +45,8 @@ Request Body
     // "scoreV3Max": 4,
 
     "last_modified_timestamp": 1605353432 // time tick
-    "scoreV2": [min, max],          // score v2 filter
-    "scoreV3": [min, max],          // score v3 filter
+    "scoreV2": [6, 10],          // score v2 filter
+    "scoreV3": [5, 10],          // score v3 filter
 
     "matchTypeService": "contains", // "contains", "equals"
     "serviceName": "svc",      
