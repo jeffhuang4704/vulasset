@@ -41,8 +41,12 @@ Request Body
     "packageType": "withfix",       // "all" (default), "withfix", "withoutfix"
     "severityType": "high",         // "all" (default), "high", "medium", "low"
     "scoreType": "v3",              // "v2", "v3" (default)
-    "scoreV3Min": 1,
-    "scoreV3Max": 4,
+    // "scoreV3Min": 1,
+    // "scoreV3Max": 4,
+
+    "last_modified_timestamp": 1605353432 // time tick
+    "scoreV2": [min, max],          // score v2 filter
+    "scoreV3": [min, max],          // score v3 filter
 
     "matchTypeService": "contains", // "contains", "equals"
     "serviceName": "svc",      
