@@ -131,6 +131,8 @@ GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 1️⃣ token: Indicates the query session; you can find this token in the response body.
 2️⃣ start: Specifies the starting row.
 3️⃣ row: Defines the number of rows to fetch. Use -1 to fetch all rows.
+4️⃣ orderbyColumn: Use different column to sort
+5️⃣ orderby: Use different sort type
 
 Reponse
 {
