@@ -5,6 +5,7 @@
 - v2 - 2023/12/17  
 - v3 - 2023/12/19, update `v1/assetvul`
 - v4 - 2023/12/20, quick search
+- v5 - 2024/01/08, adjust query filter `scoreV2`, `scoreV2`. Now the `last_modified_timestamp` is for both `/v1/vulasset` and `v1/assetvul`
 
 ## Table of Contents
 
@@ -124,6 +125,8 @@ Response Body
 To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/vulasset`) with the following query parameters. 
 
 Refer to the detailed fields and their corresponding values in the following raw data section.
+
+If the user opts for a different column sorting, we can incorporate this change within the current query session by adding the "orderbyColumn" and "orderby" URL parameters, eliminating the need to create a new query session and thereby enhancing performance.
 
 ```
 GET v1/vulasset?token=eff501a8ce17&start=0&row=100
@@ -248,7 +251,8 @@ POST v1/vulasset?token=eff501a8ce17
 
 Request Body
 {
-    "lastModifiedTime":             // 1605353432;  or 0 for [all]
+    // was "lastModifiedTime", now change to 
+    "last_modified_timestamp": // 1605353432;  or 0 for [all]
 }
 ```
 
