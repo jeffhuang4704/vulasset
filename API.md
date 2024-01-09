@@ -5,7 +5,7 @@
 - v2 - 2023/12/17  
 - v3 - 2023/12/19, update `v1/assetvul`
 - v4 - 2023/12/20, quick search
-- v5 - 2024/01/08, adjust query filter `scoreV2`, `scoreV2`. Now the `last_modified_timestamp` is for both `/v1/vulasset` and `v1/assetvul`
+- v5 - 2024/01/08, adjust query filter `scoreV2`, `scoreV3`. Now the `last_modified_timestamp` is for both `/v1/vulasset` and `v1/assetvul`
 
 ## Table of Contents
 
@@ -42,8 +42,8 @@ Request Body
     "packageType": "withfix",       // "all" (default), "withfix", "withoutfix"
     "severityType": "high",         // "all" (default), "high", "medium", "low"
     "scoreType": "v3",              // "v2", "v3" (default)
-    // "scoreV3Min": 1,
-    // "scoreV3Max": 4,
+    // "scoreV3Min": 1,    // obsolete
+    // "scoreV3Max": 4,    // obsolete
 
     "last_modified_timestamp": 1605353432 // time tick
     "scoreV2": [6, 10],          // score v2 filter
@@ -251,7 +251,8 @@ POST v1/vulasset?token=eff501a8ce17
 
 Request Body
 {
-    // was "lastModifiedTime", now change to 
+    // "lastModifiedTime", // obsolete
+
     "last_modified_timestamp": // 1605353432;  or 0 for [all]
 }
 ```
