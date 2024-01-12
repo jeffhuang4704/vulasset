@@ -217,10 +217,18 @@ To achieve this, you can utilize the same endpoint with an `qf` URL parameter to
 The search scope is currently limited to the [name] and [score] fields. 
 
 ```
+Request
 GET /v1/vulasset?token=aaa&qf=term&scoretype=v3&start=0&row=100
 
 qf : indicate the quick filter term
 scoretype: indicate the score type, values are "v2", "v3"
+
+Reponse
+{
+    "qf_matched_records": 0,   // 👈 how many quick filter matched records
+    "vulnerabilities": [...]
+}
+
 ```
 
 Quick filter:
