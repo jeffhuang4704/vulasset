@@ -6,6 +6,7 @@
 - v3 - 2023/12/19, update `v1/assetvul`
 - v4 - 2023/12/20, quick search
 - v5 - 2024/01/08, adjust query filter `scoreV2`, `scoreV3`. Now the `last_modified_timestamp` is for both `/v1/vulasset` and `v1/assetvul`
+- v6 - 2024/01/11, adjust quick filter behavior
 
 ## Table of Contents
 
@@ -66,7 +67,7 @@ Request Body
     "matchTypeContainer": "equals", // "contains", "equals"
     "containerName": "cont",
 
-    "quickFilter": "CVE-2023",      // search name and score/scorev3 depends on scoreType; case insensitive
+    "quickFilter": "CVE-2023",      // ❌ obsolete
 
     "orderbycolumn": "scorev3",     // "name" (default), "score", "score_v3", "published_timestamp"
     "orderby": "desc",              // "asc", "desc" (default)
@@ -128,6 +129,11 @@ Refer to the detailed fields and their corresponding values in the following raw
 
 If the user opts for a different column sorting, we can incorporate this change within the current query session by adding the "orderbyColumn" and "orderby" URL parameters, eliminating the need to create a new query session and thereby enhancing performance.
 
+#### Quick filter Within a Query Session
+```
+GET vulasset?token=eff501a8ce17&start=0&row=100&qf=2017&scoretype=v3
+```
+
 ```
 GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 
@@ -136,9 +142,12 @@ GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 3️⃣ row: Defines the number of rows to fetch. Use -1 to fetch all rows.
 4️⃣ orderbyColumn: Use different column to sort
 5️⃣ orderby: Use different sort type
+6️⃣ qf: quick filter search term, this will be used to search the CVE Name and score (depends on the scoretype)
+7️⃣ scoretype: v3 or v2
 
 Reponse
 {
+    "qf_matched_records": 0,   // 👈 how many quick filter matched records
     "vulnerabilities": [
         {
             "description": "Docker before 1.5 allows local users to have unspecified impact via vectors involving unsafe /tmp usage.",
