@@ -129,11 +129,6 @@ Refer to the detailed fields and their corresponding values in the following raw
 
 If the user opts for a different column sorting, we can incorporate this change within the current query session by adding the "orderbyColumn" and "orderby" URL parameters, eliminating the need to create a new query session and thereby enhancing performance.
 
-#### Quick filter Within a Query Session
-```
-GET vulasset?token=eff501a8ce17&start=0&row=100&qf=2017&scoretype=v3
-```
-
 ```
 GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 
@@ -217,17 +212,15 @@ Reponse
 ### Quick Filter Within a Query Session
 
 The current UI design includes a Filter function that enables users to refine their search within the existing results. 
-To achieve this, you can utilize the same endpoint with an `f` URL parameter to specify the search term and `st` to indicate score type.
+To achieve this, you can utilize the same endpoint with an `qf` URL parameter to specify the search term and `scoretype` to indicate score type.
 
 The search scope is currently limited to the [name] and [score] fields. 
 
-To prevent an excessive number of requests to the backend, we recommend implementing a debounce mechanism in the front-end.
-
 ```
-GET /v1/vulasset?token=aaa&f=term&st=v3&start=0&row=100
+GET /v1/vulasset?token=aaa&qf=term&scoretype=v3&start=0&row=100
 
-f : indicate the quick filter term
-st: indicate the score type, values are "v2", "v3"
+qf : indicate the quick filter term
+scoretype: indicate the score type, values are "v2", "v3"
 ```
 
 Quick filter:
