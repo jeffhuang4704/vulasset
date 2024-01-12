@@ -13,7 +13,7 @@
 - [Usage for `v1/vulasset`](#usage-for-v1vulasset)
     - [Starting a Query Session](#starting-a-query-session)
     - [Navigating Within a Query Session](#navigating-within-a-query-session)
-    - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session)
+    - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session)  🆕
 - [Usage for `v1/assetvul`](#usage-for-v1assetvul)
 - [Testing Environment](#testing-environment)
 
