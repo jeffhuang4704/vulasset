@@ -15,7 +15,8 @@ Consequently, this aspect will be excluded from the current release and is plann
 - [Section 4: API Interface & Testing bed](#section-4-api-interface--testing-bed)
 - [Section 5: Database file size](#section-5-database-file-size)
 - [Section 6: Performance Testing](#section-6-performance-testing)
-- [Section 7: Changed file and scope](#section-7-changed-file-and-scope)
+- [Section 7: Discrepancies in UI Results between Versions v52 and v53]()
+- [Section 8: Changed file and scope](#section-7-changed-file-and-scope)
 
 ## Section 1: Overview
 
@@ -390,7 +391,36 @@ Creating dummy data is a time-consuming task; in this example, it took 20 minute
     "mem tables: [tmp_session_bae394840b82]"
   ],
 ```
+## Section 7: Discrepancies in UI Results between Versions v52 and v53
 
-## Section 7: Changed file and scope
+When utilizing a score-based filter for vulnerabilities, specifically by selecting a score range such as 8-10, you may observe differences in output between versions v52 and v53.
+
+Here is an example:
+```
+In v5.2.4 UI, CVE-2017-0603 has a score-v3 of 7.8, so it will not fit in the query. We want 8-10.
+In v5.3 UI, for the same CVE-2017-0603, its score-v3 is 8.1, making it compliant with the query.
+```
+
+<p align="left">
+<img src="./materials/query_inconsistent1.png" width="60%">
+</p>
+
+
+<p align="left">
+<img src="./materials/query_inconsistent1.png" width="60%">
+</p>
+
+The reason behind this inconsistent behavior lies in the fact that a single CVE can have multiple entries in the CVE-DB, typically distinguished by a combination like cve+os+os_ver serving as the key. Different entries may possess distinct score and link information. This variability is a result of the order of data processing, leading to inconsistencies.
+
+An example of multiple entries for [CVE-2015-8865], where we have the following entries:
+```
+    ubuntu:CVE-2015-8865
+    upstream:CVE-2015-8865
+    CVE-2015-8865
+    centos:CVE-2015-8865
+    debian:CVE-2015-8865
+```
+
+## Section 8: Changed file and scope
 
 PR - https://github.com/neuvector/neuvector/pull/1142
