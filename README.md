@@ -413,7 +413,7 @@ in advanced filter, we search score(v3) with range 8 to 10.
 
 
 <p align="left">
-<img src="./materials/query_inconsistent1.png" width="60%">
+<img src="./materials/query_inconsistent2.png" width="60%">
 </p>
 
 The reason behind this inconsistent behavior lies in the fact that a single CVE can have multiple entries in the CVE-DB, typically distinguished by a combination like cve+os+os_ver serving as the key. Different entries may possess distinct score and link information. This variability is a result of the order of data processing, leading to inconsistencies.
