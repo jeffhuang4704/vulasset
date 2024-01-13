@@ -403,15 +403,17 @@ in advanced filter, we search score(v3) with range 8 to 10.
 - In v5.3 UI, for the same CVE-2017-0603, its score is 8.1, making it compliant with the query.
 ```
 
+### Query filter
 <p align="left">
 <img src="./materials/query_inconsistent_ui.png" width="60%">
 </p>
 
+### Record in v5.2.4
 <p align="left">
 <img src="./materials/query_inconsistent1.png" width="60%">
 </p>
 
-
+### Record in v5.3
 <p align="left">
 <img src="./materials/query_inconsistent2.png" width="60%">
 </p>
