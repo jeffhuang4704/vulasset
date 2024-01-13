@@ -429,6 +429,8 @@ An example of multiple entries for `CVE-2015-8865`, where we have the following 
     debian:CVE-2015-8865
 ```
 
+A jira case was created to track this - https://jira.suse.com/browse/NVSHAS-8618
+
 ## Section 8: Changed file and scope
 
 PR - https://github.com/neuvector/neuvector/pull/1142
