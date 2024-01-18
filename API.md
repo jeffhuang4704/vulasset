@@ -139,6 +139,7 @@ GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 5️⃣ orderby: Use different sort type
 6️⃣ qf: quick filter search term, this will be used to search the CVE Name and score (depends on the scoretype)
 7️⃣ scoretype: v3 or v2
+8️⃣ lastmtime: 1605353432 // time tick  👈  
 
 Reponse
 {
