@@ -7,6 +7,7 @@
 - v4 - 2023/12/20, quick search
 - v5 - 2024/01/08, adjust query filter `scoreV2`, `scoreV3`. Now the `last_modified_timestamp` is for both `/v1/vulasset` and `v1/assetvul`
 - v6 - 2024/01/11, adjust quick filter behavior
+- v7 - 2024/01/17, add `lastmtime` for `GET v1/vulasset`
 
 ## Table of Contents
 
