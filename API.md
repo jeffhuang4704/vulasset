@@ -70,7 +70,7 @@ Request Body
 
     "quickFilter": "CVE-2023",      // ❌ obsolete
 
-    "orderbycolumn": "scorev3",     // "name" (default), "score", "score_v3", "published_timestamp"
+    "orderbycolumn": "scorev3",     // "name" (default), "score", "score_v3", "published_timestamp", "impact"
     "orderby": "desc",              // "asc", "desc" (default)
 
     "viewType": "all",              // "all" (default), "containers", "infrastructure", "registry" 
