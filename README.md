@@ -319,13 +319,13 @@ To activate this functionality, follow these steps to add an environment variabl
 To generate dummy data, initiate a POST call to the `/v1/vulasset` endpoint with the following URL parameters:
 
 ```
-    createdummyasset = 1        // Set to 1 to create dummy data
-    howmany_cve                 // Number of CVEs to generate   ❌ obsolete  // no longer valid.
-    howmany_asset               // Number of assets to generate
-    howmany_cve_per_asset       // Number of CVEs per asset
+createdummyasset = 1    // Set to 1 to create dummy data
+howmany_cve             // Number of CVEs to generate   ❌ obsolete  // no longer valid. (2024/11/23)
+howmany_asset           // Number of assets to generate
+howmany_cve_per_asset   // Number of CVEs per asset
 
-    example:
-    v1/vulasset?createdummyasset=1&howmany_asset=10000&howmany_cve_per_asset=18
+example:
+v1/vulasset?createdummyasset=1&howmany_asset=10000&howmany_cve_per_asset=18
 ```
 
 In above example, the system will create 10000 workload assets, and allocate 18 CVEs to each asset randomly selected from the CVE database.
@@ -337,10 +337,10 @@ After generating the dataset, when querying using the GET `/v1/vulasset` endpoin
 
 1️⃣ To create dummy data
 ```
-curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?createdummyasset=1&howmany_cve=10000&howmany_asset=10000&howmany_cve_per_asset=18"
+curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/vulasset?createdummyasset=1&howmany_asset=10000&howmany_cve_per_asset=18"
 ```
 
-Creating dummy data is a time-consuming task; in this example, it took 20 minutes to complete.
+Creating dummy data is a time-consuming task; in this example, it took 10 minutes to complete.
 
 2️⃣ To make a query session, adding `debug=1` flag to show perf data
 
@@ -350,7 +350,7 @@ Creating dummy data is a time-consuming task; in this example, it took 20 minute
 
     where
     debug=1    // show performance data in debug_perf_stats
-    perftest=1 // force Controller to treat dummy data as real assets
+    perftest=1 // force Controller to treat dummy data as real assets  // ❌ obsolete, no needed
 ```
 
 **Response**
