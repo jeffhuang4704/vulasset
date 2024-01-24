@@ -330,7 +330,7 @@ v1/vulasset?createdummyasset=1&howmany_asset=10000&howmany_cve_per_asset=18
 
 In above example, the system will create 10000 workload assets, and allocate 18 CVEs to each asset randomly selected from the CVE database.
 
-[❌ obsolete] this part is no longer needed. You only need to have the environment variable TELEMETRY_NEUVECTOR_EP set
+[❌ obsolete] this part is no longer needed. You only need to have the environment variable TELEMETRY_NEUVECTOR_EP set  
 After generating the dataset, when querying using the GET `/v1/vulasset` endpoint, ensure to include a special URL parameter `perftest=1` in your request to the Controller. This instructs the Controller to treat the data as real Kubernetes workload. Since these data are not actual Kubernetes workloads, the Controller requires this flag to recognize and process them correctly. Include the special flag in your query for the proper handling of the generated data.
 
 ### curl examples 
