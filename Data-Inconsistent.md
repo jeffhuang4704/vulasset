@@ -6,9 +6,9 @@ We have encountered an issue related to the fluctuating scanning status. Whether
 ## Table of Contents
 
 - [Section 1: Overview](#section-1-overview)
-- [Section 2: Reproduce](#section-2-design)
-- [Section 3: Log snippet](#section-3-security)
-- [Section 4: Log](#section-4-api-interface--testing-bed)
+- [Section 2: Reproduce](#section-2-reproduce)
+- [Section 3: Log snippet](#section-3-log-snippet)
+- [Section 4: Log](#section-4-related-cases)
 
 ## Section 1: Overview
 
@@ -21,10 +21,13 @@ We have identified two methods to reproduce this issue:
 - Allow the controller to scan some workloads, like 800 workloads.
 - Deploy a specific application, yaml file can be found at https://raw.githubusercontent.com/microservices-demo/microservices-demo/master/deploy/kubernetes/complete-demo.yaml
 
-⚠️⚠️⚠️ Note: In a multi-controller environment, when observing data through the UI or calling the REST endpoint via a service, incorrect results may be obtained, as the data may come from any one of the three controllers.
+⚠️⚠️⚠️ Note: In a multi-controller environment, when observing data through the UI or calling the REST endpoint via a service, incorrect results may be obtained, as the data may come from any one of the three controllers. ⚠️⚠️⚠️   
 
-To confirm the reproduction:  
-If you observe unfinished statuses from the UI, the issue is reproduced. However, if all statuses appear as finished, it might not be accurate, as the result may come from the functioning controller. To verify this, follow these steps:
+This might lead you to believe that there is no reproduction.
+
+**To confirm the reproduction**
+If you observe unfinished statuses from the UI, the issue is reproduced.   
+However, if all statuses appear as finished, it might not be accurate, as the result may come from the functioning controller. To verify this, follow these steps:
 
 
 **Call the REST endpoint directly**
