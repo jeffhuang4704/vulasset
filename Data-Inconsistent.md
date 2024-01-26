@@ -108,9 +108,10 @@ cache.scanStateHandler:  ...  status=scheduled
 ```
 
 raw log files can be found at   
-[conroller 1 hzp6w (lead)](./data-inconsistent/case1/c.hzp6w.log)
-[conroller 2 27l9f](./data-inconsistent/case1/c.27l9f.log)
-[conroller 3 twqkl](./data-inconsistent/case1/c.twqkl.log)
+[conroller 1 hzp6w (lead)](./data-inconsistent/case1/c.hzp6w.log)  
+[conroller 2 27l9f](./data-inconsistent/case1/c.27l9f.log)   
+[conroller 3 twqkl](./data-inconsistent/case1/c.twqkl.log)  
+
 ## Section 4: Related Cases
 
 [NVSHAS-8590 Inconsistent scan reports from the Neuvector API](https://jira.suse.com/browse/NVSHAS-8590?filter=-1)  
