@@ -6,8 +6,8 @@ We have encountered an issue related to the fluctuating scanning status. Whether
 ## Table of Contents
 
 - [Section 1: Overview](#section-1-overview)
-- [Section 2: Related Cases](#section-2-design)
-- [Section 3: Reproduce](#section-3-security)
+- [Section 2: Reproduce](#section-2-design)
+- [Section 3: Log snippet](#section-3-security)
 - [Section 4: Log](#section-4-api-interface--testing-bed)
 
 ## Section 1: Overview
@@ -15,7 +15,7 @@ We have encountered an issue related to the fluctuating scanning status. Whether
 Based on the currently reproduced cases, it appears to occur in multi-controller environments.
 This issue occurs in both version 5.2.4 and the latest version 5.3.
 
-## Section 3: Reproduce
+## Section 2: Reproduce
 
 We have identified two methods to reproduce this issue:
 - Allow the controller to scan some workloads, like 800 workloads.
@@ -51,7 +51,7 @@ root@toolbox-69fbf76d68-54f7q:~/jeff# diff 10.32.0.25.txt 10.44.0.3.txt
 > f9505c36c2d948c6967af275eb2867c45919f6b9269965ce09eb1980450fe53b scanning
 ```
 
-## Section 4: Log snippet
+## Section 3: Log snippet
 
 Here is an example of an inconsistent entry with ID (59d6903...).
 
@@ -101,7 +101,7 @@ cache.scanStateHandler:  ...  status=scheduled
 2024-01-25T23:51:39.424 cache.scanStateHandler:  ...  type=modify   👈👈👈 (last line of this asset ID)
 ```
 
-## Related Cases
+## Section 4: Related Cases
 
 [NVSHAS-8590 Inconsistent scan reports from the Neuvector API](https://jira.suse.com/browse/NVSHAS-8590?filter=-1)  
 [NVSHAS-8555 registry scan may not work properly](https://jira.suse.com/browse/NVSHAS-8555?filter=-1)
