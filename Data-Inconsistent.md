@@ -61,7 +61,7 @@ root@toolbox-69fbf76d68-54f7q:~/jeff# diff 10.32.0.25.txt 10.44.0.3.txt
 
 Here is an example of an inconsistent entry with ID (59d6903...).
 
-By solely observing this log, the #3 controller did not receive the status=Finished call. Consequently, it did not have a chance to invoke scanDone() and update its status.
+By solely observing this log, the #3 controller did not receive the status=Finished call. Consequently, it did not have a chance to invoke `scanDone()` and update its status.
 
 ```
 // #1 controller-hzp6w (lead)
