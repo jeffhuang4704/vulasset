@@ -1,8 +1,5 @@
 # UI Vulnerablity Page Improvement
 
-### History
-- v1 - 2024/01/26 initial version
-
 ## Introduction
 In this modification, we are transitioning the data filtering process from the front-end to the backend. The UI now has the capability to retrieve partial data rather than the entire dataset. This is achieved by leveraging the database to store and implementing a pagination mechanism.
 

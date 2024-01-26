@@ -1,5 +1,8 @@
 # Data Inconsistent
 
+### History
+- v1 - 2024/01/26 initial version
+
 ## Introduction
 We have encountered an issue related to the fluctuating scanning status. Whether users observe the status on the UI or retrieve it through the REST endpoint, the status is inconsistent.
 
