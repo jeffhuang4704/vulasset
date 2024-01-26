@@ -107,6 +107,10 @@ cache.scanStateHandler:  ...  status=scheduled
 2024-01-25T23:51:39.424 cache.scanStateHandler:  ...  type=modify   👈👈👈 (last line of this asset ID)
 ```
 
+raw log files can be found at   
+[conroller 1 hzp6w (lead)](./data-inconsistent/case1/c.hzp6w.log)
+[conroller 2 27l9f](./data-inconsistent/case1/c.27l9f.log)
+[conroller 3 twqkl](./data-inconsistent/case1/c.twqkl.log)
 ## Section 4: Related Cases
 
 [NVSHAS-8590 Inconsistent scan reports from the Neuvector API](https://jira.suse.com/browse/NVSHAS-8590?filter=-1)  
