@@ -22,7 +22,32 @@ This issue occurs in both version 5.2.4 and the latest version 5.3.
 
 We have identified two methods to reproduce this issue:
 - Allow the controller to scan some workloads, like 800 workloads.
-- Deploy a specific application, yaml file can be found at https://raw.githubusercontent.com/microservices-demo/microservices-demo/master/deploy/kubernetes/complete-demo.yaml
+```
+image we used, it has around 1100 CVE
+image: k8s.gcr.io/echoserver:1.4
+```
+
+- Deploy this specific application and let auto-scan on, yaml file can be found at https://raw.githubusercontent.com/microservices-demo/microservices-demo/master/deploy/kubernetes/complete-demo.yaml
+```
+Just deploy this yaml and the resource look like this
+
+neuvector@ubuntu2204-A:~/qa$ kubectl get pods -n sock-shop
+NAME                            READY   STATUS             RESTARTS          AGE
+carts-b4d4ffb5c-7b5ml           1/1     Running            0                 9h
+carts-db-6c6c68b747-zpr2b       0/1     CrashLoopBackOff   114 (2m35s ago)   9h
+catalogue-759cc6b86-nznmq       1/1     Running            0                 9h
+catalogue-db-96f6f6b4c-gn9sx    1/1     Running            0                 9h
+front-end-5c89db9f57-9wltv      1/1     Running            0                 9h
+orders-7664c64d75-mnfkp         1/1     Running            0                 9h
+orders-db-659949975f-mgfxv      0/1     CrashLoopBackOff   114 (3m11s ago)   9h
+payment-7bcdbf45c9-6knsd        1/1     Running            0                 9h
+queue-master-5f6d6d4796-dscjr   1/1     Running            0                 9h
+rabbitmq-5bcbb547d7-7r45s       2/2     Running            0                 9h
+session-db-7cf97f8d4f-k75h9     1/1     Running            0                 9h
+shipping-7f7999ffb7-wps5p       1/1     Running            0                 9h
+user-68df64db9c-t555z           1/1     Running            0                 9h
+user-db-6df7444fc-7tng8         1/1     Running            0                 9h
+```
 
 ⚠️⚠️⚠️ Note: In a multi-controller environment, when observing data through the UI or calling the REST endpoint via a service, incorrect results may be obtained, as the data may come from any one of the three controllers. ⚠️⚠️⚠️   
 
