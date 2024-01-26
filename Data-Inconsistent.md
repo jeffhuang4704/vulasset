@@ -21,7 +21,7 @@ We have identified two methods to reproduce this issue:
 - Allow the controller to scan some workloads, like 800 workloads.
 - Deploy a specific application, yaml file can be found at https://raw.githubusercontent.com/microservices-demo/microservices-demo/master/deploy/kubernetes/complete-demo.yaml
 
-Note: In a multi-controller environment, when observing data through the UI or calling the REST endpoint via a service, incorrect results may be obtained, as the data may come from any one of the three controllers.
+⚠️⚠️⚠️ Note: In a multi-controller environment, when observing data through the UI or calling the REST endpoint via a service, incorrect results may be obtained, as the data may come from any one of the three controllers.
 
 To confirm the reproduction:  
 If you observe unfinished statuses from the UI, the issue is reproduced. However, if all statuses appear as finished, it might not be accurate, as the result may come from the functioning controller. To verify this, follow these steps:
