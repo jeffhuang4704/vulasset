@@ -108,9 +108,9 @@ cache.scanStateHandler:  ...  status=scheduled
 ```
 
 status of each asset from different controllers  
-[conroller 1 hzp6w (lead)](./data-inconsistent/case1/1_10.2.139.24_hzp6w.txt)
-[conroller 2 27l9f](./data-inconsistent/case1/3_10.2.145.141_27l9f.txt)
-[conroller 3 twqkl](./data-inconsistent/case1/c.twqkl.log)
+[conroller 1 hzp6w (lead)](./data-inconsistent/case1/1_10.2.139.24_hzp6w.txt)  
+[conroller 2 27l9f](./data-inconsistent/case1/3_10.2.145.141_27l9f.txt)   
+[conroller 3 twqkl](./data-inconsistent/case1/c.twqkl.log)   
 
 debug log files can be found at   
 [conroller 1 hzp6w (lead)](./data-inconsistent/case1/c.hzp6w.log)  
