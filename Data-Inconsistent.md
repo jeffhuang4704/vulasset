@@ -19,11 +19,11 @@ This issue occurs in both version 5.2.4 and the latest version 5.3.
 
 We have identified two methods to reproduce this issue:
 - Allow the controller to scan some workloads, like 800 workloads.
-- Deploy a specific applications, yaml file can be found at https://raw.githubusercontent.com/microservices-demo/microservices-demo/master/deploy/kubernetes/complete-demo.yaml
+- Deploy a specific application, yaml file can be found at https://raw.githubusercontent.com/microservices-demo/microservices-demo/master/deploy/kubernetes/complete-demo.yaml
 
 Note: In a multi-controller environment, when observing data through the UI or calling the REST endpoint via a service, incorrect results may be obtained, as the data may come from any one of the three controllers.
 
-To confirm the reproduction:
+To confirm the reproduction:  
 If you observe unfinished statuses from the UI, the issue is reproduced. However, if all statuses appear as finished, it might not be accurate, as the result may come from the functioning controller. To verify this, follow these steps:
 
 
@@ -37,7 +37,7 @@ This process needs to be executed on all three controllers, resulting in three s
 curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $TOKEN" "https://$K8sNodeIP:$ControllerSvcPORT/v1/workload?brief=False" | jq -r '.workloads | sort_by(.id)[] | "\(.id) \(.scan_summary.status)"' > $K8sNodeIP.txt
 ```
 
-**diff the result**
+**Diff the result**
 
 ```
 root@toolbox-69fbf76d68-54f7q:~/jeff# diff 10.32.0.25.txt 10.44.0.3.txt
@@ -53,10 +53,9 @@ root@toolbox-69fbf76d68-54f7q:~/jeff# diff 10.32.0.25.txt 10.44.0.3.txt
 
 ## Section 4: Log snippet
 
-Here is an example of an inconsistent entry with id(=59d6903).
+Here is an example of an inconsistent entry with ID (59d6903...).
 
-If we only observe this log, the #3 controller do not receive the status=Finished call.
-Therefore, it has not chance to call `scanDone()` and update it's status.
+By solely observing this log, the #3 controller did not receive the status=Finished call. Consequently, it did not have a chance to invoke scanDone() and update its status.
 
 ```
 // #1 controller-hzp6w (lead)
@@ -104,5 +103,5 @@ cache.scanStateHandler:  ...  status=scheduled
 
 ## Related Cases
 
-[NVSHAS-8590 Inconsistent scan reports from the Neuvector API](https://jira.suse.com/browse/NVSHAS-8590?filter=-1)
+[NVSHAS-8590 Inconsistent scan reports from the Neuvector API](https://jira.suse.com/browse/NVSHAS-8590?filter=-1)  
 [NVSHAS-8555 registry scan may not work properly](https://jira.suse.com/browse/NVSHAS-8555?filter=-1)
