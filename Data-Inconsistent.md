@@ -2,6 +2,7 @@
 
 ### History
 - v1 - 2024/01/26 initial version
+- v2 
 
 ## Introduction
 We have encountered an issue related to the fluctuating scanning status. Whether users observe the status on the UI or retrieve it through the REST endpoint, the status is inconsistent.
@@ -141,6 +142,12 @@ debug log files can be found at
 [conroller 1 hzp6w (lead)](./data-inconsistent/case1/c.hzp6w.log)  
 [conroller 2 27l9f](./data-inconsistent/case1/c.27l9f.log)   
 [conroller 3 twqkl](./data-inconsistent/case1/c.twqkl.log)  
+
+**another case, using the specific yaml manifest**
+[controller 1](./data-inconsistent/case2/1.dpvdv.txt)   
+[controller 2](./data-inconsistent/case2/2.l67bg.txt)   
+[controller 2](./data-inconsistent/case2/3.zwjlj.txt)   
+[Prblem workload ID](./data-inconsistent/case2/problem_workload_id.txt)   
 
 ## Section 4: Related Cases
 
