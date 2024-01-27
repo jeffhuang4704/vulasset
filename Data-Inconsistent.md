@@ -143,7 +143,7 @@ debug log files can be found at
 [conroller 2 27l9f](./data-inconsistent/case1/c.27l9f.log)   
 [conroller 3 twqkl](./data-inconsistent/case1/c.twqkl.log)  
 
-**another case, using the specific yaml manifest**
+**another case, using the specific yaml manifest**   
 [controller 1](./data-inconsistent/case2/1.dpvdv.txt)   
 [controller 2](./data-inconsistent/case2/2.l67bg.txt)   
 [controller 2](./data-inconsistent/case2/3.zwjlj.txt)   
