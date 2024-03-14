@@ -1,26 +1,36 @@
 ## Vulnerablity Page changes (v4)
 
 ### History
-- v1 - 2023/12/13  
-- v2 - 2023/12/17  
+
+- v1 - 2023/12/13
+- v2 - 2023/12/17
 - v3 - 2023/12/19, update `v1/assetvul`
 - v4 - 2023/12/20, quick search
 - v5 - 2024/01/08, adjust query filter `scoreV2`, `scoreV3`. Now the `last_modified_timestamp` is for both `/v1/vulasset` and `v1/assetvul`
 - v6 - 2024/01/11, adjust quick filter behavior
 - v7 - 2024/01/17, add `lastmtime` for `GET v1/vulasset`
-- v8 - 2024/01/24, add `impact` sort column 
+- v8 - 2024/01/24, add `impact` sort column
+- v9 - 2024/03/13
+
+```
+# use {all", "withFix", "withoutFix"} as package type values
+# was {all", "withfix", "withoutfix"}
+
+ q.Filters.PackageType = validateOrDefault(q.Filters.PackageType, []string{"all", "withFix", "withoutFix"}, "all")
+```
 
 ## Table of Contents
 
 - [Usage for `v1/vulasset`](#usage-for-v1vulasset)
-    - [Starting a Query Session](#starting-a-query-session)
-    - [Navigating Within a Query Session](#navigating-within-a-query-session)
-    - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session)  🆕
+  - [Starting a Query Session](#starting-a-query-session)
+  - [Navigating Within a Query Session](#navigating-within-a-query-session)
+  - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session) 🆕
 - [Usage for `v1/assetvul`](#usage-for-v1assetvul)
 - [Testing Environment](#testing-environment)
 
 ## Endpoints
-The endpoint name can be updated to enhance clarity. 
+
+The endpoint name can be updated to enhance clarity.
 
 ```
 v1/vulasset     // for main UI
@@ -33,7 +43,7 @@ To utilize the v1/vulasset feature, begin by initiating a query session through 
 
 ### Starting a Query Session
 
-To initiate a query, use the POST method on the endpoint `/v1/vulasset`, providing advanced filters and sorting options within the request body. 
+To initiate a query, use the POST method on the endpoint `/v1/vulasset`, providing advanced filters and sorting options within the request body.
 
 ```
 HTTP POST v1/vulasset
@@ -42,7 +52,7 @@ Request Body
 {
     "publishedType": "before",      // "all" (default), "before", "after"; UI sends all if no published timestamp is selected
     "publishedTime": 1605353432,    // time tick
-    "packageType": "withfix",       // "all" (default), "withfix", "withoutfix"
+    "packageType": "withFix",       // "all" (default), "withfix", "withoutfix" => "withFix", "withoutFix" (2024/03/13, for v5.3.1)
     "severityType": "high",         // "all" (default), "high", "medium", "low"
     "scoreType": "v3",              // "v2", "v3" (default)
     // "scoreV3Min": 1,    // ❌ obsolete
@@ -53,7 +63,7 @@ Request Body
     "scoreV3": [5, 10],          // score v3 filter
 
     "matchTypeService": "contains", // "contains", "equals"
-    "serviceName": "svc",      
+    "serviceName": "svc",
 
     "matchTypeNs": "contains",      // "contains", "equals"
     "selectedDomains": [
@@ -61,7 +71,7 @@ Request Body
         "ns7"
     ],
     "matchTypeImage": "equals",     // "contains", "equals"
-    "imageName": "img",         
+    "imageName": "img",
 
     "matchTypeNode": "equals",      // "contains", "equals"
     "nodeName": "node",
@@ -74,7 +84,7 @@ Request Body
     "orderbycolumn": "scorev3",     // "name" (default), "score", "score_v3", "published_timestamp", "impact"
     "orderby": "desc",              // "asc", "desc" (default)
 
-    "viewType": "all",              // "all" (default), "containers", "infrastructure", "registry" 
+    "viewType": "all",              // "all" (default), "containers", "infrastructure", "registry"
 }
 
 Response Body
@@ -86,11 +96,11 @@ Response Body
         ...
     ],
     "query_token": "eff501a8ce17",   👈  // need to bring this value in the URL parameter to navigate this query session
-    "summary": {      
+    "summary": {
         "count_distribution": {   1️⃣
-            "high": 20,     // In the searched result, 
+            "high": 20,     // In the searched result,
             "low": 10,      //   how many distinct CVEs has high severity (based on the score type, v2 or v3)
-            "medium": 15,   // 
+            "medium": 15,   //
 
             "container": 3, // In the searched result, how many distinct CVEs has container impact.
             "image": 8,     //  .... has image impact.
@@ -125,7 +135,7 @@ Response Body
 
 ### Navigating Within a Query Session
 
-To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/vulasset`) with the following query parameters. 
+To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/vulasset`) with the following query parameters.
 
 Refer to the detailed fields and their corresponding values in the following raw data section.
 
@@ -141,7 +151,7 @@ GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 5️⃣ orderby: Use different sort type
 6️⃣ qf: quick filter search term, this will be used to search the CVE Name and score (depends on the scoretype)
 7️⃣ scoretype: v3 or v2
-8️⃣ lastmtime: 1605353432 // time tick  👈  
+8️⃣ lastmtime: 1605353432 // time tick  👈
 
 Reponse
 {
@@ -214,10 +224,10 @@ Reponse
 
 ### Quick Filter Within a Query Session
 
-The current UI design includes a Filter function that enables users to refine their search within the existing results. 
+The current UI design includes a Filter function that enables users to refine their search within the existing results.
 To achieve this, you can utilize the same endpoint with an `qf` URL parameter to specify the search term and `scoretype` to indicate score type.
 
-The search scope is currently limited to the [name] and [score] fields. 
+The search scope is currently limited to the [name] and [score] fields.
 
 ```
 Request
@@ -235,15 +245,16 @@ Reponse
 ```
 
 Quick filter:
+
 <p align="left">
 <img src="./materials/quick-search.png" width="40%">
 </p>
 
-Quick filter scope on these two values only: 
+Quick filter scope on these two values only:
+
 <p align="left">
 <img src="./materials/quick-search2.png" width="40%">
 </p>
-
 
 ## Usage for `v1/assetvul`
 
@@ -255,7 +266,7 @@ No pagination functionality is required for this endpoint. It is specifically im
 
 Use `HTTP POST` for this request.
 
-The output will be sourced from the existing query session within the main UI. As a result, it is essential to include the query_token in the URL parameters. To refine the output, you can include the `lastModifiedTime` in the request body. 
+The output will be sourced from the existing query session within the main UI. As a result, it is essential to include the query_token in the URL parameters. To refine the output, you can include the `lastModifiedTime` in the request body.
 
 ```
 HTTP POST v1/vulasset
@@ -275,13 +286,14 @@ Request Body
 The response from this API call contains all the necessary data in a single retrieval.
 
 The response strucutre like this.
+
 <p align="left">
 <img src="./materials/assetvul-2.png" width="40%">
 </p>
 
 The `vulnerabilities` array comprises distinct CVEs from `workloads`, `nodes`, `platforms`, and `images`. Its structure mirrors the output of `v1/vulasset`, with certain fields removed to optimize bandwidth usage.
 
-🔑  The CVE name will be prefixed with its severity indicator: H_, M_, or L_. Callers should extract the format based on the intended display.
+🔑 The CVE name will be prefixed with its severity indicator: H*, M*, or L\_. Callers should extract the format based on the intended display.
 
 ```
 {
@@ -375,8 +387,8 @@ The `vulnerabilities` array comprises distinct CVEs from `workloads`, `nodes`, `
 }
 ```
 
-
 ## Testing environment
+
 I have set up an environment in the lab at 10.1.45.44. I will update the image with the latest work for testing purposes.
 
 To access the management console, visit https://10.1.45.44:30590/#/login.
@@ -393,8 +405,8 @@ I also has a testing page, visit https://10.1.45.44:30161/portal/vp5.html
 <img src="./materials/sample-page.png" width="80%">
 </p>
 
-
 ### `/v1/vulasset`
+
 ```
 neuvector@ubuntu2204-E:~/ui_perf$ cat c_new_vulasset_step1_POST.sh
 ...
@@ -407,6 +419,7 @@ neuvector@ubuntu2204-E:~/ui_perf$ ./d_new_vulasset_step2_GET.sh mm_ec1ab4a190d0 
 ```
 
 ### `/v1/assetvul`
+
 ```
 neuvector@ubuntu2204-E:~/ui_perf$ cat e_assetvulPOST.sh
 ...
