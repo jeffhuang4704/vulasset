@@ -10,7 +10,7 @@
 - v6 - 2024/01/11, adjust quick filter behavior
 - v7 - 2024/01/17, add `lastmtime` for `GET v1/vulasset`
 - v8 - 2024/01/24, add `impact` sort column
-- v9 - 2024/03/13
+- v9 - 2024/03/13 (v5.3.1)
 
 ```
 # use {all", "withFix", "withoutFix"} as package type values
@@ -19,13 +19,16 @@
  q.Filters.PackageType = validateOrDefault(q.Filters.PackageType, []string{"all", "withFix", "withoutFix"}, "all")
 ```
 
+- v10 - 2024/03/20 (plan for v5.3.2, [NVSHAS-7522](https://jira.suse.com/browse/NVSHAS-7522) )
+
 ## Table of Contents
 
 - [Usage for `v1/vulasset`](#usage-for-v1vulasset)
   - [Starting a Query Session](#starting-a-query-session)
   - [Navigating Within a Query Session](#navigating-within-a-query-session)
-  - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session) 🆕
+  - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session)
 - [Usage for `v1/assetvul`](#usage-for-v1assetvul)
+  - [v5.3.2 - embed image information]
 - [Testing Environment](#testing-environment)
 
 ## Endpoints
@@ -385,6 +388,28 @@ The `vulnerabilities` array comprises distinct CVEs from `workloads`, `nodes`, `
         }
     ]
 }
+```
+
+### The response (in v5.3.2)
+
+Two new fields (`id` and `regname`) were added in the `images` object.
+Caller can use these two fields to fetch detail image information using endpoint `/v1/scan/registry/{registry}/image/{image-id}`
+
+```
+  "images": [
+    {
+      "high": 9,
+      "id": "49176f190c7e9cdb51ac85ab6c6d5e4512352218190cd69b08e6fd803ffbf3da",   👈
+      "low": 0,
+      "medium": 13,
+      "name": "alpine:3.17.0",
+      "regname": "nvbox",        👈
+      "vulnerabilities": [
+        "H_CVE-2022-4450",
+        "M_CVE-2023-3446",
+        "M_CVE-2024-0727"
+      ]
+    },
 ```
 
 ## Testing environment
