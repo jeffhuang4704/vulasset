@@ -392,7 +392,7 @@ The `vulnerabilities` array comprises distinct CVEs from `workloads`, `nodes`, `
 
 ### The response (in v5.3.2)
 
-Two new fields (`id` and `regname`) were added in the `images` object.
+Two new fields (`id` and `regname`) were added in the `images` object.  
 Caller can use these two fields to fetch detail image information using endpoint `/v1/scan/registry/{registry}/image/{image-id}`
 
 ```
