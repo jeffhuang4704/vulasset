@@ -28,7 +28,7 @@
   - [Navigating Within a Query Session](#navigating-within-a-query-session)
   - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session)
 - [Usage for `v1/assetvul`](#usage-for-v1assetvul)
-  - [v5.3.2 - embed image information]
+  - [v5.3.2 - embed image information](#the-response-in-v532) 🆕
 - [Testing Environment](#testing-environment)
 
 ## Endpoints
