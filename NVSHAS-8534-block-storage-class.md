@@ -31,6 +31,46 @@ TODO: explain a bit about how a workload uses storageclass.
 TODO: mentioned the resource creation, use the diagram in the powerpoint..
 TODO: show the use case... create deployment first, check the status in pending and then create PVC.. PV. show the screen shot
 
+```
+neuvector@ubuntu2204-A:~/temp$ kubectl apply -f deploy.yaml
+deployment.apps/my-dep created
+
+neuvector@ubuntu2204-A:~/temp$ kubectl get deploy my-dep
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+my-dep   0/1     1            0           16s
+
+neuvector@ubuntu2204-A:~/temp$ kubectl get pod
+NAME                                               READY   STATUS    RESTARTS      AGE
+my-dep-84b7cf5584-jp84g                            0/1     Pending   0             30s
+
+neuvector@ubuntu2204-A:~/temp$ kubectl describe pod my-dep-84b7cf5584-jp84g
+Status:         Pending
+Containers:
+  nginx:
+    Image:        nginx
+    Mounts:
+      /usr/share/nginx/html from task-pv-storage (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-v657h (ro)
+
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  40s   default-scheduler  0/3 nodes are available: 3 persistentvolumeclaim "task-pv-claim" not found.
+```
+
+**Create dependent PVC**
+
+```
+neuvector@ubuntu2204-A:~/temp$ kubectl apply -f pvc.yaml
+persistentvolumeclaim/task-pv-claim created
+neuvector@ubuntu2204-A:~/temp$ kubectl apply -f pv.yaml
+persistentvolume/task-pv-volume created
+
+neuvector@ubuntu2204-A:~/temp$ kubectl get pods
+NAME                                               READY   STATUS    RESTARTS      AGE
+my-dep-84b7cf5584-jp84g                            1/1     Running   0             3m47s
+```
+
 <p align="left">
 <img src="./materials/pvc-3.png" width="80%">
 </p>
