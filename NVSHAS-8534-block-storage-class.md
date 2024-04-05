@@ -1,4 +1,4 @@
-## NVSHAS-8534 To block the usage of specific storage classes
+## NVSHAS-8534 - To block the usage of specific storage classes
 
 ## Table of Contents
 
@@ -21,19 +21,18 @@ TODO: mention Kubewarden implementation
 
 ## Section 2: Kubernetes resources
 
+TODO: explain a bit about how a workload uses storageclass.
+
 - illustrate the workload and PVC
 - (1) use PVC
 - (2) use PVC template (Statefulset)
+  (show real yaml)
 
 TODO: mentioned the resource creation, use the diagram in the powerpoint..
 TODO: show the use case... create deployment first, check the status in pending and then create PVC.. PV. show the screen shot
 
 <p align="left">
-<img src="./materials/pvc-1.png" width="80%">
-</p>
-
-<p align="left">
-<img src="./materials/pvc-2.png" width="80%">
+<img src="./materials/pvc-3.png" width="80%">
 </p>
 
 ## Section 3: Admission Controller behavior
@@ -51,3 +50,13 @@ show the case
 - (2) when workload request comes in, the PVC information is NOT ready
 
 including the UI change
+
+## Section 5: References
+
+<p align="left">
+<img src="./materials/pvc-1.png" width="80%">
+</p>
+
+<p align="left">
+<img src="./materials/pvc-2.png" width="80%">
+</p>
