@@ -73,11 +73,17 @@ my-dep-84b7cf5584-jp84g                            1/1     Running   0          
 
 ## Section 3: Admission Controller behavior
 
-Workloads and PVCs are distinct resources that can be created independently. If a workload is created before a PVC, the associated pod will remain in a Pending status until the PVC is ready. However, in this scenario, Kubernetes will not notify the Admission Controller for validation, nor will any create or update events be triggered. Consequently, there is no opportunity to validate the content of the PVC.
+Workloads and PVCs are distinct resources that can be created independently. If a workload is created before a PVC, the associated pod will remain in a Pending status until the PVC is ready.
+
+However, in this scenario, Kubernetes will not notify the Admission Controller for validation, nor will any create or update events be triggered. Consequently, there is no opportunity to validate the content of the PVC.
+
 This presents a challenge for us as we aim to restrict the creation of the workload.
+
+This behavior has been tested on Kubernetes versions 1.21, v1.28, and v1.29.
 
 ## Section 4: Proposal plan
 
+To
 Add a new criteria, "certain storage classname usage"
 Describe the plan... remember the validation request which has the storageclass criteria
 
@@ -86,7 +92,15 @@ show the case
 - (1) when workload request comes in, the PVC information is ready
 - (2) when workload request comes in, the PVC information is NOT ready
 
-including the UI change
+UI - Add a criterial named "StorageClassName"
+
+<p align="left">
+<img src="./materials/pvc-4.png" width="80%">
+</p>
+
+<p align="left">
+<img src="./materials/pvc-5.png" width="80%">
+</p>
 
 ## Section 5: References
 
