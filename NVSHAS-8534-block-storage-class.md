@@ -7,21 +7,21 @@
 
 ## Section 1: Background
 
-Hello Team,
+Case description
 
-Can we block the usage of specific storage classes with NeuVector? Maybe with Admission Controls?
-
-There are some predefined storage classes that users should not use; they need to be blocked.
-
-Please let me know if any information is needed.
-
-Thanks.
-
-TODO: mention Kubewarden implementation
+> Can we block the usage of specific storage classes with NeuVector? Maybe with Admission Controls?
+> There are some predefined storage classes that users should not use; they need to be blocked.
 
 ## Section 2: Kubernetes resources
 
-TODO: explain a bit about how a workload uses storageclass.
+A workload can use a Persistent Volume Claim (PVC) to request storage resources from the cluster.
+In PVC, it specify the storageClassName field to request storage with specific characteristics defined by a particular storage class.
+
+Here is an example to show the relationship:
+
+<p align="left">
+<img src="./materials/pvc-3.png" width="80%">
+</p>
 
 - illustrate the workload and PVC
 - (1) use PVC
@@ -71,13 +71,10 @@ NAME                                               READY   STATUS    RESTARTS   
 my-dep-84b7cf5584-jp84g                            1/1     Running   0             3m47s
 ```
 
-<p align="left">
-<img src="./materials/pvc-3.png" width="80%">
-</p>
-
 ## Section 3: Admission Controller behavior
 
-TODO: mention the validation call from k8s
+Workloads and PVCs are distinct resources that can be created independently. If a workload is created before a PVC, the associated pod will remain in a Pending status until the PVC is ready. However, in this scenario, Kubernetes will not notify the Admission Controller for validation, nor will any create or update events be triggered. Consequently, there is no opportunity to validate the content of the PVC.
+This presents a challenge for us as we aim to restrict the creation of the workload.
 
 ## Section 4: Proposal plan
 
