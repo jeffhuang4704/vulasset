@@ -88,15 +88,20 @@ In the current UI design, all rules are directed towards workload resources.
 
 To achieve this, we add a new criteria, "storage classname".
 
-Dependent on the resource creation sequence, we will handle it like below:
+Depending on the sequence of resource creation, we will manage it as follows:
 
 **Case 1: the PVC resource exist when workload AdmissionReview comes in**  
-In this case, we will retrieve the PVC resource from the API server and proceed with the validation process. We will be able to make a decision at this stage. This is a happy case.
+In this case, we will retrieve the PVC resource from the API server and proceed with the validation process. We will be able to make a decision at this stage. The resource being blocked will be the workload resource, such as a deployment.  
+This is a happy case.
 
 **Case 2: the PVC resource does not exist when workload AdmissionReview comes in**  
 In this scenario, we are unable to reach a final decision due to the unavailability of the PVC resource. We will record this workload information, capturing its PVC name and namespace. Consequently, we will return `pass` to Kubernetes as the validation outcome. The deployment will start, but the pod will remain in a pending state.
 
-Upon receiving a request for PVC resource validation, we will cross-reference it with recorded data. If a match is found, we will prohibit the creation of the PVC. This will make the workload unable to start.
+Upon receiving a request for PVC resource validation, we will cross-reference it with recorded data. If a match is found, we will prohibit the creation of the PVC. This will make the workload unable to start (keep in Pending state).
+
+The resource being blocked will be the PVC resource.
+
+In both case 1 and case 2, the affected workload will not start due to the violation. However, the blocked resource will differ between the two cases.
 
 ?? what's the behavior if the Rule does not contain namespace criteria
 
@@ -112,9 +117,13 @@ UI - Add a criterial named "StorageClassName"
 
 ## Section 5: References
 
+**Dynamic provisioing flow**
+
 <p align="left">
 <img src="./materials/pvc-1.png" width="80%">
 </p>
+
+**PVC Template in StatefulSets**
 
 <p align="left">
 <img src="./materials/pvc-2.png" width="80%">
