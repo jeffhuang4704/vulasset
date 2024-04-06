@@ -84,12 +84,11 @@ This behavior has been tested on Kubernetes versions 1.21, v1.28, and v1.29.
 ## Section 4: Proposal plan
 
 The objective here is to prevent the usage of storageClassName in the workload, aligning with current UI design for a more intuitive experience.
-
 In the current UI design, all rules are directed towards workload resources.
 
-Add a new criteria, "storage classname usage".
+To achieve this, we add a new criteria, "storage classname".
 
-Due to the k8s behavior, we will handle it like below:
+Dependent on the resource creation sequence, we will handle it like below:
 
 **Case 1: the PVC resource exist when workload AdmissionReview comes in**  
 In this case, we will retrieve the PVC resource from the API server and proceed with the validation process. We will be able to make a decision at this stage. This is a happy case.
