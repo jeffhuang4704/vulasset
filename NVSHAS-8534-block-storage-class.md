@@ -2,18 +2,25 @@
 
 ## Table of Contents
 
-- [Section 1: Background](#section-1-overview)
-- [Section 2: Kubernetes resources](#section-2-design)
-- [Section 3: Admission Controller behavior](#section-2-design)
-- [Section 4: Proposal plan](#section-2-design)
-- [Section 5: References](#section-2-design)
+- [Section 1: Background](#section-1-background)
+- [Section 2: Kubernetes resources](#section-2-kubernetes-resources)
+- [Section 3: Admission Controller behavior](#section-3-admission-controller-behavior)
+- [Section 4: Proposal plan](#section-4-proposal-plan)
+- [Section 5: References](#section-5-references)
 
 ## Section 1: Background
 
-Case description
+[Case description](https://jira.suse.com/browse/NVSHAS-8534?filter=-1)
 
 > Can we block the usage of specific storage classes with NeuVector? Maybe with Admission Controls?
 > There are some predefined storage classes that users should not use; they need to be blocked.
+
+**Challenge**
+This case presents additional challenges compared to other criteria due to the following characteristics:
+
+- Storage classes are not directly embedded in the workload manifests.
+- Workload manifests utilize PVCs, which are independent resources. They can be created either before or after the workload creation.
+- Kubernetes will not request re-validation when a pending pod transitions to the running state.
 
 ## Section 2: Kubernetes resources
 
