@@ -3,7 +3,7 @@
 ## Table of Contents
 
 - [Section 1: Background](#section-1-background)
-- [Section 2: Admission Controller behavior](#section-3-admission-controller-behavior)
+- [Section 2: Admission Controller behavior](#section-2-admission-controller-behavior)
 - [Section 3: Proposal plan](#section-3-proposal-plan)
 - [Section 4: References](#section-4-references)
 
@@ -23,7 +23,7 @@ This case presents additional challenges compared to other criteria due to the f
 
 Here is an example to show the relationship:
 
-<p align="left">
+<p align="center">
 <img src="./materials/pvc-3.png" width="80%">
 </p>
 
@@ -44,6 +44,14 @@ In the current UI design, all rules are directed towards workload resources.
 
 To achieve this, we add a new criteria, "storage classname".
 
+<p align="center">
+<img src="./materials/pvc-4.png" width="60%">
+</p>
+
+<p align="center">
+<img src="./materials/pvc-5.png" width="60%">
+</p>
+
 Depending on the sequence of resource creation, we will manage it as follows:
 
 **Case 1: the PVC resource exist when workload AdmissionReview comes in**  
@@ -58,18 +66,6 @@ Upon receiving a request for PVC resource validation, we will cross-reference it
 The resource being blocked will be the PVC resource.
 
 In both case 1 and case 2, the affected workload will not start in the end. However, the blocked resource will differ between the two cases.
-
-?? what's the behavior if the Rule does not contain namespace criteria
-
-### UI - Add a criterial named "StorageClassName"
-
-<p align="left">
-<img src="./materials/pvc-4.png" width="50%">
-</p>
-
-<p align="left">
-<img src="./materials/pvc-5.png" width="50%">
-</p>
 
 ## Section 4: References
 
