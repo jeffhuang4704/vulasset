@@ -83,7 +83,17 @@ This behavior has been tested on Kubernetes versions 1.21, v1.28, and v1.29.
 
 ## Section 4: Proposal plan
 
-To
+When a rule contains storageClassName criteria. It might evaluate the resources in different resources.
+Case A: when workload request comes in, the PVC information is ready
+
+**Case 1: the PVC resource exist when workload AdmissionReview comes in**
+In this case, we will retrieve the PVC resource from the API server and proceed with the validation process. We will be able to make a decision at this stage. This is a happy case.
+
+**Case 2: the PVC resource does not exist when workload AdmissionReview comes in**
+In this scenario, we are unable to reach a final decision due to the unavailability of the PVC resource. We will record this workload information, capturing the PVC name and its namespace. Consequently, we will return 'pass' to Kubernetes as the validation outcome. The deployment will start, but the pod will remain in a pending state.
+
+Upon receiving a request for PVC resource validation, we will cross-reference it with resolved cases. If a match is found, we will prohibit the creation of the PVC. This will make the workload unable to start.
+
 Add a new criteria, "certain storage classname usage"
 Describe the plan... remember the validation request which has the storageclass criteria
 
@@ -92,14 +102,16 @@ show the case
 - (1) when workload request comes in, the PVC information is ready
 - (2) when workload request comes in, the PVC information is NOT ready
 
+?? what's the behavior if the Rule does not contain namespace criteria
+
 UI - Add a criterial named "StorageClassName"
 
 <p align="left">
-<img src="./materials/pvc-4.png" width="80%">
+<img src="./materials/pvc-4.png" width="50%">
 </p>
 
 <p align="left">
-<img src="./materials/pvc-5.png" width="80%">
+<img src="./materials/pvc-5.png" width="50%">
 </p>
 
 ## Section 5: References
