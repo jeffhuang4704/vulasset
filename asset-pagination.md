@@ -14,7 +14,6 @@ REST API support for adding pagination and some image informations
 - [Usage for `v1/asset`](#usage-for-v1vulasset)
   - [Starting a Query Session](#starting-a-query-session)
   - [Navigating Within a Query Session](#navigating-within-a-query-session)
-  - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session)
 - [Testing Environment](#testing-environment)
 
 ### Starting a Query Session
@@ -102,7 +101,7 @@ GET v1/asset?token=eff501a8ce17&start=0&row=100
 3️⃣ row: Defines the number of rows to fetch. Use -1 to fetch all rows.
 4️⃣ orderbyColumn: Use different column to sort. Available columns are `repository` (default), `imageid`, `createdat`, `os`, `size`, `scannedat`
 5️⃣ orderby: Use different sort type. Available options are `asc`, `desc` (default)
-6️⃣ qf: quick filter search term, this will be used to search the CVE Name and score (depends on the scoretype)
+6️⃣ qf: quick filter search term. The search scope is currently limited to following columns `registry`, `image-id`, `os`, `created_at` and `scanned_at`
 ```
 
 **Reponse**
@@ -111,8 +110,9 @@ GET v1/asset?token=eff501a8ce17&start=0&row=100
 Overall structure
 
     {
-    "data": [{..},{..}],
-    "type": "image"
+        "data": [{..},{..}],
+        "type": "image"
+        "qf_matched_records": 0, // 👈 how many quick filter matched records
     }
 
 For type image, the detail field in data array are:
@@ -131,32 +131,6 @@ For type image, the detail field in data array are:
       "scanned_at": "2024-04-09 00:07:12",
       "size": 464185144
     },
-```
-
-### Quick Filter Within a Query Session
-
-The current UI design includes a Filter function that enables users to refine their search within the existing results.
-To achieve this, you can utilize the same endpoint with an `qf` URL parameter to specify the search term.
-
-The search scope is currently limited to following columns.
-`registry`, `image-id`, `os`, `created_at` and `scanned_at`
-
-**Request**
-
-```
-GET /v1/vulasset?token=aaa&qf=term&start=0&row=100
-
-qf : indicate the quick filter term
-scoretype: indicate the score type, values are "v2", "v3"
-
-Reponse
-
-    {
-        "qf_matched_records": 0, // 👈 how many quick filter matched records
-        "data": [{..},{..}],
-        "type": "image"
-    }
-
 ```
 
 Quick filter:
