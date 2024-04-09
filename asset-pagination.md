@@ -13,7 +13,11 @@ First we need to create a query session and the backend will return a query toke
 
 ## Table of Contents
 
-- [Usage for `v1/vulasset`](#usage-for-v1vulasset)
+- [Usage for `v1/asset`](#usage-for-v1vulasset)
+  - [Starting a Query Session](#starting-a-query-session)
+  - [Navigating Within a Query Session](#navigating-within-a-query-session)
+  - [Quick Filter Within a Query Session](#quick-filter-within-a-query-session)
+- [Testing Environment](#testing-environment)
 
 ### Starting a Query Session
 
@@ -136,3 +140,13 @@ Quick filter:
 <p align="left">
 <img src="./materials/asset-pagination-1.png" width="50%">
 </p>
+
+## Testing environment
+
+I have set up an environment in the lab at 10.1.45.44. I will update the image with the latest work for testing purposes.
+
+To access the management console, visit https://10.1.45.44:30590/#/login.
+If necessary, you can also SSH into the machine to make any required changes.
+The controller endpoint is accessible via curl at 10.1.45.44:31693.
+
+You can also use these two scripts on 10.1.45.44 for testing.
