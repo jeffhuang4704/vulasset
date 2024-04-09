@@ -89,8 +89,11 @@ Refer to the detailed fields and their corresponding values in the following raw
 
 If the user opts for a different column sorting, we can incorporate this change within the current query session by adding the "orderbyColumn" and "orderby" URL parameters, eliminating the need to create a new query session and thereby enhancing performance.
 
+**Request**
+
 ```
 GET v1/asset?token=eff501a8ce17&start=0&row=100
+```
 
 1️⃣ token: Indicates the query session; you can find this token in the response body.
 2️⃣ start: Specifies the starting row.
@@ -99,13 +102,8 @@ GET v1/asset?token=eff501a8ce17&start=0&row=100
 5️⃣ orderby: Use different sort type
 6️⃣ qf: quick filter search term, this will be used to search the CVE Name and score (depends on the scoretype)
 
-Reponse
-```
-
+**Reponse**
 TODO
-
-```
-
 
 ### Quick Filter Within a Query Session
 
@@ -114,9 +112,10 @@ To achieve this, you can utilize the same endpoint with an `qf` URL parameter to
 
 The search scope is currently limited to the [name] and [score] fields.
 
+**Request**
+
 ```
 
-Request
 GET /v1/vulasset?token=aaa&qf=term&scoretype=v3&start=0&row=100
 
 qf : indicate the quick filter term
