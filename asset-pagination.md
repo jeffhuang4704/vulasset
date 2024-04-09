@@ -104,8 +104,8 @@ GET v1/asset?token=eff501a8ce17&start=0&row=100
 1️⃣ token: Indicates the query session; you can find this token in the response body.
 2️⃣ start: Specifies the starting row.
 3️⃣ row: Defines the number of rows to fetch. Use -1 to fetch all rows.
-4️⃣ orderbyColumn: Use different column to sort
-5️⃣ orderby: Use different sort type
+4️⃣ orderbyColumn: Use different column to sort. Available columns are `repository` (default), `imageid`, `createdat`, `os`, `size`, `scannedat`
+5️⃣ orderby: Use different sort type. Available options are `asc`, `desc` (default)
 6️⃣ qf: quick filter search term, this will be used to search the CVE Name and score (depends on the scoretype)
 ```
 
