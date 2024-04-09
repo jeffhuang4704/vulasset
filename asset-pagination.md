@@ -103,7 +103,10 @@ GET v1/asset?token=eff501a8ce17&start=0&row=100
 ```
 
 **Reponse**
+
+```
 TODO
+```
 
 ### Quick Filter Within a Query Session
 
@@ -139,4 +142,3 @@ Quick filter scope on these two values only:
 <p align="left">
 <img src="./materials/quick-search2.png" width="40%">
 </p>
-```
