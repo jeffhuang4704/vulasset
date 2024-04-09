@@ -19,7 +19,7 @@ First we need to create a query session and the backend will return a query toke
 
 To initiate a query, use the POST method on the endpoint `/v1/asset`, providing filters and sorting options within the request body.
 
-**Request Body**
+**Request Body**  
 In initial version 5.3.2 we don't have filter options. So the request body is empty.
 
 ```
@@ -93,7 +93,6 @@ If the user opts for a different column sorting, we can incorporate this change 
 
 ```
 GET v1/asset?token=eff501a8ce17&start=0&row=100
-```
 
 1️⃣ token: Indicates the query session; you can find this token in the response body.
 2️⃣ start: Specifies the starting row.
@@ -101,6 +100,7 @@ GET v1/asset?token=eff501a8ce17&start=0&row=100
 4️⃣ orderbyColumn: Use different column to sort
 5️⃣ orderby: Use different sort type
 6️⃣ qf: quick filter search term, this will be used to search the CVE Name and score (depends on the scoretype)
+```
 
 **Reponse**
 TODO
@@ -115,7 +115,6 @@ The search scope is currently limited to the [name] and [score] fields.
 **Request**
 
 ```
-
 GET /v1/vulasset?token=aaa&qf=term&scoretype=v3&start=0&row=100
 
 qf : indicate the quick filter term
