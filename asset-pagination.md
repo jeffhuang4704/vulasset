@@ -134,11 +134,5 @@ Reponse
 Quick filter:
 
 <p align="left">
-<img src="./materials/quick-search.png" width="40%">
-</p>
-
-Quick filter scope on these two values only:
-
-<p align="left">
-<img src="./materials/quick-search2.png" width="40%">
+<img src="./materials/asset-pagination-1.png" width="50%">
 </p>
