@@ -11,6 +11,8 @@ TODO: list the jira case
 Describe the design, similar to vulnerablity api in Risk page.
 First we need to create a query session and the backend will return a query token. And we can navigate via the query token.
 
+In initial version, only `type=image` is supported
+
 ## Table of Contents
 
 - [Usage for `v1/asset`](#usage-for-v1vulasset)
@@ -31,6 +33,7 @@ HTTP POST v1/vulasset
 
 Request Body
 {
+    type='image'
 }
 ```
 
@@ -109,7 +112,27 @@ GET v1/asset?token=eff501a8ce17&start=0&row=100
 **Reponse**
 
 ```
-TODO
+    {
+    "data": [{..},{..}],
+    "type": "image"
+    }
+
+For type image, the detail field are
+
+    {
+      "base_os": "ubuntu:14.04",
+      "created_at": "2019-02-26 23:47:49",
+      "digest": "sha256:392b2dca75791568c7f240e88212e56127a53de9f885d2a917dd41dad20606f2",
+      "high": 1344,
+      "id": "21192ddd0a012fe978d28106c80be49b9a7bfec6c394e7036bbf3ea0286bfd3a",
+      "low": 37,
+      "medium": 845,
+      "name": "node-istio:latest",
+      "repo_name": "nvbox",
+      "repo_url": "https://nvbox.azurecr.io/",
+      "scanned_at": "2024-04-09 00:07:12",
+      "size": 464185144
+    },
 ```
 
 ### Quick Filter Within a Query Session
