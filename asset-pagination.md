@@ -4,14 +4,10 @@
 
 - v1 - 2024/04/08
 
-### background
+### Background
 
-TODO: list the jira case
-
-Describe the design, similar to vulnerablity api in Risk page.
-First we need to create a query session and the backend will return a query token. And we can navigate via the query token.
-
-In initial version, only `type=image` is supported
+[NVSHAS-8857](https://jira.suse.com/browse/NVSHAS-8857?filter=-1)
+REST API support for adding pagination and some image informations
 
 ## Table of Contents
 
