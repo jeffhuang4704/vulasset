@@ -26,14 +26,14 @@ In initial version, only `type=image` is supported
 To initiate a query, use the POST method on the endpoint `/v1/asset`, providing filters and sorting options within the request body.
 
 **Request Body**  
-In initial version 5.3.2 we don't have filter options. So the request body is empty.
+In initial version 5.3.2 we don't much filter options yet.
 
 ```
 HTTP POST v1/vulasset
 
 Request Body
 {
-    type='image'
+    type='image'    // in v5.3.2, only image is supported
 }
 ```
 
@@ -94,7 +94,7 @@ To navigate within an existing search session, make an `HTTP GET` request to the
 
 Refer to the detailed fields and their corresponding values in the following raw data section.
 
-If the user opts for a different column sorting, we can incorporate this change within the current query session by adding the "orderbyColumn" and "orderby" URL parameters, eliminating the need to create a new query session and thereby enhancing performance.
+If the user opts for a different column sorting, we can incorporate this change within the current query session by adding the `orderbyColumn` and `orderby` URL parameters, eliminating the need to create a new query session and thereby enhancing performance.
 
 **Request**
 
@@ -112,12 +112,14 @@ GET v1/asset?token=eff501a8ce17&start=0&row=100
 **Reponse**
 
 ```
+Overall structure
+
     {
     "data": [{..},{..}],
     "type": "image"
     }
 
-For type image, the detail field are
+For type image, the detail field in data array are:
 
     {
       "base_os": "ubuntu:14.04",
@@ -138,23 +140,26 @@ For type image, the detail field are
 ### Quick Filter Within a Query Session
 
 The current UI design includes a Filter function that enables users to refine their search within the existing results.
-To achieve this, you can utilize the same endpoint with an `qf` URL parameter to specify the search term and `scoretype` to indicate score type.
+To achieve this, you can utilize the same endpoint with an `qf` URL parameter to specify the search term.
 
-The search scope is currently limited to the [name] and [score] fields.
+The search scope is currently limited to following columns.
+`registry`, `image-id`, `os`, `created_at` and `scanned_at`
 
 **Request**
 
 ```
-GET /v1/vulasset?token=aaa&qf=term&scoretype=v3&start=0&row=100
+GET /v1/vulasset?token=aaa&qf=term&start=0&row=100
 
 qf : indicate the quick filter term
 scoretype: indicate the score type, values are "v2", "v3"
 
 Reponse
-{
-"qf_matched_records": 0, // 👈 how many quick filter matched records
-"vulnerabilities": [...]
-}
+
+    {
+        "qf_matched_records": 0, // 👈 how many quick filter matched records
+        "data": [{..},{..}],
+        "type": "image"
+    }
 
 ```
 
