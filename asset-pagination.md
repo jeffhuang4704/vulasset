@@ -7,9 +7,8 @@
 ## Table of Contents
 
 - [Background](#background)
-- [Usage for `/v1/scan/asset/view/asset`](#usage-for-v1vulasset)
-  - [Starting a Query Session](#starting-a-query-session)
-  - [Navigating Within a Query Session](#navigating-within-a-query-session)
+- [Starting a Query Session](#starting-a-query-session)
+- [Navigating Within a Query Session](#navigating-within-a-query-session)
 - [Testing Environment](#testing-environment)
 
 ### Background
@@ -90,7 +89,7 @@ Request Body
 
 ### Navigating Within a Query Session
 
-To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/scan/asset/view/asset`) with the following query parameters.
+To navigate within an existing search session, make an `HTTP GET` request to the same endpoint with the following query parameters.
 
 Refer to the detailed fields and their corresponding values in the following raw data section.
 
@@ -145,6 +144,9 @@ Quick filter:
 </p>
 
 ## Testing environment
+
+> [!NOTE]
+> Not ready yet !
 
 I have set up an environment in the lab at 10.1.45.44. I will update the image with the latest work for testing purposes.
 
