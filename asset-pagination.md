@@ -4,17 +4,18 @@
 
 - v1 - 2024/04/10
 
+## Table of Contents
+
+- [Background](#background)
+- [Usage for `/v1/scan/asset/view/asset`](#usage-for-v1vulasset)
+  - [Starting a Query Session](#starting-a-query-session)
+  - [Navigating Within a Query Session](#navigating-within-a-query-session)
+- [Testing Environment](#testing-environment)
+
 ### Background
 
 [NVSHAS-8857](https://jira.suse.com/browse/NVSHAS-8857?filter=-1)
 REST API support for adding pagination and some image informations
-
-## Table of Contents
-
-- [Usage for `v1/asset`](#usage-for-v1vulasset)
-  - [Starting a Query Session](#starting-a-query-session)
-  - [Navigating Within a Query Session](#navigating-within-a-query-session)
-- [Testing Environment](#testing-environment)
 
 ### Starting a Query Session
 
