@@ -2,7 +2,7 @@
 
 ### History
 
-- v1 - 2024/04/08
+- v1 - 2024/04/10
 
 ### Background
 
@@ -18,13 +18,16 @@ REST API support for adding pagination and some image informations
 
 ### Starting a Query Session
 
-To initiate a query, use the POST method on the endpoint `/v1/asset`, providing filters and sorting options within the request body.
+To initiate a query, use the POST method on the endpoint `/v1/scan/asset/view/asset`, providing filters and sorting options within the request body.
+
+> [!NOTE]
+> The API name will be changed later.
 
 **Request Body**  
 In initial version 5.3.2 we don't much filter options yet.
 
 ```
-HTTP POST v1/vulasset
+POST /v1/scan/asset/view/asset
 
 Request Body
 {
@@ -46,38 +49,39 @@ Request Body
                 "display_name": "wurstmeister-zookeeper:latest",
                 "high": 1385,
                 "id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
-                "low": 69,
                 "medium": 1009
             },
             {
                 "display_name": "citadel:1.4.2",
                 "high": 1051,
                 "id": "9a48168d5ab29a332e14541be713b0be76f330c035f2dfbf115f2583c74edd33",
-                "low": 87,
                 "medium": 1148
             },
             {
                 "display_name": "node-istio:latest",
                 "high": 1344,
                 "id": "21192ddd0a012fe978d28106c80be49b9a7bfec6c394e7036bbf3ea0286bfd3a",
-                "low": 37,
                 "medium": 845
             },
             {
                 "display_name": "selvam_centos_http:latest",
                 "high": 494,
                 "id": "2fa01e609a4f5b9ee0b6af7711e582fa0a423c213f5ff9fcd63b5589f3ae8c4d",
-                "low": 92,
                 "medium": 779
             },
             {
                 "display_name": "alpinedev:20230519-110159",
                 "high": 111,
                 "id": "53b0e93618b3cebff066a17d275b6017b4b9a3514437747326cc35dc4c44f4a7",
-                "low": 1,
                 "medium": 30
             }
-        ]
+        ],
+        "other": {
+            "display_name": "selvam_centos_http:latest",
+            "high": 494,
+            "id": "2fa01e609a4f5b9ee0b6af7711e582fa0a423c213f5ff9fcd63b5589f3ae8c4d",
+            "medium": 779
+        }
     },
     "total_records": 4888
 }
@@ -85,7 +89,7 @@ Request Body
 
 ### Navigating Within a Query Session
 
-To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/asset`) with the following query parameters.
+To navigate within an existing search session, make an `HTTP GET` request to the same endpoint (`/v1/scan/asset/view/asset`) with the following query parameters.
 
 Refer to the detailed fields and their corresponding values in the following raw data section.
 
