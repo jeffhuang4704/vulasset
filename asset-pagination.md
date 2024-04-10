@@ -125,7 +125,7 @@ For type image, the detail field in data array are:
 
     {
       "base_os": "ubuntu:14.04",
-      "created_at": "2019-02-26 23:47:49",
+      "created_at": "2023-12-11T01:21:10Z",
       "digest": "sha256:392b2dca75791568c7f240e88212e56127a53de9f885d2a917dd41dad20606f2",
       "high": 1344,
       "id": "21192ddd0a012fe978d28106c80be49b9a7bfec6c394e7036bbf3ea0286bfd3a",
@@ -134,7 +134,7 @@ For type image, the detail field in data array are:
       "name": "node-istio:latest",
       "repo_name": "nvbox",
       "repo_url": "https://nvbox.azurecr.io/",
-      "scanned_at": "2024-04-09 00:07:12",
+      "scanned_at": "2023-12-11T01:21:10Z",
       "size": 464185144
     },
 ```
