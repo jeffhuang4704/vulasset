@@ -1,4 +1,4 @@
-## asset pagination support (v5.3.2)
+## asset pagination support (v5.3.3)
 
 ### History
 
@@ -23,15 +23,14 @@ To initiate a query, use the POST method on the endpoint `/v1/scan/asset/view/as
 > [!NOTE]
 > The API name will be changed later.
 
-**Request Body**  
-In initial version 5.3.2 we don't much filter options yet.
+**Request Body**
 
 ```
 POST /v1/scan/asset/view/asset
 
 Request Body
 {
-    type='image'    // in v5.3.2, only image is supported
+    type='image'    // in v5.3.3, only image is supported
 }
 ```
 
@@ -98,7 +97,7 @@ If the user opts for a different column sorting, we can incorporate this change 
 **Request**
 
 ```
-GET v1/asset?token=eff501a8ce17&start=0&row=100
+GET /v1/scan/asset/view/asset?token=eff501a8ce17&start=0&row=100
 
 1️⃣ token: Indicates the query session; you can find this token in the response body.
 2️⃣ start: Specifies the starting row.
