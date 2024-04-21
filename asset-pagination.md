@@ -106,7 +106,7 @@ GET /v1/scan/asset/view/asset?token=eff501a8ce17&start=0&row=100
     Available columns are `repository` (default), `imageid`, `createdat`, `os`, `size`, `scannedat`
 5️⃣ orderby: Use different sort type. Available options are `asc`, `desc` (default)
 6️⃣ qf: quick filter search term.
-    The search scope is currently limited to following columns `registry`, `imageid`, `os`, `createdat` and `scannedat`
+    The search scope is currently limited to following columns `repository`, `imageid`, `os`, `createdat` and `scannedat`
 ```
 
 **Reponse**
