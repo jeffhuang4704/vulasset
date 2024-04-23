@@ -3,6 +3,7 @@
 ### History
 
 - v1 - 2024/04/10
+- v2 - 2024/04/23 (testing environment with working build is ready)
 
 ## Table of Contents
 
@@ -146,9 +147,6 @@ Quick filter:
 
 ## Testing environment
 
-> [!NOTE]
-> Not ready yet !
-
 I have set up an environment in the lab at 10.1.45.44. I will update the image with the latest work for testing purposes.
 
 To access the management console, visit https://10.1.45.44:30590/#/login.
@@ -156,3 +154,25 @@ If necessary, you can also SSH into the machine to make any required changes.
 The controller endpoint is accessible via curl at 10.1.45.44:31693.
 
 You can also use these two scripts on 10.1.45.44 for testing.
+
+**Create a query session**
+
+```
+// request
+curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Apikey: test2:GVkVJkMkviLfmYJ+VCwu3wsY/GT8slPH2xwEdfFnT8w3PcX27SJoBCvzPrMYH0mP" -d @assetimage.json "https://$K8sNodeIP:$ControllerSvcPORT/v1/scan/asset/view/asset"
+
+// response
+{
+    "debug_perf_stats": null,
+    "query_token": "06346645480d",
+    "summary": null,
+    "total_matched_records": 0,
+    "total_records": 26
+}
+```
+
+** Navigate through a session**
+
+```
+curl -k -H "Content-Type: application/json" -H "X-Auth-Apikey: test2:GVkVJkMkviLfmYJ+VCwu3wsY/GT8slPH2xwEdfFnT8w3PcX27SJoBCvzPrMYH0mP" "https://$K8sNodeIP:$ControllerSvcPORT/v1/scan/asset/view/asset?token=06346645480d&debug=1&row=-1&start=0&orderbyColumn=repository&orderby=desc&qf=alpine"
+```
