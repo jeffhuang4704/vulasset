@@ -171,7 +171,7 @@ curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Apikey: test2:GVk
 }
 ```
 
-** Navigate through a session**
+**Navigate through a session**
 
 ```
 curl -k -H "Content-Type: application/json" -H "X-Auth-Apikey: test2:GVkVJkMkviLfmYJ+VCwu3wsY/GT8slPH2xwEdfFnT8w3PcX27SJoBCvzPrMYH0mP" "https://$K8sNodeIP:$ControllerSvcPORT/v1/scan/asset/view/asset?token=06346645480d&debug=1&row=-1&start=0&orderbyColumn=repository&orderby=desc&qf=alpine"
