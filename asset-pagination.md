@@ -147,11 +147,11 @@ Quick filter:
 
 ## Testing environment
 
-I have set up an environment in the lab at 10.1.45.44.
+I have set up an environment in the lab at `10.1.45.44`
 
 To access the management console, visit https://10.1.45.44:30590/#/login.
 If necessary, you can also SSH into the machine to make any required changes.
-The controller endpoint is accessible via curl at 10.1.45.44:31693.
+The controller endpoint is accessible via curl at `10.1.45.44:31693`
 
 ```
 neuvector@ubuntu2204-E:~/ui_perf/asset$ echo $K8sNodeIP:$ControllerSvcPORT
