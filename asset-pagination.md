@@ -114,14 +114,18 @@ GET /v1/scan/asset/view/asset?token=eff501a8ce17&start=0&row=100
 
 **Reponse**
 
+When no quick filter is applied, the value of `qf_matched_records` represents the total number of records.  
+However, when a quick filter is utilized, the `qf_matched_records` value reflects the total number of matched records.
+
 ```
 Overall structure
 
     {
         "data": [{..},{..}],
         "type": "image"
-        "qf_matched_records": 0, // 👈 how many quick filter matched records
+        "qf_matched_records": 0, // 👈 (see above)
     }
+
 
 For type image, the detail field in data array are:
 
