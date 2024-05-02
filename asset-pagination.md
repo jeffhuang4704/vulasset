@@ -38,6 +38,8 @@ Request Body
 
 **Response Body**
 
+The `summary.top_images` array comprises the Top 5 images, with the 6th element representing all remaining images summed together.
+
 ```
 {
     "debug_perf_stats": [
@@ -114,7 +116,7 @@ GET /v1/scan/asset/view/asset?token=eff501a8ce17&start=0&row=100
 
 **Reponse**
 
-When no quick filter is applied, the value of `qf_matched_records` represents the total number of records.  
+When no quick filter is applied, the value of `qf_matched_records` represents the total number of records.
 However, when a quick filter is utilized, the `qf_matched_records` value reflects the total number of matched records.
 
 ```
@@ -177,8 +179,7 @@ curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Apikey: test2:GVk
 {
     "debug_perf_stats": null,
     "query_token": "06346645480d",
-    "summary": null,
-    "total_matched_records": 0,
+    "summary": {..},
     "total_records": 26
 }
 ```
