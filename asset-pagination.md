@@ -4,6 +4,7 @@
 
 - v1 - 2024/04/10
 - v2 - 2024/04/23 (testing environment with working build is ready)
+- v3 - 2024/05/01 (adjust data structure)
 
 ## Table of Contents
 
@@ -74,14 +75,15 @@ Request Body
                 "high": 111,
                 "id": "53b0e93618b3cebff066a17d275b6017b4b9a3514437747326cc35dc4c44f4a7",
                 "medium": 30
+            },
+            {
+                "display_name": "others",     // 👈 ** the 6th record is for other which is sum of all the remainings
+                "high": 21462,
+                "id": "",
+                "low": 1390,
+                "medium": 16689
             }
-        ],
-        "other": {
-            "display_name": "selvam_centos_http:latest",
-            "high": 494,
-            "id": "2fa01e609a4f5b9ee0b6af7711e582fa0a423c213f5ff9fcd63b5589f3ae8c4d",
-            "medium": 779
-        }
+        ]
     },
     "total_records": 4888
 }
@@ -123,19 +125,20 @@ Overall structure
 
 For type image, the detail field in data array are:
 
-    {
+   {
       "base_os": "ubuntu:14.04",
-      "created_at": "2023-12-11T01:21:10Z",
-      "digest": "sha256:392b2dca75791568c7f240e88212e56127a53de9f885d2a917dd41dad20606f2",
-      "high": 1344,
-      "id": "21192ddd0a012fe978d28106c80be49b9a7bfec6c394e7036bbf3ea0286bfd3a",
-      "low": 37,
-      "medium": 845,
-      "name": "node-istio:latest",
-      "repo_name": "nvbox",
-      "repo_url": "https://nvbox.azurecr.io/",
-      "scanned_at": "2023-12-11T01:21:10Z",
-      "size": 464185144
+      "created_at": "2016-01-21T07:57:36Z",
+      "digest": "sha256:b5e6403464bcc29c6424a66d91c4a54b86804a0f6bf014621c758e71775b7a42",
+      "high": 1384,
+      "image_id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
+      "low": 69,
+      "medium": 1016,
+      "name": "wurstmeister-zookeeper:latest",
+      "repo_url": "https://nvbox.azurecr.io/wurstmeister-zookeeper:latest",
+      "repository": "nvbox",
+      "scanned_at": "2024-05-02T00:11:19Z",
+      "size": 468694951,
+      "tag": "latest"
     },
 ```
 
