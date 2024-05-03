@@ -19,6 +19,9 @@
 [NVSHAS-8857](https://jira.suse.com/browse/NVSHAS-8857?filter=-1)
 REST API support for adding pagination and some image informations
 
+> [!NOTE]
+> Only image asset type is supported in v5.3.3
+
 ### Starting a Query Session
 
 To initiate a query, use the POST method on the endpoint `/v1/scan/asset/view/asset`, providing filters and sorting options within the request body.
@@ -111,6 +114,8 @@ GET /v1/scan/asset/view/asset?token=eff501a8ce17&start=0&row=100
 4️⃣ orderbyColumn: Use different column to sort.
     Available columns are `repository` (default), `imageid`, `createdat`, `os`, `size`, `scannedat` and `cvecount`
     for `cvecount`, it first sort by the cve high count and then medium count
+    Its SQL query is something like this
+    ... ORDER BY "cve_high" DESC, "cve_medium" DESC...
 5️⃣ orderby: Use different sort type. Available options are `asc`, `desc` (default)
 6️⃣ qf: quick filter search term.
     The search scope is currently limited to following columns `repository`, `imageid`, `os`, `createdat` and `scannedat`
