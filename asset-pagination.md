@@ -5,6 +5,7 @@
 - v1 - 2024/04/10
 - v2 - 2024/04/23 (testing environment with working build is ready)
 - v3 - 2024/05/01 (adjust data structure)
+- v4 - 2024/05/02 (adjust data structure)
 
 ## Table of Contents
 
@@ -108,7 +109,8 @@ GET /v1/scan/asset/view/asset?token=eff501a8ce17&start=0&row=100
 2️⃣ start: Specifies the starting row.
 3️⃣ row: Defines the number of rows to fetch. Use -1 to fetch all rows.
 4️⃣ orderbyColumn: Use different column to sort.
-    Available columns are `repository` (default), `imageid`, `createdat`, `os`, `size`, `scannedat`
+    Available columns are `repository` (default), `imageid`, `createdat`, `os`, `size`, `scannedat` and `cvecount`
+    for `cvecount`, it first sort by the cve high count and then medium count
 5️⃣ orderby: Use different sort type. Available options are `asc`, `desc` (default)
 6️⃣ qf: quick filter search term.
     The search scope is currently limited to following columns `repository`, `imageid`, `os`, `createdat` and `scannedat`
@@ -131,18 +133,19 @@ Overall structure
 
 For type image, the detail field in data array are:
 
-   {
+
+    {
       "base_os": "ubuntu:14.04",
       "created_at": "2016-01-21T07:57:36Z",
-      "digest": "sha256:b5e6403464bcc29c6424a66d91c4a54b86804a0f6bf014621c758e71775b7a42",
+      "digest": "sha256:1eef309c527f83d868edcd0152cbbad05c782b9f6d120eb047a2ffa54fa9a33f",
       "high": 1384,
       "image_id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
       "low": 69,
       "medium": 1016,
-      "name": "wurstmeister-zookeeper:latest",
-      "repo_url": "https://nvbox.azurecr.io/wurstmeister-zookeeper:latest",
-      "repository": "nvbox",
-      "scanned_at": "2024-05-02T00:11:19Z",
+      "reg_name": "quay",
+      "repo_url": "https://quay.io/nvlab/wurstmeister-zookeeper:latest",
+      "repository": "nvlab/wurstmeister-zookeeper",
+      "scanned_at": "2024-05-02T02:01:18Z",
       "size": 468694951,
       "tag": "latest"
     },
