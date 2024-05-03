@@ -6,6 +6,7 @@
 - v2 - 2024/04/23 (testing environment with working build is ready)
 - v3 - 2024/05/01 (adjust data structure)
 - v4 - 2024/05/02 (adjust data structure)
+- v5 - 2024/05/03 (adjust data structure, remove cve low)
 
 ## Table of Contents
 
@@ -138,14 +139,12 @@ Overall structure
 
 For type image, the detail field in data array are:
 
-
     {
       "base_os": "ubuntu:14.04",
       "created_at": "2016-01-21T07:57:36Z",
       "digest": "sha256:1eef309c527f83d868edcd0152cbbad05c782b9f6d120eb047a2ffa54fa9a33f",
       "high": 1384,
       "image_id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
-      "low": 69,
       "medium": 1016,
       "reg_name": "quay",
       "repo_url": "https://quay.io/nvlab/wurstmeister-zookeeper:latest",
