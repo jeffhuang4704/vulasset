@@ -35,5 +35,5 @@ Upon initiation, the routine will iterate through all existing scan reports in C
 **Performance**  
 (1) Consul read performance (2) db-pod write performance. Use this to estimate the duration.
 
-Test case 1: migration 10K scan report from Consul to db-pod (how much time it used?)
-Test case 2: Consule restart, read these 10K scan report from db-pod (how much time it used, we might need to compare with Consul... but how to compare... using log?)
+🍉 Test case 1: migration 10K scan report from Consul to db-pod (how much time it used?)  
+🍉 Test case 2: Consule restart, read these 10K scan report from db-pod (how much time it used, we might need to compare with Consul... but how to compare... using log?)
