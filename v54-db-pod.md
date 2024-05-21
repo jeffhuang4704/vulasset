@@ -128,7 +128,7 @@ Therefore, the migration process is continuous rather than a one-time task.
 
 Consider a scenario where a network-mounted drive, such as an NFS server, is unavailable. In this case, the Controller will not be able to save data to the db-pod. Instead, the Controller can store the data in Consul first. Continuous migration can help in this scenario, adding more resilience to NeuVector.
 
-During the migration period, NeuVector's functionality will not be affected, as the patched read/write scan report function mentioned above will handle it. [code changes](#what-code-will-be-changed-on-controller)
+During the migration period, NeuVector's functionality will not be affected, as the patched read/write scan report functions mentioned above will handle it. [What code will be changed on Controller](#what-code-will-be-changed-on-controller)
 
 **Performance:**
 
