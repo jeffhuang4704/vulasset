@@ -86,14 +86,6 @@ Then it perform the migration using a set of goroutines with following steps:
 2. Write the scan/data part to the db-pod. It's a HTTP call to db-pod.
 3. Delete the scan/data from Consul.
 
-**Performance:**
-I conducted a few tests
-[test1] A ScanReport containing 142 CVEs with a zipped size of 5 KB. It takes around 13 seconds to migrate 1,000 reports.
-[test2] A ScanReport containing 1,371 CVEs with a zipped size of 33 KB. It takes around 17 seconds to migrate 1,000 reports.
-
-The data flow looks like below:
-controller => db-pod => nfs server (Persistent Volumes)
-
 ## Migration existing data from Consul to db-pod
 
 **Mechanism**  
@@ -110,13 +102,16 @@ Consider a scenario where the network-mounted drive, such as an NFS server, is u
 TODO: mention how to read data work if need to get scan report. We will patch GetScanReport() function so it will fetch data from db-pod.
 If it's not available it will try local Consul instead.
 
-**Performance**  
-(1) Consul read performance (2) db-pod write performance. Use this to estimate the duration.
+**Performance:**
+I conducted a few tests
+[test1] A ScanReport containing 142 CVEs with a zipped size of 5 KB. It takes around 13 seconds to migrate 1,000 reports.
+[test2] A ScanReport containing 1,371 CVEs with a zipped size of 33 KB. It takes around 17 seconds to migrate 1,000 reports.
 
-🍉 Test case 1: migration 10K scan report from Consul to db-pod (how much time it used?) // write performance
-🍉 Test case 2: Consule restart, read these 10K scan report from db-pod (how much time it used, we might need to compare with Consul... but how to compare... using log?) // read performance
+The data flow looks like below:
+controller => db-pod => nfs server (Persistent Volumes)
 
 ## Discussion
 
-1. How does user enable the db-pod feature?
-2. Can user change their mind by disable it?
+1. How does a user enable the db-pod feature?
+2. Does the existence of a db-pod imply automatic usage?
+3. Can a user disable it if they change their mind?
