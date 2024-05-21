@@ -90,13 +90,17 @@ controller => db-pod => nfs server (Persistent Volumes)
 ## Migration existing data from Consul to db-pod
 
 **Mechanism**  
-A scheduler routine within the `lead Controller` will commence every XX minutes to execute the migration process. Migration will only proceed when all Controllers are operating on the same supported version (e.g., v5.4).  
-Upon initiation, the routine will iterate through all existing scan reports in Consul, inserting them into the database pod, and subsequently deleting the corresponding key in Consul.
-This migration process can be interrupted, the scheduler routine will be invoked regularlly (xx minutes, TBD).
-This fit the nature in Kubernetes, it is replaceable and can be down any time. So this mechanism ensure we migrate data succesfully.
-So, it is not a one-time task to do migration.
+A scheduler routine within the `lead Controller` will commence every XX minutes to execute the migration process. Migration will only proceed when all Controllers are operating on the same supported version (e.g., v5.4).
 
-Consider a case where the network mounted drive like NFS server is not available. Then Controller will not able to save data to db-pod, in this scenario Controller can store the Consul first.
+Upon initiation, the routine will iterate through all existing scan reports in Consul, inserting them into the db-pod, and subsequently deleting the corresponding key in Consul.
+
+The migration process can be interrupted (e.g., during a Controller pod restart). The scheduler routine will be invoked regularly (interval TBD, possibly every xx minutes).
+
+This aligns with the nature of Kubernetes, where pods are replaceable and can be down at any time. This mechanism ensures that data can be migrated successfully.
+
+Therefore, the migration process is continuous rather than a one-time task.
+
+Consider a scenario where the network-mounted drive, such as an NFS server, is unavailable. In this case, the Controller will not be able to save data to the db-pod. Instead, the Controller can store the data in Consul first. This adds more resilience to NeuVector.
 
 TODO: mention how to read data work if need to get scan report. We will patch GetScanReport() function so it will fetch data from db-pod.
 If it's not available it will try local Consul instead.
