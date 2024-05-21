@@ -13,8 +13,128 @@
 
 Feel free to login to play with it.
 
-- my NFS server in the labs, IP: 10.1.45.49
-- my cluster has install the nfs dynamic provisioner installed. IP: 10.1.45.40
+- my NFS server in the labs, IP: `10.1.45.49`
+- my cluster has install the nfs dynamic provisioner installed. IP: `10.1.45.40`
+
+**StorageClass**
+
+```
+neuvector@ubuntu2204-A:~/sc_test$ kubectl get sc nfs-client -oyaml
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    meta.helm.sh/release-name: nfs-subdir-external-provisioner
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2023-10-26T23:45:33Z"
+  labels:
+    app: nfs-subdir-external-provisioner
+    app.kubernetes.io/managed-by: Helm
+    chart: nfs-subdir-external-provisioner-4.0.18
+    heritage: Helm
+    release: nfs-subdir-external-provisioner
+  name: nfs-client
+  resourceVersion: "36373009"
+  uid: 8c917313-3073-4432-aa24-3b44e91debf5
+parameters:
+  archiveOnDelete: "true"
+  onDelete: "true"
+provisioner: cluster.local/nfs-subdir-external-provisioner
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+```
+
+**nfs client provisioner**
+
+```
+neuvector@ubuntu2204-A:~/sc_test$ kubectl get pod nfs-subdir-external-provisioner-78859bfd68-snlph -oyaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2023-11-04T05:23:28Z"
+  generateName: nfs-subdir-external-provisioner-78859bfd68-
+  labels:
+    app: nfs-subdir-external-provisioner
+    pod-template-hash: 78859bfd68
+    release: nfs-subdir-external-provisioner
+  name: nfs-subdir-external-provisioner-78859bfd68-snlph
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: nfs-subdir-external-provisioner-78859bfd68
+    uid: 64c6017b-8c41-47fb-bd42-edb82175b2c9
+  resourceVersion: "64009431"
+  uid: 72fbff06-d531-468d-9e89-c4c2a5aa7d74
+spec:
+  containers:
+  - env:
+    - name: PROVISIONER_NAME
+      value: cluster.local/nfs-subdir-external-provisioner
+    - name: NFS_SERVER
+      value: 10.1.45.49
+    - name: NFS_PATH
+      value: /exports/backup
+    image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+    imagePullPolicy: IfNotPresent
+    name: nfs-subdir-external-provisioner
+    resources: {}
+    securityContext: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /persistentvolumes
+      name: nfs-subdir-external-provisioner-root
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-88w76
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: ubuntu2204-a
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: nfs-subdir-external-provisioner
+  serviceAccountName: nfs-subdir-external-provisioner
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: nfs-subdir-external-provisioner-root
+    nfs:
+      path: /exports/backup
+      server: 10.1.45.49
+  - name: kube-api-access-88w76
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+```
 
 ## Some yaml
 
