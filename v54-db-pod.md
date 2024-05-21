@@ -104,7 +104,7 @@ The GetScanReport() function will be adjusted to retrieve data from the db-pod. 
 | 1000              | 142      | 5KB in zip       | 13 seconds                            |
 | 1000              | 1371     | 33KB in zip      | 17 seconds                            |
 
-<p align="center">
+<p align="left">
 <img src="./materials/dbpod2.png" width="70%">
 </p>
 
