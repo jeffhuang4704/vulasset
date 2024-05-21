@@ -34,7 +34,7 @@ This document describes the process of migrating pre-existing scan reports from 
 
 Following list some design for the db-pod:
 
-### `StatefulSet` in Kubernetes within the same namespace with Controller
+### 1️⃣ `StatefulSet` in Kubernetes within the same namespace with Controller
 
 The db-pod is a `StatefulSet` in Kubernetes which user need to provide `storageClassName` value in the `volumeClaimTemplates`
 
@@ -54,13 +54,13 @@ NAME                           STATUS   VOLUME                                  
 nvdb-file-neuvector-db-pod-0   Bound    pvc-90914783-f893-4fa5-8e8f-c4cd2e693f89   5Gi        RWO            nfs-client     80d
 ```
 
-### SQL over HTTP
+### 2️⃣ SQL over HTTP
 
 reduce the Controller pod and db-pod dependency. db-pod currnetly server as a database service which accept SQL statement. This eliminate the dependency when we need to adjust schema. The logic can be done purely on Controller side.
 
-### Authentication the authentication mechanism will use the same one in the upcoming v5.4. Like certificate rotation will be leveraged.
+### 3️⃣ Authentication the authentication mechanism will use the same one in the upcoming v5.4. Like certificate rotation will be leveraged.
 
-### Migration
+### 4️⃣ Migration
 
 TODO: explain what is migration
 TODO: what's our goal // from Gary: we can do some preparation, what in my mind is, if DB pod is installed, at a moment during upgrade, the migration happens automatically
