@@ -41,15 +41,15 @@ Simple diagram illustration
 
 Following list some design for the db-pod:
 
-### 1️⃣ TODO: the core app in db-pod is just an HTTP server, using embedded dadatabase. And leverage k8's storage to persist data.
+### 1️⃣ The core app
 
-(put here,,, or maybe combine with 2 ?)
+The core app in db-pod is an HTTP server that uses an embedded database to store data persistently in Kubernetes-provisioned storage.
 
 ### 2️⃣ db-pod is a `StatefulSet` in Kubernetes within the same namespace with Controller
 
 The db-pod is a `StatefulSet` in Kubernetes which user need to provide `storageClassName` value in the `volumeClaimTemplates`
 
-👉 TODO: put in collapsed section, user can expand to see if they want.
+<details><summary>related resources</summary>
 
 ```
 neuvector@ubuntu2204-A:~$ kubectl get statefulset -n neuvector
@@ -65,7 +65,17 @@ neuvector-enforcer-pod-4ppbt                 1/1     Running     4 (29d ago)   9
 neuvector@ubuntu2204-A:~$ kubectl get pvc -n neuvector
 NAME                           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 nvdb-file-neuvector-db-pod-0   Bound    pvc-90914783-f893-4fa5-8e8f-c4cd2e693f89   5Gi        RWO            nfs-client     80d
+
+neuvector@ubuntu2204-A:~$ kubectl get svc -n neuvector
+NAME                                      TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
+neuvector-service-webui                   LoadBalancer   10.101.229.74    <pending>     8443:32731/TCP                  199d
+neuvector-svc-admission-webhook           ClusterIP      10.99.41.38      <none>        443/TCP                         199d
+neuvector-svc-controller                  ClusterIP      None             <none>        18300/TCP,18301/TCP,18301/UDP   199d
+neuvector-svc-crd-webhook                 ClusterIP      10.102.221.234   <none>        443/TCP                         199d
+neuvector-svc-db                          ClusterIP      10.106.197.162   <none>        4001/TCP                        80d  👈👈
 ```
+
+</details>
 
 ### 3️⃣ SQL over HTTP
 
