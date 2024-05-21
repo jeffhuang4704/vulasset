@@ -12,29 +12,20 @@
 
 ## Background
 
-In version 5.4, we will introduce a database pod, which functions as a database service within the NeuVector deployment. This feature is optional and can be deployed by users at their discretion.
+In version 5.4, we will introduce a database pod, which functions as a database service within the NeuVector deployment. This feature is optional and can be deployed by users at their discretion. If users do not have memory pressure in their environment, they do not need to enable it when upgrading to v5.4.
 
-TODO: mention if user do not have memory pressure in their environment, they don't need to enable while upgrade to v5.4.
-
-// what we will store in db-pod
 When activated, it will store scan report in the database pod rather than Consul, thereby reducing memory usage in Consul. The data to be stored in the database pod will be scan report, including benchmark data.
 
-Each scan report has two keys in Consul (1) state key and (2) data key
-Only `data key` will be migrated.
+Each scan report has two keys in Consul: (1) a state key and (2) a data key. The following is an example:
 
 ```
 state key => scan/state/report/workload/81712...
 data key => scan/data/report/workload/81712...
 ```
 
-The scan/state will still be stored in Consul, only the scan/data part will be stored in db-pod
-The reason is the scan/state plays an important role in the Controller. We want to preserve it so the changes can be minimized.
+The `scan/state` will still be stored in Consul, while only the `scan/data` part will be stored in the db-pod. The reason is that `scan/state` plays an important role in the Controller, and preserving it minimizes changes.
 
 This document describes the process of migrating pre-existing scan reports from Consul to the database pod.
-
-<p align="center">
-<img src="./materials/dbpod1.png" width="70%">
-</p>
 
 ## Design
 
@@ -77,6 +68,12 @@ It will use same certificate rotation mechanism in v5.4.
 
 When user migrate to v5.4 with db-pod enabled, we want to migrate existing data stored in Consul.
 The goal we want to achieve is if DB pod is installed, at a moment during upgrade, the migration happens automatically.
+
+Simple diagram illustration
+
+<p align="center">
+<img src="./materials/dbpod1.png" width="70%">
+</p>
 
 ## Migration existing data from Consul to db-pod
 
