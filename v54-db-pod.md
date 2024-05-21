@@ -14,7 +14,12 @@
 
 In version 5.4, we will introduce a database pod, which functions as a database service within the NeuVector deployment. This feature is optional and can be deployed by users at their discretion. If users do not have memory pressure in their environment, they do not need to enable it when upgrading to v5.4.
 
-When enabled, it will store scan report in the database pod rather than Consul, thereby reducing memory usage in Consul.  
+When enabled, it will store scan report in the database pod rather than Consul, thereby reducing memory usage in Consul.
+
+### What data will be stored in db-pod
+
+<details><summary></summary>
+
 The data to be stored in the database pod will be scan report, including benchmark data.
 
 Each scan report has two keys in Consul: (1) a state key and (2) a data key. The following is an example:
@@ -25,6 +30,8 @@ data key => scan/data/report/workload/81712...
 ```
 
 The `scan/state` will still be stored in Consul, while only the `scan/data` part will be stored in the db-pod. The reason is that `scan/state` plays an important role in the Controller, and preserving it minimizes changes.
+
+</details>
 
 👉 TODO: describe the functions will be patched. The write-scan-report and the read-scan-report. This minimize the changes needed on the Controller side.
 
