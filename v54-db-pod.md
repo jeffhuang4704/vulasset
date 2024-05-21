@@ -73,11 +73,11 @@ The goal we want to achieve is if DB pod is installed, at a moment during upgrad
 **How it Works**
 When enabled, the lead Controller will do the migration task.
 It monitor all controllers to ensure they are on the same supported version, v5.4.
-Then it perform the migration using a set of goroutines, the steps are:
+Then it perform the migration using a set of goroutines with following steps:
 
-a. Enumerate all scan report pairs from Consul (scan/state and scan/data).
-b. Write the scan/data part to the db-pod. It's a HTTP call to db-pod.
-c. Delete the scan/data from Consul.
+1. Enumerate all scan report pairs from Consul (scan/state and scan/data).
+2. Write the scan/data part to the db-pod. It's a HTTP call to db-pod.
+3. Delete the scan/data from Consul.
 
 **Performance:**
 I conducted a few tests
@@ -92,6 +92,14 @@ controller => db-pod => nfs server (Persistent Volumes)
 **Mechanism**  
 A scheduler routine within the `lead Controller` will commence every XX minutes to execute the migration process. Migration will only proceed when all Controllers are operating on the same supported version (e.g., v5.4).  
 Upon initiation, the routine will iterate through all existing scan reports in Consul, inserting them into the database pod, and subsequently deleting the corresponding key in Consul.
+This migration process can be interrupted, the scheduler routine will be invoked regularlly (xx minutes, TBD).
+This fit the nature in Kubernetes, it is replaceable and can be down any time. So this mechanism ensure we migrate data succesfully.
+So, it is not a one-time task to do migration.
+
+Consider a case where the network mounted drive like NFS server is not available. Then Controller will not able to save data to db-pod, in this scenario Controller can store the Consul first.
+
+TODO: mention how to read data work if need to get scan report. We will patch GetScanReport() function so it will fetch data from db-pod.
+If it's not available it will try local Consul instead.
 
 **Performance**  
 (1) Consul read performance (2) db-pod write performance. Use this to estimate the duration.
