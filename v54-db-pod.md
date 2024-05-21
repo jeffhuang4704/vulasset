@@ -31,7 +31,7 @@ The `scan/state` will still be stored in Consul, while only the `scan/data` part
 Simple diagram illustration
 
 <p align="center">
-<img src="./materials/dbpod1.png" width="70%">
+<img src="./materials/dbpod1.png" width="50%">
 </p>
 
 > [!NOTE]
