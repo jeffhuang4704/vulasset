@@ -19,7 +19,6 @@ When enabled, it will store scan report in the database pod rather than Consul, 
 ### What data will be stored in db-pod
 
 The data to be stored in the database pod will be scan report, including benchmark data.
-
 Each scan report has two keys in Consul: (1) a state key and (2) a data key. The following is an example:
 
 ```
@@ -29,9 +28,13 @@ data key => scan/data/report/workload/81712...
 
 The `scan/state` will still be stored in Consul, while only the `scan/data` part will be stored in the db-pod. The reason is that `scan/state` plays an important role in the Controller, and preserving it minimizes changes.
 
-👉 TODO: describe the functions will be patched. The write-scan-report and the read-scan-report. This minimize the changes needed on the Controller side.
+### What code will be changed on Controller
 
-Simple diagram illustration
+We will patch the write scan report function (like `putScanReportToCluster()`). Originally, it save to Consul, but now it will write to db-pod if enabled. However, if db-pod encounters any issues, such as a network-mounted drive error, it will fall back to writing to Consul.
+
+The migration process (introduced in a later section) will resume to db-pod once it is back online.
+
+### Simple diagram illustration
 
 <p align="left">
 <img src="./materials/dbpod1.png" width="50%">
