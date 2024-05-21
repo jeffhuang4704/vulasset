@@ -98,16 +98,14 @@ Consider a scenario where a network-mounted drive, such as an NFS server, is una
 The GetScanReport() function will be adjusted to retrieve data from the db-pod. If the db-pod is unavailable, it will read from Consul instead.
 
 **Performance:**
-I conducted a few tests
-[test1] A ScanReport containing 142 CVEs with a zipped size of 5 KB. It takes around 13 seconds to migrate 1,000 reports.
-[test2] A ScanReport containing 1,371 CVEs with a zipped size of 33 KB. It takes around 17 seconds to migrate 1,000 reports.
+I conducted couple tests:
 
-| Scan Report count | CVE Size | Each Report Size | Time         |
-| ----------------- | -------- | ---------------- | ------------ |
-| 1000              | 142      | 5KB in zip       | 13 seconds   |
-| 1000              | 1371     | 33KB in zip      | 13 seconds17 |
+| Scan Report count | CVE Size | Each Report Size | Total Time (migrate 1000 scan report) |
+| ----------------- | -------- | ---------------- | ------------------------------------- |
+| 1000              | 142      | 5KB in zip       | 13 seconds                            |
+| 1000              | 1371     | 33KB in zip      | 17 seconds                            |
 
-The data flow looks like below:
+The data flow looks like below (in lab)
 controller => db-pod => nfs server (Persistent Volumes)
 
 ## Discussion
