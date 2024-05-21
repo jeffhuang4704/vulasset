@@ -30,7 +30,7 @@ The `scan/state` will still be stored in Consul, while only the `scan/data` part
 
 Simple diagram illustration
 
-<p align="center">
+<p align="left">
 <img src="./materials/dbpod1.png" width="50%">
 </p>
 
@@ -48,6 +48,8 @@ Following list some design for the db-pod:
 ### 2️⃣ db-pod is a `StatefulSet` in Kubernetes within the same namespace with Controller
 
 The db-pod is a `StatefulSet` in Kubernetes which user need to provide `storageClassName` value in the `volumeClaimTemplates`
+
+👉 TODO: put in collapsed section, user can expand to see if they want.
 
 ```
 neuvector@ubuntu2204-A:~$ kubectl get statefulset -n neuvector
