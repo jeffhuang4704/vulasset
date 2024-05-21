@@ -1,4 +1,4 @@
-# NV db-pod for v5.4 - Consul data migration
+# NV v5.4, db-pod - Consul data migration
 
 ## History
 
@@ -14,7 +14,8 @@
 
 In version 5.4, we will introduce a database pod, which functions as a database service within the NeuVector deployment. This feature is optional and can be deployed by users at their discretion. If users do not have memory pressure in their environment, they do not need to enable it when upgrading to v5.4.
 
-When activated, it will store scan report in the database pod rather than Consul, thereby reducing memory usage in Consul. The data to be stored in the database pod will be scan report, including benchmark data.
+When enabled, it will store scan report in the database pod rather than Consul, thereby reducing memory usage in Consul.  
+The data to be stored in the database pod will be scan report, including benchmark data.
 
 Each scan report has two keys in Consul: (1) a state key and (2) a data key. The following is an example:
 
@@ -25,15 +26,26 @@ data key => scan/data/report/workload/81712...
 
 The `scan/state` will still be stored in Consul, while only the `scan/data` part will be stored in the db-pod. The reason is that `scan/state` plays an important role in the Controller, and preserving it minimizes changes.
 
-This document describes the process of migrating pre-existing scan reports from Consul to the database pod.
+👉 TODO: describe the functions will be patched. The write-scan-report and the read-scan-report. This minimize the changes needed on the Controller side.
+
+Simple diagram illustration
+
+<p align="center">
+<img src="./materials/dbpod1.png" width="70%">
+</p>
+
+> [!NOTE]
+> This document outlines the process of migrating existing scan reports from Consul to the database pod.
 
 ## Design
 
 Following list some design for the db-pod:
 
-TODO: mention it is just an HTTP server, using embedded dadatabase. And leverage k8's storage to persist data.
+### 1️⃣ TODO: the core app in db-pod is just an HTTP server, using embedded dadatabase. And leverage k8's storage to persist data.
 
-### 1️⃣ db-pod is a `StatefulSet` in Kubernetes within the same namespace with Controller
+(put here,,, or maybe combine with 2 ?)
+
+### 2️⃣ db-pod is a `StatefulSet` in Kubernetes within the same namespace with Controller
 
 The db-pod is a `StatefulSet` in Kubernetes which user need to provide `storageClassName` value in the `volumeClaimTemplates`
 
@@ -53,27 +65,26 @@ NAME                           STATUS   VOLUME                                  
 nvdb-file-neuvector-db-pod-0   Bound    pvc-90914783-f893-4fa5-8e8f-c4cd2e693f89   5Gi        RWO            nfs-client     80d
 ```
 
-### 2️⃣ SQL over HTTP
+### 3️⃣ SQL over HTTP
 
+👉 TODO: descirbe the endpoints on the db-pod, it serve three endpoints /execute, /query/
+List a simple example of using it.
+
+This can reduce the dependency between Controller and db-pod as the logic is on the caller side (Controller). It has ultimate control
+of the schema.
+In this initial version, we will store the data originally from Consul. We can easily extend to store other data when needed.
 reduce the Controller pod and db-pod dependency. db-pod currnetly server as a database service which accept SQL statement. This eliminate the dependency when we need to adjust schema. The logic can be done purely on Controller side.
-On db-pod, it server three endpoints /execute, /query/
 
-### 3️⃣ Authentication
+### 4️⃣ Authentication
 
 Using Mutual TLS (mTLS) for authentication, and only Controller can access db-pod.
 
 It will use same certificate rotation mechanism in v5.4.
 
-### 4️⃣ Migration
+### 5️⃣ Migration
 
 When user migrate to v5.4 with db-pod enabled, we want to migrate existing data stored in Consul.
 The goal we want to achieve is if DB pod is installed, at a moment during upgrade, the migration happens automatically.
-
-Simple diagram illustration
-
-<p align="center">
-<img src="./materials/dbpod1.png" width="70%">
-</p>
 
 ## Migration existing data from Consul to db-pod
 
