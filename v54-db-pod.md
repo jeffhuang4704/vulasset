@@ -65,6 +65,7 @@ nvdb-file-neuvector-db-pod-0   Bound    pvc-90914783-f893-4fa5-8e8f-c4cd2e693f89
 ### 2️⃣ SQL over HTTP
 
 reduce the Controller pod and db-pod dependency. db-pod currnetly server as a database service which accept SQL statement. This eliminate the dependency when we need to adjust schema. The logic can be done purely on Controller side.
+On db-pod, it server three endpoints /execute, /query/
 
 ### 3️⃣ Authentication
 
@@ -77,21 +78,16 @@ It will use same certificate rotation mechanism in v5.4.
 When user migrate to v5.4 with db-pod enabled, we want to migrate existing data stored in Consul.
 The goal we want to achieve is if DB pod is installed, at a moment during upgrade, the migration happens automatically.
 
-**How it Works**
-When enabled, the lead Controller will do the migration task.
-It monitor all controllers to ensure they are on the same supported version, v5.4.
-Then it perform the migration using a set of goroutines with following steps:
-
-1. Enumerate all scan report pairs from Consul (scan/state and scan/data).
-2. Write the scan/data part to the db-pod. It's a HTTP call to db-pod.
-3. Delete the scan/data from Consul.
-
 ## Migration existing data from Consul to db-pod
 
 **Mechanism**  
 A scheduler routine within the `lead Controller` will commence every XX minutes to execute the migration process. Migration will only proceed when all Controllers are operating on the same supported version (e.g., v5.4).
 
-Upon initiation, the routine will iterate through all existing scan reports in Consul, inserting them into the db-pod, and subsequently deleting the corresponding key in Consul.
+Upon execution, following routines will be performed.
+
+1. Enumerate all scan report pairs from Consul (scan/state and scan/data).
+2. Write the scan/data part to the db-pod. It's a HTTP call which wrap SQL statement to db-pod.
+3. Delete the scan/data from Consul.
 
 The migration process can be interrupted (e.g., during a Controller pod restart). The scheduler routine will be invoked regularly (interval TBD, possibly every xx minutes). This aligns with the nature of Kubernetes, where pods are replaceable and can be down at any time. This mechanism ensures that data can be migrated successfully.
 
