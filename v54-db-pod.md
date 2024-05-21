@@ -7,6 +7,8 @@
 ## Table of Contents
 
 - [Background](#background)
+- [Design](#design)
+- [Discussion](#discussion)
 
 ## Background
 
@@ -34,7 +36,7 @@ This document describes the process of migrating pre-existing scan reports from 
 
 Following list some design for the db-pod:
 
-### 1️⃣ `StatefulSet` in Kubernetes within the same namespace with Controller
+### 1️⃣ db-pod is a `StatefulSet` in Kubernetes within the same namespace with Controller
 
 The db-pod is a `StatefulSet` in Kubernetes which user need to provide `storageClassName` value in the `volumeClaimTemplates`
 
@@ -58,12 +60,32 @@ nvdb-file-neuvector-db-pod-0   Bound    pvc-90914783-f893-4fa5-8e8f-c4cd2e693f89
 
 reduce the Controller pod and db-pod dependency. db-pod currnetly server as a database service which accept SQL statement. This eliminate the dependency when we need to adjust schema. The logic can be done purely on Controller side.
 
-### 3️⃣ Authentication the authentication mechanism will use the same one in the upcoming v5.4. Like certificate rotation will be leveraged.
+### 3️⃣ Authentication
+
+Using Mutual TLS (mTLS) for authentication, and only Controller can access db-pod.
+It will use same certificate rotation mechanism in v5.4.
 
 ### 4️⃣ Migration
 
-TODO: explain what is migration
-TODO: what's our goal // from Gary: we can do some preparation, what in my mind is, if DB pod is installed, at a moment during upgrade, the migration happens automatically
+When user migrate to v5.4 with db-pod enabled, we want to migrate existing data stored in Consul.
+The goal we want to achieve is if DB pod is installed, at a moment during upgrade, the migration happens automatically.
+
+**How it Works**
+When enabled, the lead Controller will do the migration task.
+It monitor all controllers to ensure they are on the same supported version, v5.4.
+Then it perform the migration using a set of goroutines, the steps are:
+
+a. Enumerate all scan report pairs from Consul (scan/state and scan/data).
+b. Write the scan/data part to the db-pod. It's a HTTP call to db-pod.
+c. Delete the scan/data from Consul.
+
+**Performance:**
+I conducted a few tests
+[test1] A ScanReport containing 142 CVEs with a zipped size of 5 KB. It takes around 13 seconds to migrate 1,000 reports.
+[test2] A ScanReport containing 1,371 CVEs with a zipped size of 33 KB. It takes around 17 seconds to migrate 1,000 reports.
+
+The data flow looks like below:
+controller => db-pod => nfs server (Persistent Volumes)
 
 ## Migration existing data from Consul to db-pod
 
@@ -76,3 +98,8 @@ Upon initiation, the routine will iterate through all existing scan reports in C
 
 🍉 Test case 1: migration 10K scan report from Consul to db-pod (how much time it used?) // write performance
 🍉 Test case 2: Consule restart, read these 10K scan report from db-pod (how much time it used, we might need to compare with Consul... but how to compare... using log?) // read performance
+
+## Discussion
+
+1. How does user enable the db-pod feature?
+2. Can user change their mind by disable it?
