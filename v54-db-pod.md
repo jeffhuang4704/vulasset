@@ -90,8 +90,8 @@ neuvector-svc-db                          ClusterIP      10.106.197.162   <none>
 The HTTP endpoints serve two functions. The caller uses these functions to manipulate data in the database. The data manipulation logic resides entirely on the Controller side.
 
 ```
-		http.HandleFunc("/db/query", s.handlerExpQuery)
-		http.HandleFunc("/db/execute", s.handlerExpExecute)
+    http.HandleFunc("/db/query", s.handlerExpQuery)
+    http.HandleFunc("/db/execute", s.handlerExpExecute)
 ```
 
 This can reduce the dependency between the Controller and the db-pod, as the logic is on the caller side (Controller), which has ultimate control of the schema.
