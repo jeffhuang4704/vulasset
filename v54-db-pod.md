@@ -87,13 +87,18 @@ neuvector-svc-db                          ClusterIP      10.106.197.162   <none>
 
 ### 3️⃣ SQL over HTTP
 
-👉 TODO: descirbe the endpoints on the db-pod, it serve three endpoints /execute, /query/
-List a simple example of using it.
+The HTTP endpoints serve two functions. The caller uses these functions to manipulate data in the database. The data manipulation logic resides entirely on the Controller side.
 
-This can reduce the dependency between Controller and db-pod as the logic is on the caller side (Controller). It has ultimate control
-of the schema.
-In this initial version, we will store the data originally from Consul. We can easily extend to store other data when needed.
-reduce the Controller pod and db-pod dependency. db-pod currnetly server as a database service which accept SQL statement. This eliminate the dependency when we need to adjust schema. The logic can be done purely on Controller side.
+```
+		http.HandleFunc("/db/query", s.handlerExpQuery)
+		http.HandleFunc("/db/execute", s.handlerExpExecute)
+```
+
+This can reduce the dependency between the Controller and the db-pod, as the logic is on the caller side (Controller), which has ultimate control of the schema.
+
+In this initial version, we will store the data originally from Consul.
+
+We can easily extend this to store other data as needed.
 
 ### 4️⃣ Authentication
 
