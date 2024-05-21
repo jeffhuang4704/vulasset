@@ -136,6 +136,41 @@ spec:
             path: namespace
 ```
 
+## Use REST API to add rule
+
+```
+curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Apikey: test1:KdrdVJZE+vNMgqF79v9xEDjH40JRFM/8Q+7vWZ1UufjNPfZZiZp6fmto4zFo3mS9" "https://$K8sNodeIP:$ControllerSvcPORT/v1/admission/rule" --data-binary @rule_sc_name.json
+
+// file: rule_sc_name.json
+{
+        "config": {
+                "category": "Kubernetes",
+                "cfg_type": "user_created",
+                "comment": "block storage class name",
+                "criteria": [
+                   {
+                    "name": "namespace",
+                    "op": "containsAny",
+                    "path": "namespace",
+                    "value": "ns,ns8",
+                    "value_type": "string"
+                   },
+                   {
+                    "name": "storageClassName",
+                    "op": "containsAny",
+                    "path": "namespace",
+                    "value": "nfs-client",
+                    "value_type": "string"
+                   }
+                ],
+                "critical": false,
+                "disable": false,
+                "id": 0,
+                "rule_type": "deny"
+        }
+}
+```
+
 ## Some yaml
 
 **PVC**
