@@ -32,9 +32,15 @@ The reason is the scan/state plays an important role in the Controller. We want 
 
 This document describes the process of migrating pre-existing scan reports from Consul to the database pod.
 
+<p align="center">
+<img src="./materials/dbpod1.png" width="70%">
+</p>
+
 ## Design
 
 Following list some design for the db-pod:
+
+TODO: mention it is just an HTTP server, using embedded dadatabase. And leverage k8's storage to persist data.
 
 ### 1️⃣ db-pod is a `StatefulSet` in Kubernetes within the same namespace with Controller
 
@@ -63,6 +69,7 @@ reduce the Controller pod and db-pod dependency. db-pod currnetly server as a da
 ### 3️⃣ Authentication
 
 Using Mutual TLS (mTLS) for authentication, and only Controller can access db-pod.
+
 It will use same certificate rotation mechanism in v5.4.
 
 ### 4️⃣ Migration
@@ -94,9 +101,7 @@ A scheduler routine within the `lead Controller` will commence every XX minutes 
 
 Upon initiation, the routine will iterate through all existing scan reports in Consul, inserting them into the db-pod, and subsequently deleting the corresponding key in Consul.
 
-The migration process can be interrupted (e.g., during a Controller pod restart). The scheduler routine will be invoked regularly (interval TBD, possibly every xx minutes).
-
-This aligns with the nature of Kubernetes, where pods are replaceable and can be down at any time. This mechanism ensures that data can be migrated successfully.
+The migration process can be interrupted (e.g., during a Controller pod restart). The scheduler routine will be invoked regularly (interval TBD, possibly every xx minutes). This aligns with the nature of Kubernetes, where pods are replaceable and can be down at any time. This mechanism ensures that data can be migrated successfully.
 
 Therefore, the migration process is continuous rather than a one-time task.
 
