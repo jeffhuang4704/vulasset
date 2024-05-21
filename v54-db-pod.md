@@ -106,7 +106,7 @@ Using Mutual TLS (mTLS) for authentication, and only Controller can access db-po
 
 It will use same certificate rotation mechanism in v5.4.
 
-### 5️⃣ Migration
+### 5️⃣ 👉👉 Migration
 
 When user migrate to v5.4 with db-pod enabled, we want to migrate existing data stored in Consul.
 The goal we want to achieve is if DB pod is installed, at a moment during upgrade, the migration happens automatically.
@@ -128,7 +128,9 @@ Therefore, the migration process is continuous rather than a one-time task.
 
 Consider a scenario where a network-mounted drive, such as an NFS server, is unavailable. In this case, the Controller will not be able to save data to the db-pod. Instead, the Controller can store the data in Consul first. Continuous migration can help in this scenario, adding more resilience to NeuVector.
 
-The GetScanReport() function will be adjusted to retrieve data from the db-pod. If the db-pod is unavailable, it will read from Consul instead.
+During migration period, NeuVector function will not be impacted as the patched read/write scan report function will act accordingly.
+
+During the migration period, NeuVector's functionality will not be affected, as the patched read/write scan report function mentioned above will handle it.
 
 **Performance:**
 
