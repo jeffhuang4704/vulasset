@@ -98,7 +98,7 @@ This can reduce the dependency between the Controller and the db-pod, as the log
 
 In this initial version, we will store the data originally from Consul.
 
-This generic approach allows us to easily extend it to store other data as needed without changing the db-pod.
+However, this generic approach allows us to easily extend it to store other data as needed without changing the db-pod.
 
 ### 4️⃣ Authentication
 
