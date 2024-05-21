@@ -34,6 +34,8 @@ We will patch the write scan report function (like `putScanReportToCluster()`). 
 
 The migration process (introduced in a later section) will resume to db-pod once it is back online.
 
+We will also patch the read scan report function `GetScanReport()` to fetch data from the db-pod.
+
 ### Simple diagram illustration
 
 <p align="left">
