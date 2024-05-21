@@ -93,15 +93,19 @@ The migration process can be interrupted (e.g., during a Controller pod restart)
 
 Therefore, the migration process is continuous rather than a one-time task.
 
-Consider a scenario where the network-mounted drive, such as an NFS server, is unavailable. In this case, the Controller will not be able to save data to the db-pod. Instead, the Controller can store the data in Consul first. This adds more resilience to NeuVector.
+Consider a scenario where a network-mounted drive, such as an NFS server, is unavailable. In this case, the Controller will not be able to save data to the db-pod. Instead, the Controller can store the data in Consul first. Continuous migration can help in this scenario, adding more resilience to NeuVector.
 
-TODO: mention how to read data work if need to get scan report. We will patch GetScanReport() function so it will fetch data from db-pod.
-If it's not available it will try local Consul instead.
+The GetScanReport() function will be adjusted to retrieve data from the db-pod. If the db-pod is unavailable, it will read from Consul instead.
 
 **Performance:**
 I conducted a few tests
 [test1] A ScanReport containing 142 CVEs with a zipped size of 5 KB. It takes around 13 seconds to migrate 1,000 reports.
 [test2] A ScanReport containing 1,371 CVEs with a zipped size of 33 KB. It takes around 17 seconds to migrate 1,000 reports.
+
+| Scan Report count | CVE Size | Each Report Size | Time         |
+| ----------------- | -------- | ---------------- | ------------ |
+| 1000              | 142      | 5KB in zip       | 13 seconds   |
+| 1000              | 1371     | 33KB in zip      | 13 seconds17 |
 
 The data flow looks like below:
 controller => db-pod => nfs server (Persistent Volumes)
