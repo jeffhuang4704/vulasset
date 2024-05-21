@@ -1,5 +1,15 @@
 # Some notes regarding NVSHAS-8534 - To block the usage of specific storage classes
 
+## Disucssion notes
+
+<p align="center">
+<img src="./materials/sc-notes1.png" width="80%">
+</p>
+
+<p align="center">
+<img src="./materials/sc-notes2.png" width="80%">
+</p>
+
 ## Links
 
 -- [setup nfs on ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-20-04)  
@@ -139,7 +149,9 @@ spec:
 ## Use REST API to add rule
 
 ```
-curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Apikey: test1:KdrdVJZE+vNMgqF79v9xEDjH40JRFM/8Q+7vWZ1UufjNPfZZiZp6fmto4zFo3mS9" "https://$K8sNodeIP:$ControllerSvcPORT/v1/admission/rule" --data-binary @rule_sc_name.json
+curl -X POST -k -H "Content-Type: application/json" -H "X-Auth-Apikey: test1:KdrdVJ..."
+"https://$K8sNodeIP:$ControllerSvcPORT/v1/admission/rule"
+--data-binary @rule_sc_name.json
 
 // file: rule_sc_name.json
 {
