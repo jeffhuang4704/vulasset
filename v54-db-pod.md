@@ -12,12 +12,18 @@
 
 In version 5.4, we will introduce a database pod, which functions as a database service within the NeuVector deployment. This feature is optional and can be deployed by users at their discretion.
 
+TODO: mention if user do not have memory pressure in their environment, they don't need to enable while upgrade to v5.4.
+
 // what we will store in db-pod
 When activated, it will store scan report in the database pod rather than Consul, thereby reducing memory usage in Consul. The data to be stored in the database pod will be scan report, including benchmark data.
 
-In Consul, a scan report is reprsented by a pair of keys, scan/state and scan/data. Following is an example:
-scan/data/report/workload/c36f99d61f7f47f1a81e9099fa849649325c0081c0b8f1fb6de634ca5fb30275
-scan/state/report/workload/c36f99d61f7f47f1a81e9099fa849649325c0081c0b8f1fb6de634ca5fb30275
+Each scan report has two keys in Consul (1) state key and (2) data key
+Only `data key` will be migrated.
+
+```
+state key => scan/state/report/workload/81712...
+data key => scan/data/report/workload/81712...
+```
 
 The scan/state will still be stored in Consul, only the scan/data part will be stored in db-pod
 The reason is the scan/state plays an important role in the Controller. We want to preserve it so the changes can be minimized.
@@ -25,6 +31,10 @@ The reason is the scan/state plays an important role in the Controller. We want 
 This document describes the process of migrating pre-existing scan reports from Consul to the database pod.
 
 ## Design
+
+Following list some design for the db-pod:
+
+### `StatefulSet` in Kubernetes within the same namespace with Controller
 
 The db-pod is a `StatefulSet` in Kubernetes which user need to provide `storageClassName` value in the `volumeClaimTemplates`
 
@@ -44,20 +54,18 @@ NAME                           STATUS   VOLUME                                  
 nvdb-file-neuvector-db-pod-0   Bound    pvc-90914783-f893-4fa5-8e8f-c4cd2e693f89   5Gi        RWO            nfs-client     80d
 ```
 
-- SQL over HTTP
-  reduce the Controller pod and db-pod dependency. db-pod currnetly server as a database service which accept SQL statement. This eliminate the dependency when we need to adjust schema. The logic can be done purely on Controller side.
-- Authentication: the authentication mechanism will use the same one in the upcoming v5.4. Like certificate rotation will be leveraged.
+### SQL over HTTP
+
+reduce the Controller pod and db-pod dependency. db-pod currnetly server as a database service which accept SQL statement. This eliminate the dependency when we need to adjust schema. The logic can be done purely on Controller side.
+
+### Authentication the authentication mechanism will use the same one in the upcoming v5.4. Like certificate rotation will be leveraged.
+
+### Migration
+
+TODO: explain what is migration
+TODO: what's our goal // from Gary: we can do some preparation, what in my mind is, if DB pod is installed, at a moment during upgrade, the migration happens automatically
 
 ## Migration existing data from Consul to db-pod
-
-**Scope**  
-Each scan report has two keys in Consul (1) state key and (2) data key
-Only `data key` will be migrated.
-
-```
-state key => scan/state/report/workload/81712...
-data key => scan/data/report/workload/81712...
-```
 
 **Mechanism**  
 A scheduler routine within the `lead Controller` will commence every XX minutes to execute the migration process. Migration will only proceed when all Controllers are operating on the same supported version (e.g., v5.4).  
