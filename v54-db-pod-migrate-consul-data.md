@@ -132,11 +132,13 @@ During the migration period, NeuVector's functionality will not be affected, as 
 
 **Performance:**
 
-| Scan Report count | CVE Size | Each Report Size | Total Time (write to NFS server) | Total Time (write to db-pod local storage) |
-| ----------------- | -------- | ---------------- | -------------------------------- | ------------------------------------------ |
-| 1,000             | 142      | 5KB in zip       | ~ 13 seconds                     | ~ 3 seconds                                |
-| 1,000             | 1371     | 33KB in zip      | ~ 17 seconds                     | ~ 5 seconds                                |
-| 10,000            | 1371     | 33KB in zip      | < 3 minutes                      | ~ 46 seconds                               |
+| Scan Report count | CVE Size | Each Report Size | Total Time (write to NFS server) | 🆕 Total Time (write to db-pod local storage) |
+|||||(no network mount drive used)|
+
+| ----------------- | -------- | ---------------- | -------------------------------- | --------------------------------------------- |
+| 1,000 | 142 | 5KB in zip | ~ 13 seconds | ~ 3 seconds |
+| 1,000 | 1371 | 33KB in zip | ~ 17 seconds | ~ 5 seconds |
+| 10,000 | 1371 | 33KB in zip | < 3 minutes | ~ 46 seconds |
 
 <p align="left">
 <img src="./materials/dbpod2.png" width="70%">
