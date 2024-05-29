@@ -140,11 +140,11 @@ During the migration period, NeuVector's functionality will not be affected, as 
 
 **Performance: (2024/05/28)**
 
-| Scan Report count | CVE Size | Each Report Size | 1️⃣ Total Time (no aggregated network connections) | 2️⃣ Total Time (aggregate the network connections ) |
-| ----------------- | -------- | ---------------- | ------------------------------------------------- | -------------------------------------------------- |
-| 1,000             | 142      | 5KB in zip       | ~ 13 seconds                                      |                                                    |
-| 1,000             | 1371     | 33KB in zip      | ~ 17 seconds                                      | ~ 7 seconds                                        |
-| 10,000            | 1371     | 33KB in zip      | < 3 minutes                                       | ~ 42 seconds                                       |
+| Scan Report count | CVE Size | Each Report Size | 1️⃣ Total Time (no aggregated network connections, batch=1) | 2️⃣ Total Time (aggregate the network connections, batch=15 ) |
+| ----------------- | -------- | ---------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| 1,000             | 142      | 5KB in zip       | ~ 13 seconds                                               |                                                              |
+| 1,000             | 1371     | 33KB in zip      | ~ 17 seconds                                               | ~ 7 seconds                                                  |
+| 10,000            | 1371     | 33KB in zip      | < 3 minutes                                                | ~ 42 seconds                                                 |
 
 <p align="left">
 <img src="./materials/dbpod2.png" width="70%">
