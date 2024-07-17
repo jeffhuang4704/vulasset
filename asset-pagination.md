@@ -7,6 +7,7 @@
 - v3 - 2024/05/01 (adjust data structure)
 - v4 - 2024/05/02 (adjust data structure)
 - v5 - 2024/05/03 (adjust data structure, remove cve low)
+- v6 - 2024/07/17 (add CVE critical level and adjust api name)
 
 ## Table of Contents
 
@@ -25,15 +26,12 @@ REST API support for adding pagination and some image informations
 
 ### Starting a Query Session
 
-To initiate a query, use the POST method on the endpoint `/v1/scan/asset/view/asset`, providing filters and sorting options within the request body.
-
-> [!NOTE]
-> The API name will be changed later.
+To initiate a query, use the POST method on the endpoint `/v1/scan/asset/images`, providing filters and sorting options within the request body.
 
 **Request Body**
 
 ```
-POST /v1/scan/asset/view/asset
+POST /v1/scan/asset/images
 
 Request Body
 {
@@ -55,36 +53,42 @@ The `summary.top_images` array comprises the Top 5 images, with the 6th element 
         "top_images": [
             {
                 "display_name": "wurstmeister-zookeeper:latest",
+                "critical": 100,    👈
                 "high": 1385,
                 "id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
                 "medium": 1009
             },
             {
                 "display_name": "citadel:1.4.2",
+                "critical": 100,
                 "high": 1051,
                 "id": "9a48168d5ab29a332e14541be713b0be76f330c035f2dfbf115f2583c74edd33",
                 "medium": 1148
             },
             {
                 "display_name": "node-istio:latest",
+                "critical": 100,
                 "high": 1344,
                 "id": "21192ddd0a012fe978d28106c80be49b9a7bfec6c394e7036bbf3ea0286bfd3a",
                 "medium": 845
             },
             {
                 "display_name": "selvam_centos_http:latest",
+                "critical": 100,
                 "high": 494,
                 "id": "2fa01e609a4f5b9ee0b6af7711e582fa0a423c213f5ff9fcd63b5589f3ae8c4d",
                 "medium": 779
             },
             {
                 "display_name": "alpinedev:20230519-110159",
+                "critical": 100,
                 "high": 111,
                 "id": "53b0e93618b3cebff066a17d275b6017b4b9a3514437747326cc35dc4c44f4a7",
                 "medium": 30
             },
             {
                 "display_name": "others",     // 👈 ** the 6th record is for other which is sum of all the remainings
+                "critical": 100,      👈
                 "high": 21462,
                 "id": "",
                 "low": 1390,
@@ -107,7 +111,7 @@ If the user opts for a different column sorting, we can incorporate this change 
 **Request**
 
 ```
-GET /v1/scan/asset/view/asset?token=eff501a8ce17&start=0&row=100
+GET /v1/scan/asset/images?token=eff501a8ce17&start=0&row=100
 
 1️⃣ token: Indicates the query session; you can find this token in the response body.
 2️⃣ start: Specifies the starting row.
@@ -143,6 +147,7 @@ For type image, the detail field in data array are:
       "base_os": "ubuntu:14.04",
       "created_at": "2016-01-21T07:57:36Z",
       "digest": "sha256:1eef309c527f83d868edcd0152cbbad05c782b9f6d120eb047a2ffa54fa9a33f",
+      "critical": 100,      👈
       "high": 1384,
       "image_id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
       "medium": 1016,
