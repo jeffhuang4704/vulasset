@@ -35,7 +35,7 @@ POST /v1/scan/asset/images
 
 Request Body
 {
-    type='image'    // in v5.3.3, only image is supported
+    type='image'    // in v5.4, only image is supported
 }
 ```
 
