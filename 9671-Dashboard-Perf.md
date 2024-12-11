@@ -1,6 +1,6 @@
 ## NVSHAS-9671 Evaluate loading time on the main dashboard page (lower section)
 
-### APIs used in the dashboard page
+### APIs used in the dashboard page (lower section only)
 
 ```
 1️⃣ /v1/scan/config
