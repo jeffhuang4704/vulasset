@@ -111,8 +111,308 @@ It returns workloads array.
 
 ### APIs payload - 3️⃣ /v1/host?start=0
 
+It returns hosts array.
+
+```
+{
+  "hosts": []
+}
+```
+
+<details><summary>One host payload</summary>
+
+```
+ {
+      "annotations": null,
+      "cap_docker_bench": true,
+      "cap_kube_bench": true,
+      "cgroup_version": 2,
+      "containers": 41,
+      "cpus": 8,
+      "docker_bench_status": "finished",
+      "id": "ubuntu2204-A:J34I:M2CR:RM54:Z24R:HRMR:2DLN:ISHL:2AVY:FW63:SAKO:KEBW:33IO",
+      "interfaces": {
+        "ens192": [
+          {
+            "gateway": "",
+            "ip": "10.1.45.40",
+            "ip_prefix": 16
+          }
+        ]
+      },
+      "kernel": "5.15.0-78-generic",
+      "kube_bench_status": "finished",
+      "labels": null,
+      "memory": 12537417728,
+      "name": "ubuntu2204-A",
+      "os": "Ubuntu 22.04 LTS",
+      "platform": "Kubernetes",
+      "pods": 20,
+      "policy_mode": "Discover",
+      "profile_mode": "Discover",
+      "runtime": "docker",
+      "runtime_api_version": "1.41",
+      "runtime_version": "20.10.16",
+      "scan_summary": {
+        "base_os": "ubuntu:22.04",
+        "cvedb_create_time": "2024-09-18T00:40:11Z",
+        "high": 2058,
+        "medium": 7687,
+        "result": "succeeded",
+        "scanned_at": "2024-12-11T00:25:22Z",
+        "scanned_timestamp": 1733876722,
+        "scanner_version": "3.559",
+        "status": "finished"
+      },
+      "state": "connected",
+      "storage_driver": "overlay2"
+    }
+```
+
+</details>
+
 ### APIs payload - 4️⃣ /v1/group
+
+It returns groups array.
+
+```
+{
+  "groups": []
+}
+```
+
+<details><summary>One group payload</summary>
+
+```
+
+    {
+      "baseline_profile": "basic",
+      "cfg_type": "learned",
+      "comment": "",
+      "creater_domains": null,
+      "criteria": [],
+      "domain": "",
+      "kind": "node",
+      "learned": true,
+      "members": [
+        {
+          "author": "",
+          "baseline_profile": "",
+          "cap_change_mode": true,
+          "cap_quarantine": false,
+          "cap_sniff": false,
+          "children": null,
+          "display_name": "",
+          "domain": "",
+          "has_datapath": false,
+          "host_id": "",
+          "host_name": "",
+          "id": "ubuntu2204-C:BW54:QWBZ:GOKY:BH37:27FH:ZMG6:SHQ4:UXIZ:SQXM:TSDT:GQBB:YQY6",
+          "image": "",
+          "image_created_at": "",
+          "image_id": "",
+          "image_reg_scanned": false,
+          "name": "ubuntu2204-C",
+          "platform_role": "",
+          "pod_name": "",
+          "policy_mode": "",
+          "privileged": false,
+          "profile_mode": "",
+          "run_as_root": false,
+          "scan_summary": {
+            "base_os": "ubuntu:22.04",
+            "cvedb_create_time": "2024-09-18T00:40:11Z",
+            "high": 2042,
+            "medium": 7638,
+            "result": "succeeded",
+            "scanned_at": "2024-12-11T00:22:14Z",
+            "scanned_timestamp": 1733876534,
+            "scanner_version": "3.559",
+            "status": "finished"
+          },
+          "service": "nodes",
+          "service_group": "nodes",
+          "service_mesh": false,
+          "service_mesh_sidecar": false,
+          "state": "connected"
+        },
+        {
+          "author": "",
+          "baseline_profile": "",
+          "cap_change_mode": true,
+          "cap_quarantine": false,
+          "cap_sniff": false,
+          "children": null,
+          "display_name": "",
+          "domain": "",
+          "has_datapath": false,
+          "host_id": "",
+          "host_name": "",
+          "id": "ubuntu2204-B:SGC3:5QOQ:EVL4:WLO5:MP2D:SESI:KF2R:T6UF:OZ7V:IJFT:IGBI:JAMU",
+          "image": "",
+          "image_created_at": "",
+          "image_id": "",
+          "image_reg_scanned": false,
+          "name": "ubuntu2204-B",
+          "platform_role": "",
+          "pod_name": "",
+          "policy_mode": "",
+          "privileged": false,
+          "profile_mode": "",
+          "run_as_root": false,
+          "scan_summary": {
+            "base_os": "ubuntu:22.04",
+            "cvedb_create_time": "2024-09-18T00:40:11Z",
+            "high": 2036,
+            "medium": 7634,
+            "result": "succeeded",
+            "scanned_at": "2024-12-11T00:23:13Z",
+            "scanned_timestamp": 1733876593,
+            "scanner_version": "3.559",
+            "status": "finished"
+          },
+          "service": "nodes",
+          "service_group": "nodes",
+          "service_mesh": false,
+          "service_mesh_sidecar": false,
+          "state": "connected"
+        },
+        {
+          "author": "",
+          "baseline_profile": "",
+          "cap_change_mode": true,
+          "cap_quarantine": false,
+          "cap_sniff": false,
+          "children": null,
+          "display_name": "",
+          "domain": "",
+          "has_datapath": false,
+          "host_id": "",
+          "host_name": "",
+          "id": "ubuntu2204-A:J34I:M2CR:RM54:Z24R:HRMR:2DLN:ISHL:2AVY:FW63:SAKO:KEBW:33IO",
+          "image": "",
+          "image_created_at": "",
+          "image_id": "",
+          "image_reg_scanned": false,
+          "name": "ubuntu2204-A",
+          "platform_role": "",
+          "pod_name": "",
+          "policy_mode": "",
+          "privileged": false,
+          "profile_mode": "",
+          "run_as_root": false,
+          "scan_summary": {
+            "base_os": "ubuntu:22.04",
+            "cvedb_create_time": "2024-09-18T00:40:11Z",
+            "high": 2058,
+            "medium": 7687,
+            "result": "succeeded",
+            "scanned_at": "2024-12-11T00:25:22Z",
+            "scanned_timestamp": 1733876722,
+            "scanner_version": "3.559",
+            "status": "finished"
+          },
+          "service": "nodes",
+          "service_group": "nodes",
+          "service_mesh": false,
+          "service_mesh_sidecar": false,
+          "state": "connected"
+        }
+      ],
+      "name": "nodes",
+      "not_scored": false,
+      "platform_role": "",
+      "policy_mode": "Discover",
+      "policy_rules": [
+        10001,
+        10005,
+        10006,
+        10017,
+        10019,
+        10020
+      ],
+      "profile_mode": "Discover",
+      "reserved": true,
+      "response_rules": []
+    }
+
+```
+
+</details>
 
 ### APIs payload - 5️⃣ /v1/policy/rule
 
+It returns rules array.
+
+```
+{
+  "rules": []
+}
+```
+
+<details><summary>One rule payload</summary>
+
+```
+ {
+      "action": "allow",
+      "applications": [
+        "any"
+      ],
+      "cfg_type": "learned",
+      "comment": "",
+      "created_timestamp": 1732583065,
+      "disable": false,
+      "from": "nodes",
+      "id": 10001,
+      "last_modified_timestamp": 1732583065,
+      "learned": true,
+      "ports": "tcp/6783,tcp/6784",
+      "priority": 0,
+      "to": "nv.weave-net.kube-system"
+    }
+```
+
+</details>
+
 ### APIs payload - 2️⃣ 6️⃣ /v1/conversation
+
+It returns conversations array.
+
+```
+{
+  "conversations": []
+}
+```
+
+<details><summary>One conversation payload</summary>
+
+```
+    {
+      "applications": [],
+      "bytes": 41310313,
+      "entries": [
+        {
+          "bytes": 41310313,
+          "client_ip": "10.32.0.6",
+          "policy_action": "open",
+          "port": "tcp/443",
+          "server_ip": "10.96.0.1",
+          "sessions": 0
+        }
+      ],
+      "event_type": [],
+      "from": "ea7cd42bb174431d18aefd94715ec983463c3312b2d2c17e6d1b71d22be6c59d",
+      "policy_action": "open",
+      "ports": [
+        "tcp/443"
+      ],
+      "protocols": [
+        "tcp"
+      ],
+      "sessions": 0,
+      "severity": "",
+      "to": "nv.ip.kubernetes.default"
+    }
+```
+
+</details>
