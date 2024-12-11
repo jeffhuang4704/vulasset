@@ -14,10 +14,20 @@
 ### APIs payload - 1️⃣ /v1/scan/config
 
 ```
-
+{
+  "config": {
+    "auto_scan": true
+  }
+}
 ```
 
 ### APIs payload - 2️⃣ /v1/workload
+
+<details><summary>Dashboard part</summary>
+<p align="left">
+<img src="./materials/9671-screen-01.png" width="60%">
+</p>
+</details>
 
 It returns workloads array.
 
@@ -374,7 +384,7 @@ It returns rules array.
 
 </details>
 
-### APIs payload - 2️⃣ 6️⃣ /v1/conversation
+### APIs payload - 6️⃣ /v1/conversation
 
 It returns conversations array.
 
