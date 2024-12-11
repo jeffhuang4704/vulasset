@@ -28,6 +28,7 @@ It returns workloads array.
 ```
 
 <details><summary>One workload payload</summary>
+
 ```
 {
       "applications": [],
@@ -105,6 +106,7 @@ It returns workloads array.
       "state": "discover"
     }
 ```
+
 </details>
 
 ### APIs payload - 3️⃣ /v1/host?start=0
