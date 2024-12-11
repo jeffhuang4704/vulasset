@@ -25,7 +25,7 @@
 
 <details><summary>Dashboard part</summary>
 <p align="left">
-<img src="./materials/9671-screen-01.png" width="60%">
+<img src="./materials/9671-screen-01.png" width="70%">
 </p>
 </details>
 
@@ -121,6 +121,12 @@ It returns workloads array.
 
 ### APIs payload - 3️⃣ /v1/host?start=0
 
+<details><summary>Dashboard part</summary>
+<p align="left">
+<img src="./materials/9671-screen-02.png" width="70%">
+</p>
+</details>
+
 It returns hosts array.
 
 ```
@@ -182,6 +188,12 @@ It returns hosts array.
 </details>
 
 ### APIs payload - 4️⃣ /v1/group
+
+<details><summary>Dashboard part</summary>
+<p align="left">
+<img src="./materials/9671-screen-03.png" width="70%">
+</p>
+</details>
 
 It returns groups array.
 
@@ -352,6 +364,12 @@ It returns groups array.
 
 ### APIs payload - 5️⃣ /v1/policy/rule
 
+<details><summary>Dashboard part</summary>
+<p align="left">
+<img src="./materials/9671-screen-04.png" width="70%">
+</p>
+</details>
+
 It returns rules array.
 
 ```
@@ -385,6 +403,12 @@ It returns rules array.
 </details>
 
 ### APIs payload - 6️⃣ /v1/conversation
+
+<details><summary>Dashboard part</summary>
+<p align="left">
+<img src="./materials/9671-screen-05.png" width="70%">
+</p>
+</details>
 
 It returns conversations array.
 
