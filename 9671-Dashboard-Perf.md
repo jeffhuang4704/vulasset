@@ -408,6 +408,10 @@ It returns rules array.
 <p align="left">
 <img src="./materials/9671-screen-05.png" width="70%">
 </p>
+
+<p align="left">
+<img src="./materials/9671-screen-06.png" width="70%">
+</p>
 </details>
 
 It returns conversations array.
