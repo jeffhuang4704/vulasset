@@ -32,17 +32,6 @@ v11 - 2024/12/15 Add feed rating in risk page
   - [v5.3.2 - embed image information](#the-response-in-v532) 🆕
 - [Testing Environment](#testing-environment)
 
-## Endpoints
-
-The endpoint name can be updated to enhance clarity.
-
-```
-
-v1/vulasset // for main UI
-v1/assetvul // for Asset Views (the PDF printout)
-
-```
-
 ## Usage for `v1/vulasset`
 
 To utilize the v1/vulasset feature, begin by initiating a query session through the submission of advanced filters and sorting options. The backend will generate a session specific to the provided query and furnish you with a token for navigating within that session. If a user modifies the filter criteria, it is essential to initiate a new query session.
@@ -157,6 +146,8 @@ Refer to the detailed fields and their corresponding values in the following raw
 
 If the user opts for a different column sorting, we can incorporate this change within the current query session by adding the "orderbyColumn" and "orderby" URL parameters, eliminating the need to create a new query session and thereby enhancing performance.
 
+<details><summary>Request</summary>
+
 ```
 
 GET v1/vulasset?token=eff501a8ce17&start=0&row=100
@@ -170,75 +161,82 @@ GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 7️⃣ scoretype: v3 or v2
 8️⃣ lastmtime: 1605353432 // time tick 👈
 
-Reponse
-{
-"qf_matched_records": 0, // 👈 how many quick filter matched records
-"vulnerabilities": [
-{
-"description": "Docker before 1.5 allows local users to have unspecified impact via vectors involving unsafe /tmp usage.",
-"images": [
-{
-"display_name": "wurstmeister-zookeeper:latest",
-"domains": null,
-"id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
-"policy_mode": ""
-}
-],
-"last_modified_timestamp": 1507923932,
-"link": "http://people.ubuntu.com/~ubuntu-security/cve/CVE-2014-0047",
-"name": "CVE-2014-0047",
-"nodes": [
-{
-"display_name": "ubuntu2204-A",
-"domains": [],
-"id": "ubuntu2204-A:J34I:M2CR:RM54:Z24R:HRMR:2DLN:ISHL:2AVY:FW63:SAKO:KEBW:33IO",
-"policy_mode": "Discover"
-},
-{
-"display_name": "ubuntu2204-B",
-"domains": [],
-"id": "ubuntu2204-B:SGC3:5QOQ:EVL4:WLO5:MP2D:SESI:KF2R:T6UF:OZ7V:IJFT:IGBI:JAMU",
-"policy_mode": "Discover"
-},
-{
-"display_name": "ubuntu2204-C",
-"domains": [],
-"id": "ubuntu2204-C:BW54:QWBZ:GOKY:BH37:27FH:ZMG6:SHQ4:UXIZ:SQXM:TSDT:GQBB:YQY6",
-"policy_mode": "Discover"
-}
-],
-"packages": {
-"docker.io": [
-{
-"fixed_version": "1.6.2~dfsg1-1ubuntu4~14.04.1",
-"package_version": "1.0.1~dfsg1-0ubuntu1~ubuntu0.14.04.1"
-}
-]
-},
-"platforms": [],
-"published_timestamp": 1507923932,
-"score": 4.6,
-"score_v3": 7.8,
-"severity": "High",
-"vectors": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
-"vectors_v3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-"workloads": [
-{
-"display_name": "wurstmeister",
-"domains": [
-"default"
-],
-"id": "d3ecf62b28ec00259f46041311fb9ea7231c6ae673b37ddb98ae0e71493de2ca",
-"image": "quay.io/nvlab/wurstmeister-zookeeper:latest",
-"policy_mode": "Discover",
-"service": "my-dep1.default"
-}
-]
-}
-]
-}
+```
+
+</details>
+
+<details><summary>Response</summary>
 
 ```
+{
+    "qf_matched_records": 0,    // 👈 how many quick filter matched records
+    "vulnerabilities": [
+        {
+            "description": "Docker before 1.5 allows local users to have unspecified impact via vectors involving unsafe /tmp usage.",
+            "images": [
+                {
+                    "display_name": "wurstmeister-zookeeper:latest",
+                    "domains": null,
+                    "id": "dc00f1198a444104617989bde31132c22d7527c65e825b9de4bbe6313f22637f",
+                    "policy_mode": ""
+                }
+            ],
+            "last_modified_timestamp": 1507923932,
+            "link": "http://people.ubuntu.com/~ubuntu-security/cve/CVE-2014-0047",
+            "name": "CVE-2014-0047",
+            "nodes": [
+                {
+                    "display_name": "ubuntu2204-A",
+                    "domains": [],
+                    "id": "ubuntu2204-A:J34I:M2CR:RM54:Z24R:HRMR:2DLN:ISHL:2AVY:FW63:SAKO:KEBW:33IO",
+                    "policy_mode": "Discover"
+                },
+                {
+                    "display_name": "ubuntu2204-B",
+                    "domains": [],
+                    "id": "ubuntu2204-B:SGC3:5QOQ:EVL4:WLO5:MP2D:SESI:KF2R:T6UF:OZ7V:IJFT:IGBI:JAMU",
+                    "policy_mode": "Discover"
+                },
+                {
+                    "display_name": "ubuntu2204-C",
+                    "domains": [],
+                    "id": "ubuntu2204-C:BW54:QWBZ:GOKY:BH37:27FH:ZMG6:SHQ4:UXIZ:SQXM:TSDT:GQBB:YQY6",
+                    "policy_mode": "Discover"
+                }
+            ],
+            "packages": {
+                "docker.io": [
+                    {
+                        "fixed_version": "1.6.2~dfsg1-1ubuntu4~14.04.1",
+                        "package_version": "1.0.1~dfsg1-0ubuntu1~ubuntu0.14.04.1"
+                    }
+                ]
+            },
+            "platforms": [],
+            "published_timestamp": 1507923932,
+            "score": 4.6,
+            "score_v3": 7.8,
+            "severity": "High",
+            "vectors": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
+            "vectors_v3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+            "workloads": [
+                {
+                    "display_name": "wurstmeister",
+                    "domains": [
+                        "default"
+                    ],
+                    "id": "d3ecf62b28ec00259f46041311fb9ea7231c6ae673b37ddb98ae0e71493de2ca",
+                    "image": "quay.io/nvlab/wurstmeister-zookeeper:latest",
+                    "policy_mode": "Discover",
+                    "service": "my-dep1.default"
+                }
+            ]
+        }
+    ]
+}
+```
+
+</details>
 
 ### Quick Filter Within a Query Session
 
@@ -531,6 +529,10 @@ neuvector@ubuntu2204-E:~/ui_perf$ cat assetvul.json
 "CVE-2023-2975"
 ]
 },
+
+```
+
+```
 
 ```
 
