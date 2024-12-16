@@ -21,7 +21,7 @@ NVSHAS-9614 Include a sortable feed_rating column into vulnerabilities tab
 
 ```
 
-Sorting
+**Sorting**
 
 ```
 /v1/vulasset?token=$TOKEN&row=100&start=0&orderbyColumn=feed_rating&orderby=desc
@@ -30,7 +30,11 @@ orderbyColumn=feed_rating   👈
 orderby=desc | asc
 ```
 
+**Quick Filter**
 The 'Feed Rating' column data is now included in the scope of the Quick Search feature.
+
+**Testing**
+A testing environment has been set up in the lab and is accessible at `10.1.45.40:31786`.
 
 <details><summary>previous changes</summary>
 
@@ -476,10 +480,4 @@ Caller can use these two fields to fetch detail image information using endpoint
 
 ## Testing environment
 
-I have set up an environment in the lab at 10.1.45.40. I will update the image with the latest work for testing purposes.
-
-To access the management console, visit https://10.1.45.44:30590/#/login.
-If necessary, you can also SSH into the machine to make any required changes.
-The controller endpoint is accessible via curl at 10.1.45.44:31693.
-
-You can also use these two scripts on 10.1.45.44 for testing.
+A testing environment has been set up in the lab and is accessible at `10.1.45.40:31786`.
