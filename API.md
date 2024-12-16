@@ -243,23 +243,34 @@ GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 The current UI design includes a Filter function that enables users to refine their search within the existing results.
 To achieve this, you can utilize the same endpoint with an `qf` URL parameter to specify the search term and `scoretype` to indicate score type.
 
-The search scope is currently limited to the [name] and [score] fields.
+The search scope is currently limited to the [name], [score] and [feed_rating] fields.
+
+<details><summary>Request</summary>
 
 ```
-
 Request
+
 GET /v1/vulasset?token=aaa&qf=term&scoretype=v3&start=0&row=100
 
 qf : indicate the quick filter term
 scoretype: indicate the score type, values are "v2", "v3"
+```
 
+</details>
+
+<details><summary>Response</summary>
+
+```
 Reponse
+
 {
-"qf_matched_records": 0, // 👈 how many quick filter matched records
-"vulnerabilities": [...]
+    "qf_matched_records": 0, // 👈 how many quick filter matched records
+    "vulnerabilities": [...]
 }
 
 ```
+
+</details>
 
 Quick filter:
 
@@ -286,25 +297,19 @@ Use `HTTP POST` for this request.
 The output will be sourced from the existing query session within the main UI. As a result, it is essential to include the query_token in the URL parameters. To refine the output, you can include the `lastModifiedTime` in the request body.
 
 ```
-
 HTTP POST v1/vulasset
 
 POST v1/vulasset?token=eff501a8ce17
 
 Request Body
 {
-// "lastModifiedTime", // ❌ obsolete
-
     "last_modified_timestamp": // 1605353432;  or 0 for [all]
-
 }
-
 ```
 
 ### The response
 
 The response from this API call contains all the necessary data in a single retrieval.
-
 The response strucutre like this.
 
 <p align="left">
@@ -315,127 +320,135 @@ The `vulnerabilities` array comprises distinct CVEs from `workloads`, `nodes`, `
 
 🔑 The CVE name will be prefixed with its severity indicator: H*, M*, or L\_. Callers should extract the format based on the intended display.
 
-```
-
-{
-"workloads": [
-{
-"name": "kube-proxy-84bkd",
-"domain": "kube-system",
-"applications": [
-"TCP/10249",
-"TCP/10256"
-],
-"policy*mode": "Discover",
-"service_group": "nv.kube-proxy.kubesystem",
-"high": 12,
-"medium": 5,
-"low": 2,
-"vulnerabilities": [
-"H_CVE-2023-29383", 👈 \*\* prefixed with its severity indicator: H* for high, M* for medium, or L* for low.
-"L_CVE-2022-4899"
-],
-"scanned_at": "2023-12-11T01:21:10Z"
-}
-],
-"nodes": [
-{
-"name": "master",
-"os": "Ubuntu 22.04 LTS",
-"kernel": "5.15.0-71-generic",
-"cpus": 4,
-"memory": 8335712256,
-"containers": 16,
-"policy_mode": "Discover",
-"high": 12,
-"medium": 5,
-"low": 2,
-"vulnerabilities": [
-"H_CVE-2023-29383",
-"L_CVE-2022-4899"
-],
-"scanned_at": "2023-12-11T01:21:10Z"
-}
-],
-"platforms": [
-{
-"name": "Kubernetes",
-"version": "1.23.17",
-"base_os": "",
-"high": 12,
-"medium": 5,
-"low": 2,
-"vulnerabilities": [
-"H_CVE-2023-29383",
-"L_CVE-2022-4899"
-]
-}
-],
-"images": [
-{
-"name": "gcr.io/google-samples/microservices-demo/adservice:v0.5.0",
-"high": 12,
-"medium": 5,
-"low": 2,
-"vulnerabilities": [
-"H_CVE-2023-29383",
-"L_CVE-2022-4899"
-]
-}
-],
-"vulnerabilities": [
-{
-"description": "Docker before 1.5 allows local users to have unspecified impact via vectors involving unsafe /tmp usage.",
-"last_modified_timestamp": 1507923932,
-"link": "http://people.ubuntu.com/~ubuntu-security/cve/CVE-2014-0047",
-"name": "CVE-2014-0047",
-"packages": {
-"docker.io": [
-{
-"fixed_version": "1.6.2~dfsg1-1ubuntu4~14.04.1",
-"package_version": "1.0.1~dfsg1-0ubuntu1~ubuntu0.14.04.1"
-}
-]
-},
-"published_timestamp": 1507923932,
-"score": 4.6,
-"score_v3": 7.8,
-"severity": "High",
-"vectors": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
-"vectors_v3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-}
-]
-}
+<details><summary>Response</summary>
 
 ```
+{
+    "workloads": [
+        {
+            "name": "kube-proxy-84bkd",
+            "domain": "kube-system",
+            "applications": [
+                "TCP/10249",
+                "TCP/10256"
+            ],
+            "policy*mode": "Discover",
+            "service_group": "nv.kube-proxy.kubesystem",
+            "high": 12,
+            "medium": 5,
+            "low": 2,
+            "vulnerabilities": [
+                "H_CVE-2023-29383",
+                "L_CVE-2022-4899"
+            ],
+            "scanned_at": "2023-12-11T01:21:10Z"
+        }
+    ],
+    "nodes": [
+        {
+            "name": "master",
+            "os": "Ubuntu 22.04 LTS",
+            "kernel": "5.15.0-71-generic",
+            "cpus": 4,
+            "memory": 8335712256,
+            "containers": 16,
+            "policy_mode": "Discover",
+            "high": 12,
+            "medium": 5,
+            "low": 2,
+            "vulnerabilities": [
+                "H_CVE-2023-29383",
+                "L_CVE-2022-4899"
+            ],
+            "scanned_at": "2023-12-11T01:21:10Z"
+        }
+    ],
+    "platforms": [
+        {
+            "name": "Kubernetes",
+            "version": "1.23.17",
+            "base_os": "",
+            "high": 12,
+            "medium": 5,
+            "low": 2,
+            "vulnerabilities": [
+                "H_CVE-2023-29383",  👈 \*\* prefixed with its severity indicator: H* for high, M* for medium, or L* for low.
+                "L_CVE-2022-4899"
+            ]
+        }
+    ],
+    "images": [
+        {
+            "name": "gcr.io/google-samples/microservices-demo/adservice:v0.5.0",
+            "high": 12,
+            "medium": 5,
+            "low": 2,
+            "vulnerabilities": [
+                "H_CVE-2023-29383",
+                "L_CVE-2022-4899"
+            ]
+        }
+    ],
+    "vulnerabilities": [
+        {
+            "description": "Docker before 1.5 allows local users to have unspecified impact via vectors involving unsafe /tmp usage.",
+            "last_modified_timestamp": 1507923932,
+            "link": "http://people.ubuntu.com/~ubuntu-security/cve/CVE-2014-0047",
+            "name": "CVE-2014-0047",
+            "packages": {
+                "docker.io": [
+                    {
+                        "fixed_version": "1.6.2~dfsg1-1ubuntu4~14.04.1",
+                        "package_version": "1.0.1~dfsg1-0ubuntu1~ubuntu0.14.04.1"
+                    }
+                ]
+            },
+            "published_timestamp": 1507923932,
+            "score": 4.6,
+            "score_v3": 7.8,
+            "severity": "High",
+            "vectors": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
+            "vectors_v3": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+        }
+    ]
+}
+
+```
+
+</details>
 
 ### The response (in v5.3.2)
 
 Two new fields (`id` and `regname`) were added in the `images` object.
 Caller can use these two fields to fetch detail image information using endpoint `/v1/scan/registry/{registry}/image/{image-id}`
 
-```
+<details><summary>Example output</summary>
 
-"images": [
+```
 {
-"high": 9,
-"id": "49176f190c7e9cdb51ac85ab6c6d5e4512352218190cd69b08e6fd803ffbf3da", 👈
-"low": 0,
-"medium": 13,
-"name": "alpine:3.17.0",
-"regname": "nvbox", 👈
-"vulnerabilities": [
-"H_CVE-2022-4450",
-"M_CVE-2023-3446",
-"M_CVE-2024-0727"
-]
-},
-
+    "images": [
+        {
+            "high": 9,
+            "id": "49176f190c7e9cdb51ac85ab6c6d5e4512352218190cd69b08e6fd803ffbf3da",   👈
+            "low": 0,
+            "medium": 13,
+            "name": "alpine:3.17.0",
+            "regname": "nvbox",     👈
+            "vulnerabilities": [
+                "H_CVE-2022-4450",
+                "M_CVE-2023-3446",
+                "M_CVE-2024-0727"
+            ]
+        }
+    ]
+}
 ```
+
+</details>
 
 ## Testing environment
 
-I have set up an environment in the lab at 10.1.45.44. I will update the image with the latest work for testing purposes.
+I have set up an environment in the lab at 10.1.45.40. I will update the image with the latest work for testing purposes.
 
 To access the management console, visit https://10.1.45.44:30590/#/login.
 If necessary, you can also SSH into the machine to make any required changes.
