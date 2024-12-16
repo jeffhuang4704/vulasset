@@ -4,6 +4,34 @@
 
 v11 - 2024/12/15 Add feed rating in risk page
 
+NVSHAS-9614 Include a sortable feed_rating column into vulnerabilities tab
+
+```
+# response
+/v1/vulasset?token=$TOKEN&row=100&start=0&orderbyColumn=feed_rating&orderby=desc
+{
+  ....
+  "feed_rating": "Important",   👈 new field
+  "last_modified_timestamp": 1547424000,
+  "link": "https://access.redhat.com/errata/RHSA-2019:0049",
+  "name": "RHSA-2019:0049"
+  ....
+  ....
+}
+
+```
+
+Sorting
+
+```
+/v1/vulasset?token=$TOKEN&row=100&start=0&orderbyColumn=feed_rating&orderby=desc
+                                                ☝️                   ☝️
+orderbyColumn=feed_rating   👈
+orderby=desc | asc
+```
+
+The 'Feed Rating' column data is now included in the scope of the Quick Search feature.
+
 <details><summary>previous changes</summary>
 
 ```
