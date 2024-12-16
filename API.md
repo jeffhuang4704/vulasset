@@ -4,6 +4,7 @@
 
 v11 - Add feed rating in risk page for NVSHAS-9614 Include a sortable feed_rating column into vulnerabilities tab
 
+**Data schema**
 A new field, `feed_rating`, has been added to the response. See the following example:
 
 ```
@@ -35,7 +36,7 @@ orderby=desc | asc
 
 **Quick Filter**
 
-The 'Feed Rating' column data is now included in the scope of the Quick Search feature.
+The `feed_rating` column data is now included in the scope of the Quick Search feature.
 
 **Testing**
 
