@@ -4,7 +4,7 @@
 
 v11 - 2024/12/15 Add feed rating in risk page
 
-<details><summary>History</summary>
+<details><summary>previous changes</summary>
 
 ```
 - v1 - 2023/12/13
@@ -51,6 +51,8 @@ To utilize the v1/vulasset feature, begin by initiating a query session through 
 
 To initiate a query, use the POST method on the endpoint `/v1/vulasset`, providing advanced filters and sorting options within the request body.
 
+<details><summary>Request</summary>
+
 ```
 
 HTTP POST v1/vulasset
@@ -62,8 +64,6 @@ Request Body
 "packageType": "withFix", // "all" (default), "withfix", "withoutfix" => "withFix", "withoutFix" (2024/03/13, for v5.3.1)
 "severityType": "high", // "all" (default), "high", "medium", "low"
 "scoreType": "v3", // "v2", "v3" (default)
-// "scoreV3Min": 1, // ❌ obsolete
-// "scoreV3Max": 4, // ❌ obsolete
 
     "last_modified_timestamp": 1605353432 // time tick
     "scoreV2": [6, 10],          // score v2 filter
@@ -86,16 +86,21 @@ Request Body
     "matchTypeContainer": "equals", // "contains", "equals"
     "containerName": "cont",
 
-    "quickFilter": "CVE-2023",      // ❌ obsolete
-
     "orderbycolumn": "scorev3",     // "name" (default), "score", "score_v3", "published_timestamp", "impact"
     "orderby": "desc",              // "asc", "desc" (default)
 
     "viewType": "all",              // "all" (default), "containers", "infrastructure", "registry"
 
 }
+```
 
+</details>
+
+<details><summary>Response</summary>
+
+```
 Response Body
+
 {
 "debug_error": 0, // please ignore fields start with "debug".
 "debug_error_message": "",
@@ -140,8 +145,9 @@ Response Body
     "total_records": 279            👈
 
 }
-
 ```
+
+</details>
 
 ### Navigating Within a Query Session
 
@@ -160,7 +166,7 @@ GET v1/vulasset?token=eff501a8ce17&start=0&row=100
 3️⃣ row: Defines the number of rows to fetch. Use -1 to fetch all rows.
 4️⃣ orderbyColumn: Use different column to sort
 5️⃣ orderby: Use different sort type
-6️⃣ qf: quick filter search term, this will be used to search the CVE Name and score (depends on the scoretype)
+6️⃣ qf: quick filter search term, this will be used to search the CVE Name, score (depends on the scoretype) and feed rating
 7️⃣ scoretype: v3 or v2
 8️⃣ lastmtime: 1605353432 // time tick 👈
 
