@@ -2,12 +2,13 @@
 
 ### History
 
-v11 - 2024/12/15 Add feed rating in risk page
+v11 - Add feed rating in risk page for NVSHAS-9614 Include a sortable feed_rating column into vulnerabilities tab
 
-NVSHAS-9614 Include a sortable feed_rating column into vulnerabilities tab
+A new field, `feed_rating`, has been added to the response. See the following example:
 
 ```
 # response
+
 /v1/vulasset?token=$TOKEN&row=100&start=0&orderbyColumn=feed_rating&orderby=desc
 {
   ....
@@ -23,6 +24,8 @@ NVSHAS-9614 Include a sortable feed_rating column into vulnerabilities tab
 
 **Sorting**
 
+To sort the data by the `feed_rating` column, use `feed_rating`. See the following example:
+
 ```
 /v1/vulasset?token=$TOKEN&row=100&start=0&orderbyColumn=feed_rating&orderby=desc
                                                 ☝️                   ☝️
@@ -31,9 +34,11 @@ orderby=desc | asc
 ```
 
 **Quick Filter**
+
 The 'Feed Rating' column data is now included in the scope of the Quick Search feature.
 
 **Testing**
+
 A testing environment has been set up in the lab and is accessible at `10.1.45.40:31786`.
 
 <details><summary>previous changes</summary>
